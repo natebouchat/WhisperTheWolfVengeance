@@ -14,9 +14,18 @@ config/name="Whisper The Wolf Vengeance"
 run/main_scene="res://TestEnvironment.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1920
+window/size/height=1080
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[mono]
+
+project/assembly_name="Whisper The Wolf Vengeance"
 
 [physics]
 

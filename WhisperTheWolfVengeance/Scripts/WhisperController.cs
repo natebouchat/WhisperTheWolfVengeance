@@ -3,18 +3,18 @@ using System;
 
 public class WhisperController : KinematicBody2D
 {
-    Vector2 UP = new Vector2(0,-1);
-    Vector2 motion;
-    const int maxSpeed = 300;
-    const int maxFallSpeed = 200;
-    const int jumpForce = 400;
+    private Vector2 UP = new Vector2(0,-1);
+    private Vector2 motion;
+    private const int maxSpeed = 300;
+    private const int maxFallSpeed = 200;
+    private const int jumpForce = 400;
 
     public override void _Ready(){
         motion = new Vector2();
     }
 
     public override void _Process(float delta) {
-        motion.y += 20;
+        motion.y += 20*(delta*60);
         if(motion.y > maxFallSpeed) {
 
         } 
