@@ -12,7 +12,7 @@ config_version=4
 
 config/name="Whisper The Wolf Vengeance"
 run/main_scene="res://TestEnvironment.tscn"
-config/icon="res://icon.png"
+config/icon="res://Icon.png"
 
 [display]
 
