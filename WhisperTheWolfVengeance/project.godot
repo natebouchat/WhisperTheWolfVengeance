@@ -11,13 +11,15 @@ config_version=4
 [application]
 
 config/name="Whisper The Wolf Vengeance"
-run/main_scene="res://TestEnvironment.tscn"
+run/main_scene="res://Environment/TestEnvironment.tscn"
 config/icon="res://Icon.png"
 
 [display]
 
 window/size/width=1920
 window/size/height=1080
+window/size/test_width=1920
+window/size/test_height=1080
 
 [gui]
 
