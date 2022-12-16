@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://PreFabs/Whisper.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Environment/TempTile.tres" type="TileSet" id=2]
+[ext_resource path="res://PreFabs/Ring.tscn" type="PackedScene" id=3]
 
 [node name="Node2D" type="Node2D"]
 
@@ -10,6 +11,9 @@ position = Vector2( 635, 331 )
 tile_set = ExtResource( 2 )
 format = 1
 tile_data = PoolIntArray( -65547, 0, 0, 196597, 0, 0, 393221, 0, 0, 393227, 0, 0, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 524277, 0, 0, 524281, 0, 0, 524285, 0, 0, 458753, 0, 0 )
+
+[node name="Ring" parent="." instance=ExtResource( 3 )]
+position = Vector2( 454, 657 )
 
 [node name="Whisper" parent="." instance=ExtResource( 1 )]
 position = Vector2( 304, 656 )
