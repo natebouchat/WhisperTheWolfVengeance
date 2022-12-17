@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Sound/SFX_DropRing.wav" type="AudioStream" id=1]
+[ext_resource path="res://Assets/Sound/SFX_RingGet.wav" type="AudioStream" id=2]
+[ext_resource path="res://Scripts/_SoundManager.cs" type="Script" id=3]
+
+[node name="Sound" type="Node"]
+script = ExtResource( 3 )
+
+[node name="Music" type="Node" parent="."]
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="RingGet" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 2 )
+
+[node name="DropRings" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 1 )

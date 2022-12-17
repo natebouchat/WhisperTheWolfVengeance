@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/AnimRing/RingSpin0000.png" type="Texture" id=1]
 [ext_resource path="res://Assets/AnimRing/RingSpin0008.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Assets/AnimRing/RingSpin0004.png" type="Texture" id=6]
 [ext_resource path="res://Assets/AnimRing/RingSpin0014.png" type="Texture" id=7]
 [ext_resource path="res://Assets/AnimRing/RingSpin0012.png" type="Texture" id=8]
+[ext_resource path="res://Scripts/Ring.cs" type="Script" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -17,11 +18,19 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[node name="Ring" type="Node2D"]
+[sub_resource type="CircleShape2D" id=2]
+radius = 25.02
+
+[node name="Ring" type="Area2D"]
+script = ExtResource( 9 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -13.5, 10.5 )
 scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
-frame = 1
+frame = 3
 playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="OnRingEntered"]

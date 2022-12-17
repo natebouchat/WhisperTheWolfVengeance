@@ -14,12 +14,16 @@ config/name="Whisper The Wolf Vengeance"
 run/main_scene="res://Environment/TestEnvironment.tscn"
 config/icon="res://Icon.png"
 
+[autoload]
+
+SoundManager="*res://PreFabs/_SoundManager.tscn"
+
 [display]
 
 window/size/width=1920
 window/size/height=1080
-window/size/test_width=1920
-window/size/test_height=1080
+window/size/test_width=1280
+window/size/test_height=720
 
 [gui]
 

@@ -18,7 +18,7 @@ public class WhisperController : KinematicBody2D
     public override void _Ready(){
         motion = new Vector2();
         stateManager = GetNode<WhisperStateManager>("WhisperAnimations");
-        debug = GetNode<DebugDetails>("Camera2D/DebugDetails");
+        debug = GetNode<DebugDetails>("PlayerUI/DebugDetails");
     }
 
     public override void _Process(float delta) {

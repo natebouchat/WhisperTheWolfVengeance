@@ -8,7 +8,7 @@
 [ext_resource path="res://Assets/AnimWhisper/WhisperIdle/WhisperIdle16.png" type="Texture" id=6]
 [ext_resource path="res://Assets/AnimWhisper/WhisperIdle/IdleColor/IdleColor9.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/WhisperStateManager.cs" type="Script" id=8]
-[ext_resource path="res://PreFabs/DebugDetails.tscn" type="PackedScene" id=9]
+[ext_resource path="res://PreFabs/PlayerUI.tscn" type="PackedScene" id=10]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -81,36 +81,37 @@ tracks/3/keys = {
 }
 
 [node name="Whisper" type="KinematicBody2D"]
-position = Vector2( 672, 600 )
+position = Vector2( 854, 564 )
 script = ExtResource( 2 )
 
 [node name="MainSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-frame = 4
+frame = 2
 playing = true
 
 [node name="ColorSprite" type="AnimatedSprite" parent="MainSprite"]
 modulate = Color( 0.427451, 0.764706, 0.745098, 1 )
 frames = SubResource( 3 )
-frame = 4
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.5, 40.5 )
 shape = SubResource( 5 )
 
+[node name="PlayerUI" parent="." instance=ExtResource( 10 )]
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 99, -71 )
+position = Vector2( 97, -27 )
 current = true
 limit_left = 0
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 smoothing_enabled = true
+smoothing_speed = 10.0
 drag_margin_left = 0.1
 drag_margin_right = 0.0
 editor_draw_limits = true
-
-[node name="DebugDetails" parent="Camera2D" instance=ExtResource( 9 )]
 
 [node name="WhisperAnimations" type="AnimationPlayer" parent="."]
 anims/WhisperIdle = SubResource( 6 )

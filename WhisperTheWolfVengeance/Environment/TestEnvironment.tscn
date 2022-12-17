@@ -12,8 +12,17 @@ tile_set = ExtResource( 2 )
 format = 1
 tile_data = PoolIntArray( -65547, 0, 0, 196597, 0, 0, 393221, 0, 0, 393227, 0, 0, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 524277, 0, 0, 524281, 0, 0, 524285, 0, 0, 458753, 0, 0 )
 
+[node name="Whisper" parent="." instance=ExtResource( 1 )]
+position = Vector2( 304, 656 )
+
 [node name="Ring" parent="." instance=ExtResource( 3 )]
 position = Vector2( 454, 657 )
 
-[node name="Whisper" parent="." instance=ExtResource( 1 )]
-position = Vector2( 304, 656 )
+[node name="Ring2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 525, 715 )
+
+[node name="Ring3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 541, 639 )
+
+[node name="Ring4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 624, 688 )
