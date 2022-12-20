@@ -20,5 +20,16 @@ public class WhisperStateManager : AnimationPlayer
         colorSprite.FlipH = leftSide;
     }
 
+    public void running() {
+        mainSprite.Animation = "Run";
+        colorSprite.Animation = "Run";
+    }
+
+    public void idle() {
+        mainSprite.Animation = "default";
+        colorSprite.Animation = "default";
+
+    }
+
 
 }

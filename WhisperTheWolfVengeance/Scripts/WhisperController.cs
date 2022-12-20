@@ -4,7 +4,7 @@ using System;
 public class WhisperController : KinematicBody2D
 {
     [Export]
-    private int maxSpeed = 450;
+    private int maxSpeed = 550;
     [Export]
     private int maxFallSpeed = 1000;
     [Export]
@@ -37,13 +37,16 @@ public class WhisperController : KinematicBody2D
         if(Input.IsActionPressed("ui_right")) {
             motion.x = maxSpeed;
             stateManager.flipSprite(false);
+            stateManager.running();
         }
             else if(Input.IsActionPressed("ui_left")) {
                 motion.x = -maxSpeed;
                 stateManager.flipSprite(true);
+                stateManager.running();
             }
             else {
                 motion.x = 0;
+                stateManager.idle();
             }
         if(IsOnFloor() && Input.IsActionPressed("ui_up")) {
             motion.y = -jumpForce; 
