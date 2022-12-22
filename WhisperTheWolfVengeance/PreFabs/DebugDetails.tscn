@@ -31,3 +31,10 @@ margin_right = 132.0
 margin_bottom = 80.0
 custom_fonts/font = SubResource( 1 )
 text = "On Floor:"
+
+[node name="State" type="Label" parent="VBoxContainer"]
+margin_top = 84.0
+margin_right = 132.0
+margin_bottom = 122.0
+custom_fonts/font = SubResource( 1 )
+text = "State: "
