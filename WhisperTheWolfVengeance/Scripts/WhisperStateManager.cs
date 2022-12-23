@@ -23,8 +23,8 @@ public class WhisperStateManager : AnimationPlayer
     public override void _Process(float delta) {
         details = whisperController.getWhisperDetails();
         if(transition == false) {
+            flipSprite(whisperController.getIsFacingLeft());
             if(((Vector2)details[0]).x != 0) { 
-                flipSprite(((Vector2)details[0]).x < 0);
                 if(((Boolean)details[1]) == true) {
                     if(!state.Equals("Run")) {
                         runTransition("Run");

@@ -29,6 +29,37 @@ window/size/test_height=720
 
 common/drop_mouse_on_gui_input_disabled=true
 
+[input]
+
+ui_focus_prev={
+"deadzone": 0.5,
+"events": [  ]
+}
+ui_page_up={
+"deadzone": 0.5,
+"events": [  ]
+}
+ui_page_down={
+"deadzone": 0.5,
+"events": [  ]
+}
+ui_home={
+"deadzone": 0.5,
+"events": [  ]
+}
+ui_end={
+"deadzone": 0.5,
+"events": [  ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="walls"
+2d_physics/layer_2="player"
+2d_physics/layer_3="enemy"
+2d_physics/layer_4="projectile"
+2d_physics/layer_5="collectibles"
+
 [mono]
 
 project/assembly_name="Whisper The Wolf Vengeance"
