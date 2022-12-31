@@ -7,7 +7,8 @@ public class WhisperStateManager : AnimationPlayer
     private AnimatedSprite mainSprite;
     private AnimatedSprite colorSprite;
     private System.Object[] details;
-    private int priority;
+    private bool facingLeft;
+    private bool facingChanged;
 
     public string state {get; set;}
 
@@ -15,57 +16,52 @@ public class WhisperStateManager : AnimationPlayer
     {
         whisperController = GetParent<WhisperController>();
         mainSprite = GetNode<AnimatedSprite>("../MainSprite");
+        mainSprite.Animation = "default";
+        mainSprite.Playing = true;
         colorSprite = GetNode<AnimatedSprite>("../MainSprite/ColorSprite");
-        state = "default";
-        priority = 0;
+        colorSprite.Animation = "default";
+        colorSprite.Playing = true;
+
+        facingLeft = false;
+        facingChanged = false;
     }
 
     public override void _Process(float delta) {
         details = whisperController.getWhisperDetails();
-        // Transitions take priority (priority = 3) //
+        setSpriteDirection(whisperController.getIsFacingLeft());
+        state = mainSprite.Animation;
 
-        if(priority <= 2) {
-            setSpriteDirection(whisperController.getIsFacingLeft());
-            // If moving on x axis // 
-            if(((Vector2)details[0]).x != 0) {
-                // If on ground //
-                if(((Boolean)details[1]) == true) {
-                    if(!state.Equals("Run")) {
-                        animateTransition("Run", false);
-                    }
-                    else {
-                        setAnimation("Run");
-                    }
-                }
-                // If not on ground //
-                else{
-                    state = "default";
-                    setAnimation("default");
+        // If moving on x axis // 
+        if(((Vector2)details[0]).x != 0) {
+            // If on ground //
+            if(((Boolean)details[1]) == true) {
+                if(!(mainSprite.Animation).Equals("Run") || facingChanged) {
+                    this.Play("WhisperRun");
+                    facingChanged = false;
                 }
             }
-            // If not moving on x axis //
-            else {
-                // If bullet is not ready (shot)  |OR|  bufferBullet is true//
-                if(((Boolean)details[2]) == true ) {
-                    if(priority <= 1) {
-                        setPriorityAnimation("IdleShoot", 1);
-                    }
-                    else {
-                        animateTransition("IdleShoot", false);
-                    }
-                }
-                // IdleShoot has priority over default idle //
-                else if(priority == 0){
-                    if(!state.Equals("default")) {
-                        animateTransition(state, true);
-                    }
-                    else {
-                        setAnimation("default");
-                    }
+            // If not on ground //
+            else{
+                if(!(mainSprite.Animation).Equals("default")) {
+                    this.Play("WhisperIdle");
                 }
             }
         }
-        
+        // If not moving on x axis //
+        else {
+            // If bullet is not ready (shot) //
+            if(((Boolean)details[2]) == true || ((Boolean)details[3]) == true) {
+                if(!(mainSprite.Animation).Equals("IdleShoot")) {
+                    this.Play("WhisperIdleShoot");
+                }
+            }
+            else{
+                if(!(mainSprite.Animation).Equals("default")) {
+                    this.Play("WhisperIdle");
+                }
+            }
+        }
+                    
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -73,34 +69,19 @@ public class WhisperStateManager : AnimationPlayer
     private void setSpriteDirection(bool leftSide) {
         mainSprite.FlipH = leftSide;
         colorSprite.FlipH = leftSide;
-    }
-
-    private void setAnimation(string name) {
-        mainSprite.Animation = name;
-        colorSprite.Animation = name;
-    }
-
-    private async void setPriorityAnimation(string name, int num) {
-        priority = num;
-        state = name;
-        mainSprite.Animation = name;
-        colorSprite.Animation = name;
-        await ToSignal(mainSprite, "animation_finished");
-        priority = 0;
-    }
-
-    private async void animateTransition(string name, bool toDefault) {
-        priority = 3;
-        if(toDefault) {
-            state = "default";
+        if(facingLeft != leftSide) {
+            facingLeft = leftSide;
+            facingChanged = true;
         }
-        else {
-            state = name;
+    }
+
+    ////// SIGNALS ///////////////////////////////////////////////////////
+
+    private void transitionToDefault() {
+        if(!(mainSprite.Animation).Equals("default") && !(mainSprite.Animation).Contains("Transition")) {
+            mainSprite.Animation = mainSprite.Animation + "Transition";
+            colorSprite.Animation = colorSprite.Animation + "Transition";
         }
-        mainSprite.Animation = name + "Transition";
-        colorSprite.Animation = name + "Transition";
-        await ToSignal(mainSprite, "animation_finished");
-        priority = 0;
     }
 
 }

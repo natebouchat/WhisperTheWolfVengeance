@@ -21,7 +21,7 @@ public class DebugDetails : CanvasLayer
 
 
     private void checkToggleDebug() {
-        if(Input.IsActionPressed("ui_focus_next")) {
+        if(Input.IsActionJustPressed("ui_focus_next")) {
             this.Visible = !this.Visible;
         }
     }
