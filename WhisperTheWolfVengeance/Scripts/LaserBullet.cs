@@ -29,7 +29,6 @@ public class LaserBullet : KinematicBody2D
     }
 
     private void bulletHit() {
-        GD.Print("Hit");
         onBulletScreenExit();
     }
 

@@ -9,15 +9,19 @@ public class WhisperController : KinematicBody2D
     private int maxFallSpeed = 1000;
     [Export]
     private int jumpForce = 600;
+    [Export]
+    private float bulletCooldown = 0.25f;
     
     private Vector2 UP = new Vector2(0,-1);
     private Vector2 motion;
     private PackedScene laserBullet;
     private Position2D point;
-    private bool facingLeft;
     private Vector2 rightPoint;
     private Vector2 leftPoint;
-    
+    private bool bulletIsReady;
+    private bool bufferBullet;
+    private bool facingLeft;
+    private float bulletTimer;
 
     public override void _Ready(){
         motion = new Vector2();
@@ -25,13 +29,17 @@ public class WhisperController : KinematicBody2D
         point = GetNode<Position2D>("GunPoint");
         rightPoint = new Vector2(point.Position.x, point.Position.y);
         leftPoint = new Vector2(-point.Position.x, point.Position.y);
+        bulletIsReady = true;
+        bufferBullet = false;
         facingLeft = false;
+        bulletTimer = 0;
     }
 
     public override void _Process(float delta) {
         gravity(delta);
         playerInput();
         motion = MoveAndSlide(motion, UP);
+        setBulletIsReady(delta);
     }
 
  /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,13 +61,16 @@ public class WhisperController : KinematicBody2D
         if(IsOnFloor() && Input.IsActionPressed("ui_up")) {
             motion.y = -jumpForce; 
         }
-        if(Input.IsActionJustPressed("ui_accept")) {
-            LaserBullet bullet = (LaserBullet)laserBullet.Instance();
-            bullet.GlobalPosition = point.GlobalPosition;
-            if(facingLeft) {
-                bullet.flipBullet();
+        if(Input.IsActionJustPressed("shoot") || bufferBullet == true) {
+            if(bulletIsReady) {
+                shootLaserBullet();
+                bulletTimer = 0;
+                bulletIsReady = false;
+                bufferBullet = false;
             }
-            GetParent().AddChild(bullet);
+                else {
+                    bufferBullet = true;
+                }
         }
     }
 
@@ -75,8 +86,25 @@ public class WhisperController : KinematicBody2D
         } 
     }
 
+    private void shootLaserBullet() {
+        LaserBullet bullet = (LaserBullet)laserBullet.Instance();
+        bullet.GlobalPosition = point.GlobalPosition;
+        if(facingLeft) {
+            bullet.flipBullet();
+        }
+        GetParent().AddChild(bullet);
+    }
+    private void setBulletIsReady(float delta) {
+        if(bulletTimer < bulletCooldown) {
+            bulletTimer += delta;
+        }
+        else {
+            bulletIsReady = true;
+        }
+    }
+
     public System.Object[] getWhisperDetails() {
-        System.Object[] obj = new System.Object[] {motion, IsOnFloor()};
+        System.Object[] obj = new System.Object[] {motion, IsOnFloor(), !bulletIsReady, bufferBullet};
         return obj;
     }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Assets/AnimWhisper/WhisperIdle/IdleColor/IdleColor1.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/WhisperController.cs" type="Script" id=2]
@@ -31,13 +31,31 @@
 [ext_resource path="res://Assets/AnimWhisper/WhisperRun/RunColor/RunColor2.png" type="Texture" id=29]
 [ext_resource path="res://Assets/AnimWhisper/WhisperRun/RunTransition/WhisperRunTransition.png" type="Texture" id=30]
 [ext_resource path="res://Assets/AnimWhisper/WhisperRun/RunTransition/WhisperRunColorTransition.png" type="Texture" id=31]
+[ext_resource path="res://Assets/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot2.png" type="Texture" id=32]
+[ext_resource path="res://Assets/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot1.png" type="Texture" id=33]
+[ext_resource path="res://Assets/AnimWhisper/WhisperIdleShoot/IdleShootTransition/IdleShootTransition6.png" type="Texture" id=34]
+[ext_resource path="res://Assets/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot3.png" type="Texture" id=35]
+[ext_resource path="res://Assets/AnimWhisper/WhisperIdleShoot/IdleShootColor/WhisperIdleShootColor3.png" type="Texture" id=36]
+[ext_resource path="res://Assets/AnimWhisper/WhisperIdleShoot/IdleShootColor/WhisperIdleShootColor2.png" type="Texture" id=37]
+[ext_resource path="res://Assets/AnimWhisper/WhisperIdleShoot/IdleShootTransition/IdleShootTransitionColor6.png" type="Texture" id=38]
+[ext_resource path="res://Assets/AnimWhisper/WhisperIdleShoot/IdleShootColor/WhisperIdleShootColor1.png" type="Texture" id=39]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 33 ), ExtResource( 32 ), ExtResource( 35 ) ],
+"loop": true,
+"name": "IdleShoot",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 34 ) ],
+"loop": true,
+"name": "IdleShootTransition",
+"speed": 12.0
+}, {
 "frames": [ ExtResource( 13 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 9 ), ExtResource( 17 ), ExtResource( 12 ), ExtResource( 18 ), ExtResource( 14 ), ExtResource( 19 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "Run",
-"speed": 12.0
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 30 ) ],
 "loop": true,
@@ -48,14 +66,29 @@ animations = [ {
 "loop": true,
 "name": "default",
 "speed": 12.0
+}, {
+"frames": [ ExtResource( 30 ) ],
+"loop": true,
+"name": "defaultTransition",
+"speed": 12.0
 } ]
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
+"frames": [ ExtResource( 39 ), ExtResource( 37 ), ExtResource( 36 ) ],
+"loop": true,
+"name": "IdleShoot",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 38 ) ],
+"loop": true,
+"name": "IdleShootTransition",
+"speed": 12.0
+}, {
 "frames": [ ExtResource( 22 ), ExtResource( 29 ), ExtResource( 26 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 28 ), ExtResource( 20 ), ExtResource( 27 ), ExtResource( 24 ) ],
 "loop": true,
 "name": "Run",
-"speed": 12.0
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 31 ) ],
 "loop": true,
@@ -65,6 +98,11 @@ animations = [ {
 "frames": [ ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 7 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 7 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "default",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 31 ) ],
+"loop": true,
+"name": "defaultTransition",
 "speed": 12.0
 } ]
 
@@ -106,13 +144,13 @@ script = ExtResource( 2 )
 
 [node name="MainSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "RunTransition"
+animation = "defaultTransition"
 playing = true
 
 [node name="ColorSprite" type="AnimatedSprite" parent="MainSprite"]
 modulate = Color( 0.427451, 0.764706, 0.745098, 1 )
 frames = SubResource( 3 )
-animation = "RunTransition"
+animation = "defaultTransition"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

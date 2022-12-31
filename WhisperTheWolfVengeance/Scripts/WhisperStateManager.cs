@@ -7,9 +7,9 @@ public class WhisperStateManager : AnimationPlayer
     private AnimatedSprite mainSprite;
     private AnimatedSprite colorSprite;
     private System.Object[] details;
-    private bool transition;
+    private int priority;
 
-    public String state {get; set;}
+    public string state {get; set;}
 
     public override void _Ready()
     {
@@ -17,62 +17,90 @@ public class WhisperStateManager : AnimationPlayer
         mainSprite = GetNode<AnimatedSprite>("../MainSprite");
         colorSprite = GetNode<AnimatedSprite>("../MainSprite/ColorSprite");
         state = "default";
-        transition = false;
+        priority = 0;
     }
 
     public override void _Process(float delta) {
         details = whisperController.getWhisperDetails();
-        if(transition == false) {
-            flipSprite(whisperController.getIsFacingLeft());
-            if(((Vector2)details[0]).x != 0) { 
+        // Transitions take priority (priority = 3) //
+
+        if(priority <= 2) {
+            setSpriteDirection(whisperController.getIsFacingLeft());
+            // If moving on x axis // 
+            if(((Vector2)details[0]).x != 0) {
+                // If on ground //
                 if(((Boolean)details[1]) == true) {
                     if(!state.Equals("Run")) {
-                        runTransition("Run");
+                        animateTransition("Run", false);
                     }
                     else {
-                        running();
+                        setAnimation("Run");
                     }
                 }
+                // If not on ground //
                 else{
                     state = "default";
-                    idle();
+                    setAnimation("default");
                 }
             }
+            // If not moving on x axis //
             else {
-                if(!state.Equals("default")) {
-                    runTransition("default");
+                // If bullet is not ready (shot)  |OR|  bufferBullet is true//
+                if(((Boolean)details[2]) == true ) {
+                    if(priority <= 1) {
+                        setPriorityAnimation("IdleShoot", 1);
+                    }
+                    else {
+                        animateTransition("IdleShoot", false);
+                    }
                 }
-                else {
-                    idle();
+                // IdleShoot has priority over default idle //
+                else if(priority == 0){
+                    if(!state.Equals("default")) {
+                        animateTransition(state, true);
+                    }
+                    else {
+                        setAnimation("default");
+                    }
                 }
             }
         }
+        
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void flipSprite(bool leftSide) {
+    private void setSpriteDirection(bool leftSide) {
         mainSprite.FlipH = leftSide;
         colorSprite.FlipH = leftSide;
     }
 
-    public void running() {
-        mainSprite.Animation = "Run";
-        colorSprite.Animation = "Run";
+    private void setAnimation(string name) {
+        mainSprite.Animation = name;
+        colorSprite.Animation = name;
     }
 
-    public void idle() {
-        mainSprite.Animation = "default";
-        colorSprite.Animation = "default";
-
-    }
-    public async void runTransition(String name) {
-        transition = true;
+    private async void setPriorityAnimation(string name, int num) {
+        priority = num;
         state = name;
-        mainSprite.Animation = "RunTransition";
-        colorSprite.Animation = "RunTransition";
+        mainSprite.Animation = name;
+        colorSprite.Animation = name;
         await ToSignal(mainSprite, "animation_finished");
-        transition = false;
+        priority = 0;
+    }
+
+    private async void animateTransition(string name, bool toDefault) {
+        priority = 3;
+        if(toDefault) {
+            state = "default";
+        }
+        else {
+            state = name;
+        }
+        mainSprite.Animation = name + "Transition";
+        colorSprite.Animation = name + "Transition";
+        await ToSignal(mainSprite, "animation_finished");
+        priority = 0;
     }
 
 }

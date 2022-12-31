@@ -20,21 +20,35 @@ __meta__ = {
 }
 
 [node name="Velocity" type="Label" parent="VBoxContainer"]
-margin_right = 132.0
+margin_right = 159.0
 margin_bottom = 38.0
 custom_fonts/font = SubResource( 1 )
 text = "Velocity: "
 
 [node name="On Floor" type="Label" parent="VBoxContainer"]
 margin_top = 42.0
-margin_right = 132.0
+margin_right = 159.0
 margin_bottom = 80.0
 custom_fonts/font = SubResource( 1 )
 text = "On Floor:"
 
-[node name="State" type="Label" parent="VBoxContainer"]
+[node name="Cooldown" type="Label" parent="VBoxContainer"]
 margin_top = 84.0
-margin_right = 132.0
+margin_right = 159.0
 margin_bottom = 122.0
+custom_fonts/font = SubResource( 1 )
+text = "Cooldown: "
+
+[node name="Buffer" type="Label" parent="VBoxContainer"]
+margin_top = 126.0
+margin_right = 159.0
+margin_bottom = 164.0
+custom_fonts/font = SubResource( 1 )
+text = "Buffer:"
+
+[node name="State" type="Label" parent="VBoxContainer"]
+margin_top = 168.0
+margin_right = 159.0
+margin_bottom = 206.0
 custom_fonts/font = SubResource( 1 )
 text = "State: "
