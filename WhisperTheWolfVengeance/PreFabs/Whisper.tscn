@@ -208,13 +208,11 @@ script = ExtResource( 2 )
 
 [node name="MainSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-frame = 9
 playing = true
 
 [node name="ColorSprite" type="AnimatedSprite" parent="MainSprite"]
 modulate = Color( 0.427451, 0.764706, 0.745098, 1 )
 frames = SubResource( 3 )
-frame = 9
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

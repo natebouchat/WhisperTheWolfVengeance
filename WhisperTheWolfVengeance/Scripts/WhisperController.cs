@@ -22,6 +22,7 @@ public class WhisperController : KinematicBody2D
     private bool bufferBullet;
     private bool facingLeft;
     private float bulletTimer;
+    private float chargingTimer;
 
     public override void _Ready(){
         motion = new Vector2();
@@ -33,18 +34,19 @@ public class WhisperController : KinematicBody2D
         bufferBullet = false;
         facingLeft = false;
         bulletTimer = 0;
+        chargingTimer = 0;
     }
 
     public override void _Process(float delta) {
         gravity(delta);
-        playerInput();
+        playerInput(delta);
         motion = MoveAndSlide(motion, UP);
         setBulletIsReady(delta);
     }
 
  /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void playerInput() {
+    private void playerInput(float delta) {
         if(Input.IsActionPressed("ui_right")) {
             motion.x = maxSpeed;
             point.Position = rightPoint;
@@ -61,16 +63,32 @@ public class WhisperController : KinematicBody2D
         if(IsOnFloor() && Input.IsActionPressed("ui_up")) {
             motion.y = -jumpForce; 
         }
-        if(Input.IsActionJustPressed("shoot") || bufferBullet == true) {
-            if(bulletIsReady) {
-                shootLaserBullet();
-                bulletTimer = 0;
-                bulletIsReady = false;
-                bufferBullet = false;
-            }
-                else {
-                    bufferBullet = true;
+        if(Input.IsActionPressed("shoot")) {
+            chargingTimer += delta;
+            if(chargingTimer > 0.1f) {
+                //Charging anim
+                if(chargingTimer > 0.5f) {
+                    //Charged anim
                 }
+            }
+        }
+        else if(Input.IsActionJustReleased("shoot") || bufferBullet == true) {
+            if(chargingTimer <= 0.5f) {
+                chargingTimer = 0;
+                if(bulletIsReady) {
+                    shootLaserBullet();
+                    bulletTimer = 0;
+                    bulletIsReady = false;
+                    bufferBullet = false;
+                }
+                else {
+                        bufferBullet = true;
+                }
+            }
+            else {
+                //big bullet
+                chargingTimer = 0;
+            }
         }
     }
 

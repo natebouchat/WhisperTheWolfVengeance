@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/WhisperBullet.png-b0269da87c9920d60aecf68f88f434c9.stex"
+path="res://.import/LaserHit0001.png-680413f0be459d26ec468ceea4b6b33b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/AnimWhisper/WhispBullets/WhisperBullet.png"
-dest_files=[ "res://.import/WhisperBullet.png-b0269da87c9920d60aecf68f88f434c9.stex" ]
+source_file="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserHit/LaserHit0001.png"
+dest_files=[ "res://.import/LaserHit0001.png-680413f0be459d26ec468ceea4b6b33b.stex" ]
 
 [params]
 

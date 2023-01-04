@@ -5,6 +5,7 @@ public class LaserBullet : KinematicBody2D
 {
     private Vector2 motion;
     private Vector2 UP = new Vector2(0,-1);
+    private AnimatedSprite bullet;
 
     [Export]
     private int speed = 900;
@@ -12,6 +13,9 @@ public class LaserBullet : KinematicBody2D
     public override void _Ready()
     {
         motion = new Vector2();
+        bullet = GetNode<AnimatedSprite>("AnimatedSprite");
+        bullet.Animation = "default";
+        bullet.Playing = true;
     }
 
     public override void _Process(float delta)
@@ -19,7 +23,11 @@ public class LaserBullet : KinematicBody2D
         motion.x = speed;
         motion = MoveAndSlide(motion, UP);
         if(IsOnWall()) {
+            GetNode<CollisionShape2D>("CollisionShape2D").Scale = new Vector2(0.5f, 1);
             bulletHit();
+        }
+        else if(IsOnCeiling()) {
+            this.QueueFree();
         }
     }
 
@@ -28,8 +36,10 @@ public class LaserBullet : KinematicBody2D
         speed = -speed;
     }
 
-    private void bulletHit() {
-        onBulletScreenExit();
+    private async void bulletHit() {
+        bullet.Animation = "Hit";
+        await ToSignal(bullet, "animation_finished");
+        this.QueueFree();
     }
 
     private void onBulletScreenExit() {
