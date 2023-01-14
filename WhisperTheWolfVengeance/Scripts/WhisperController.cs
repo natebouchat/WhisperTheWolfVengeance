@@ -64,19 +64,16 @@ public class WhisperController : KinematicBody2D
             motion.y = -jumpForce; 
         }
         if(Input.IsActionPressed("shoot")) {
-            chargingTimer += delta;
-            if(chargingTimer > 0.1f) {
-                //Charging anim
-                if(chargingTimer > 0.5f) {
-                    //Charged anim
-                }
+            if(chargingTimer < 0.5f) {
+                chargingTimer += delta;
             }
         }
         else if(Input.IsActionJustReleased("shoot") || bufferBullet == true) {
             if(chargingTimer <= 0.5f) {
+                //normal bullet
                 chargingTimer = 0;
                 if(bulletIsReady) {
-                    shootLaserBullet();
+                    shootLaserBullet(false);
                     bulletTimer = 0;
                     bulletIsReady = false;
                     bufferBullet = false;
@@ -86,8 +83,11 @@ public class WhisperController : KinematicBody2D
                 }
             }
             else {
-                //big bullet
+                //charged bullet
                 chargingTimer = 0;
+                shootLaserBullet(true);
+                bulletTimer = 0;
+                bulletIsReady = false;
             }
         }
     }
@@ -104,14 +104,18 @@ public class WhisperController : KinematicBody2D
         } 
     }
 
-    private void shootLaserBullet() {
+    private void shootLaserBullet(bool charged) {
         LaserBullet bullet = (LaserBullet)laserBullet.Instance();
         bullet.GlobalPosition = point.GlobalPosition;
         if(facingLeft) {
             bullet.flipBullet();
         }
         GetParent().AddChild(bullet);
+        if(charged) {
+            bullet.chargedBullet();
+        }
     }
+
     private void setBulletIsReady(float delta) {
         if(bulletTimer < bulletCooldown) {
             bulletTimer += delta;
@@ -122,7 +126,7 @@ public class WhisperController : KinematicBody2D
     }
 
     public System.Object[] getWhisperDetails() {
-        System.Object[] obj = new System.Object[] {motion, IsOnFloor(), !bulletIsReady, bufferBullet};
+        System.Object[] obj = new System.Object[] {motion, IsOnFloor(), !bulletIsReady, bufferBullet, chargingTimer};
         return obj;
     }
 

@@ -31,6 +31,11 @@ public class LaserBullet : KinematicBody2D
         }
     }
 
+    public void chargedBullet() {
+        GetNode<CollisionShape2D>("CollisionShape2D").Scale = new Vector2(2, 2);
+        bullet.Scale = new Vector2(3, 2.5f);
+    }
+
     public void flipBullet () {
         GetNode<AnimatedSprite>("AnimatedSprite").FlipH = true;
         speed = -speed;

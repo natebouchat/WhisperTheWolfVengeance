@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://Assets/AnimWhisper/WhisperIdle/IdleColor/IdleColor1.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/WhisperController.cs" type="Script" id=2]
@@ -42,6 +42,16 @@
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "IdleCharged",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "IdleCharging",
+"speed": 12.0
+}, {
 "frames": [ ExtResource( 33 ), ExtResource( 32 ), ExtResource( 35 ) ],
 "loop": true,
 "name": "IdleShoot",
@@ -70,6 +80,16 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
+"frames": [ ExtResource( 37 ) ],
+"loop": true,
+"name": "IdleCharged",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 39 ) ],
+"loop": true,
+"name": "IdleCharging",
+"speed": 12.0
+}, {
 "frames": [ ExtResource( 39 ), ExtResource( 37 ), ExtResource( 36 ) ],
 "loop": true,
 "name": "IdleShoot",
@@ -94,6 +114,14 @@ animations = [ {
 "loop": true,
 "name": "default",
 "speed": 12.0
+} ]
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=5]
@@ -140,6 +168,33 @@ tracks/2/keys = {
 "args": [  ],
 "method": "transitionToDefault"
 } ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "WhisperIdleCharge"
+tracks/0/type = "value"
+tracks/0/path = NodePath("MainSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "IdleCharging", "IdleCharged" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MainSprite/ColorSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "IdleCharging", "IdleCharged" ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -208,12 +263,17 @@ script = ExtResource( 2 )
 
 [node name="MainSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
+frame = 13
 playing = true
 
 [node name="ColorSprite" type="AnimatedSprite" parent="MainSprite"]
 modulate = Color( 0.427451, 0.764706, 0.745098, 1 )
 frames = SubResource( 3 )
+frame = 13
 playing = true
+
+[node name="ChargingSprite" type="AnimatedSprite" parent="MainSprite"]
+frames = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -236,6 +296,7 @@ editor_draw_limits = true
 
 [node name="WhisperAnimations" type="AnimationPlayer" parent="."]
 anims/WhisperIdle = SubResource( 6 )
+anims/WhisperIdleCharge = SubResource( 9 )
 anims/WhisperIdleShoot = SubResource( 8 )
 anims/WhisperRun = SubResource( 7 )
 script = ExtResource( 8 )

@@ -49,10 +49,15 @@ public class WhisperStateManager : AnimationPlayer
         }
         // If not moving on x axis //
         else {
-            // If bullet is not ready (shot) //
+            // If bullet is not ready (shot)  OR  Bullet is buffered //
             if(((Boolean)details[2]) == true || ((Boolean)details[3]) == true) {
                 if(!(mainSprite.Animation).Equals("IdleShoot")) {
                     this.Play("WhisperIdleShoot");
+                }
+            }
+            else if((float)details[details.Length - 1] >= 0.1f) {
+                if(!((mainSprite.Animation).Equals("IdleCharging") || ((mainSprite.Animation).Equals("IdleCharged")))) {
+                    this.Play("WhisperIdleCharge");
                 }
             }
             else{
