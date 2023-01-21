@@ -6,6 +6,8 @@ public class WhisperStateManager : AnimationPlayer
     private WhisperController whisperController;
     private AnimatedSprite mainSprite;
     private AnimatedSprite colorSprite;
+    private AnimatedSprite chargeSprite;
+    private AnimationPlayer chargeLightAnimations;
     private System.Object[] details;
     private bool facingLeft;
     private bool facingChanged;
@@ -21,6 +23,10 @@ public class WhisperStateManager : AnimationPlayer
         colorSprite = GetNode<AnimatedSprite>("../MainSprite/ColorSprite");
         colorSprite.Animation = "default";
         colorSprite.Playing = true;
+        chargeSprite = GetNode<AnimatedSprite>("../MainSprite/ChargingSprite");
+        chargeSprite.Animation = "default";
+        chargeSprite.Playing = true;
+        chargeLightAnimations = GetNode<AnimationPlayer>("ChargeLightAnimations");
 
         facingLeft = false;
         facingChanged = false;
@@ -66,6 +72,20 @@ public class WhisperStateManager : AnimationPlayer
                 }
             }
         }
+
+        ////// Charge Light //////
+
+        if((float)details[details.Length - 1] >= 0.1f) {
+            if(!(chargeSprite.Animation).Equals("Charging") && (float)details[details.Length - 1] <= 0.6f) {
+                chargeLightAnimations.Play("Charging");
+            }
+        }
+        else if((chargeSprite.Animation).Equals("Charged")){
+            chargeLightAnimations.Play("Dissolve");
+        }
+        else if(!(chargeSprite.Animation).Equals("Dissolve")){
+            chargeLightAnimations.Play("NoCharge");
+        }
                     
     }
 
@@ -74,10 +94,15 @@ public class WhisperStateManager : AnimationPlayer
     private void setSpriteDirection(bool leftSide) {
         mainSprite.FlipH = leftSide;
         colorSprite.FlipH = leftSide;
+        chargeSprite.FlipH = leftSide;
         if(facingLeft != leftSide) {
             facingLeft = leftSide;
             facingChanged = true;
         }
+    }
+
+    private void setColorModulation() {
+
     }
 
     ////// SIGNALS ///////////////////////////////////////////////////////

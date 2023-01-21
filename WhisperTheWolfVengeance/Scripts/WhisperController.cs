@@ -64,12 +64,12 @@ public class WhisperController : KinematicBody2D
             motion.y = -jumpForce; 
         }
         if(Input.IsActionPressed("shoot")) {
-            if(chargingTimer < 0.5f) {
+            if(chargingTimer < 0.6f) {
                 chargingTimer += delta;
             }
         }
         else if(Input.IsActionJustReleased("shoot") || bufferBullet == true) {
-            if(chargingTimer <= 0.5f) {
+            if(chargingTimer <= 0.6f) {
                 //normal bullet
                 chargingTimer = 0;
                 if(bulletIsReady) {
