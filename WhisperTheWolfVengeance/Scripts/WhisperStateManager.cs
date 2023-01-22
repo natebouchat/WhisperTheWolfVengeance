@@ -9,6 +9,7 @@ public class WhisperStateManager : AnimationPlayer
     private AnimatedSprite chargeSprite;
     private AnimationPlayer chargeLightAnimations;
     private System.Object[] details;
+    private Vector2 chargeOffset;
     private bool facingLeft;
     private bool facingChanged;
 
@@ -28,6 +29,7 @@ public class WhisperStateManager : AnimationPlayer
         chargeSprite.Playing = true;
         chargeLightAnimations = GetNode<AnimationPlayer>("ChargeLightAnimations");
 
+        chargeOffset = new Vector2(0, 0);
         facingLeft = false;
         facingChanged = false;
     }
@@ -37,41 +39,56 @@ public class WhisperStateManager : AnimationPlayer
         setSpriteDirection(whisperController.getIsFacingLeft());
         state = mainSprite.Animation;
 
-        // If moving on x axis // 
-        if(((Vector2)details[0]).x != 0) {
-            // If on ground //
-            if(((Boolean)details[1]) == true) {
-                if(!(mainSprite.Animation).Equals("Run") || facingChanged) {
-                    this.Play("WhisperRun");
-                    facingChanged = false;
+        
+        // If not on ground //
+        if(((Boolean)details[1]) == false) {
+            // If upwards motion //
+            if(((Vector2)details[0]).y < 0) {
+                if(!((mainSprite.Animation).Equals("Jump") || (mainSprite.Animation).Equals("JumpEnd"))) {
+                    this.Play("WhisperJump");
                 }
             }
-            // If not on ground //
-            else{
-                if(!(mainSprite.Animation).Equals("default")) {
-                    this.Play("WhisperIdle");
+            else { // If downwards motion //
+                if(!(mainSprite.Animation).Equals("Fall")) {
+                    this.Play("WhisperFall");
+                }
+            }
+
+        }
+        else { // If on ground //
+            // If moving on x axis // 
+            if(((Vector2)details[0]).x != 0) {
+                    if(!(mainSprite.Animation).Equals("Run") || facingChanged) {
+                        this.Play("WhisperRun");
+                        facingChanged = false;
+                    }
+            }
+            else { // If not moving on x axis //
+                // If bullet is not ready (shot)  OR  Bullet is buffered //
+                if(((Boolean)details[2]) == true || ((Boolean)details[3]) == true) {
+                    if(!(mainSprite.Animation).Equals("IdleShoot")) {
+                        this.Play("WhisperIdleShoot");
+                    }
+                }
+                // Bullet Charging or Charged //
+                else if((float)details[details.Length - 1] >= 0.1f) {
+                    if(!((mainSprite.Animation).Equals("IdleCharging") || ((mainSprite.Animation).Equals("IdleCharged")))) {
+                        if((float)details[details.Length - 1] < 0.6f) {
+                            this.Play("WhisperIdleCharge");
+                        }
+                        else { // Maintain Charged Sprite //
+                            this.Play("WhisperIdlePreCharged");
+                        }
+                    }
+                }
+                else{ // Idle //
+                    if(!(mainSprite.Animation).Equals("default")) {
+                        this.Play("WhisperIdle");
+                    }
                 }
             }
         }
-        // If not moving on x axis //
-        else {
-            // If bullet is not ready (shot)  OR  Bullet is buffered //
-            if(((Boolean)details[2]) == true || ((Boolean)details[3]) == true) {
-                if(!(mainSprite.Animation).Equals("IdleShoot")) {
-                    this.Play("WhisperIdleShoot");
-                }
-            }
-            else if((float)details[details.Length - 1] >= 0.1f) {
-                if(!((mainSprite.Animation).Equals("IdleCharging") || ((mainSprite.Animation).Equals("IdleCharged")))) {
-                    this.Play("WhisperIdleCharge");
-                }
-            }
-            else{
-                if(!(mainSprite.Animation).Equals("default")) {
-                    this.Play("WhisperIdle");
-                }
-            }
-        }
+   
 
         ////// Charge Light //////
 
@@ -86,6 +103,7 @@ public class WhisperStateManager : AnimationPlayer
         else if(!(chargeSprite.Animation).Equals("Dissolve")){
             chargeLightAnimations.Play("NoCharge");
         }
+        setChargePosition();
                     
     }
 
@@ -103,6 +121,26 @@ public class WhisperStateManager : AnimationPlayer
 
     private void setColorModulation() {
 
+    }
+
+    private void setChargePosition() {
+        if(state.Equals("Run")) {
+            if(facingLeft) {
+                chargeOffset.x = -7;
+                chargeSprite.RotationDegrees = -5;
+            }
+            else {
+                chargeOffset.x = 7;
+                chargeSprite.RotationDegrees = 5;
+            }
+            chargeOffset.y = -2;
+        }
+        else {
+            chargeOffset.x = 0;
+            chargeOffset.y = 0;
+            chargeSprite.RotationDegrees = 0;
+        }
+        chargeSprite.Position = chargeOffset;
     }
 
     ////// SIGNALS ///////////////////////////////////////////////////////
