@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=90 format=2]
 
 [ext_resource path="res://Assets/AnimWhisper/WhisperIdle/IdleColor/IdleColor1.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/WhisperController.cs" type="Script" id=2]
@@ -67,18 +67,29 @@
 [ext_resource path="res://Assets/AnimWhisper/WhispBullets/ChargedRunning/WhisperChargedRunning6.png" type="Texture" id=65]
 [ext_resource path="res://Assets/AnimWhisper/WhispBullets/ChargedRunning/WhisperChargedRunning1.png" type="Texture" id=66]
 [ext_resource path="res://Assets/AnimWhisper/WhispBullets/ChargedRunning/WhisperChargedRunning4.png" type="Texture" id=67]
+[ext_resource path="res://Assets/AnimWhisper/WhisperFall/WhisperFallTransition/WhisperFallTransition.png" type="Texture" id=68]
+[ext_resource path="res://Assets/AnimWhisper/WhisperFall/WhisperFallColor/WhisperFallColor1.png" type="Texture" id=69]
+[ext_resource path="res://Assets/AnimWhisper/WhisperFall/WhisperFallStart/WhisperFallStartColor.png" type="Texture" id=70]
+[ext_resource path="res://Assets/AnimWhisper/WhisperFall/WhisperFallStart/WhisperFallStart.png" type="Texture" id=71]
+[ext_resource path="res://Assets/AnimWhisper/WhisperFall/WhisperFallTransition/WhisperFallTransitionColor.png" type="Texture" id=72]
+[ext_resource path="res://Assets/AnimWhisper/WhisperFall/WhisperFall1.png" type="Texture" id=73]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 33 ) ],
+"frames": [ ExtResource( 73 ) ],
 "loop": true,
 "name": "Fall",
-"speed": 5.0
+"speed": 12.0
 }, {
-"frames": [ ExtResource( 32 ) ],
+"frames": [ ExtResource( 71 ) ],
+"loop": true,
+"name": "FallStart",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 68 ) ],
 "loop": true,
 "name": "FallTransition",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [ ExtResource( 32 ) ],
 "loop": true,
@@ -128,15 +139,20 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 39 ) ],
+"frames": [ ExtResource( 69 ) ],
 "loop": true,
 "name": "Fall",
-"speed": 5.0
+"speed": 12.0
 }, {
-"frames": [ ExtResource( 37 ) ],
+"frames": [ ExtResource( 70 ) ],
+"loop": true,
+"name": "FallStart",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 72 ) ],
 "loop": true,
 "name": "FallTransition",
-"speed": 5.0
+"speed": 12.0
 }, {
 "frames": [ ExtResource( 37 ) ],
 "loop": true,
@@ -217,6 +233,8 @@ extents = Vector2( 31.5, 72.5 )
 
 [sub_resource type="Animation" id=16]
 resource_name = "WhisperFall"
+length = 0.166667
+step = 0.0833333
 tracks/0/type = "value"
 tracks/0/path = NodePath("MainSprite:animation")
 tracks/0/interp = 1
@@ -224,10 +242,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.0833333 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "Fall" ]
+"values": [ "FallStart", "Fall" ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("MainSprite/ColorSprite:animation")
@@ -236,10 +254,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.0833333 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "Fall" ]
+"values": [ "FallStart", "Fall" ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -518,15 +536,13 @@ script = ExtResource( 2 )
 
 [node name="MainSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-animation = "Run"
-frame = 8
+animation = "FallStart"
 playing = true
 
 [node name="ColorSprite" type="AnimatedSprite" parent="MainSprite"]
 modulate = Color( 0.427451, 0.764706, 0.745098, 1 )
 frames = SubResource( 3 )
-animation = "Run"
-frame = 8
+animation = "FallStart"
 playing = true
 
 [node name="ChargingSprite" type="AnimatedSprite" parent="MainSprite"]

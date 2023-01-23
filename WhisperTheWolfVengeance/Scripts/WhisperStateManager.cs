@@ -183,6 +183,9 @@ public class WhisperStateManager : AnimationPlayer
 
     private void setChargePosition() {
         if(state.Contains("Jump") || state.Contains("Fall")) {
+            if(state.Equals("Fall")) {
+                chargeOffset.y = -1;
+            }
             if(facingLeft) {
                 chargeOffset.x = -2;
             }
@@ -192,6 +195,7 @@ public class WhisperStateManager : AnimationPlayer
         }
         else {
             chargeOffset.x = 0;
+            chargeOffset.y = 0;
         }
         chargeSprite.Position = chargeOffset;
     }
