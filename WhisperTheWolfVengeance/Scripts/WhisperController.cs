@@ -23,6 +23,8 @@ public class WhisperController : KinematicBody2D
     private bool facingLeft;
     private float bulletTimer;
     private float chargingTimer;
+    
+    public int whisp {get; set;}
 
     public override void _Ready(){
         motion = new Vector2();
@@ -35,6 +37,7 @@ public class WhisperController : KinematicBody2D
         facingLeft = false;
         bulletTimer = 0;
         chargingTimer = 0;
+        whisp = 0;
     }
 
     public override void _Process(float delta) {
@@ -88,6 +91,18 @@ public class WhisperController : KinematicBody2D
                 shootLaserBullet(true);
                 bulletTimer = 0;
                 bulletIsReady = false;
+            }
+        }
+        if(Input.IsActionJustPressed("rightWhisp")) {
+            whisp += 1;
+            if(whisp == 5) {
+                whisp = 0;
+            }
+        }
+        else if(Input.IsActionJustPressed("leftWhisp")) {
+            whisp -= 1;
+            if(whisp == -1) {
+                whisp = 4;
             }
         }
     }

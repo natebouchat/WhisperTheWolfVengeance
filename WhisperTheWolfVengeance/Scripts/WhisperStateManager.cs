@@ -12,6 +12,12 @@ public class WhisperStateManager : AnimationPlayer
     private Vector2 chargeOffset;
     private bool facingLeft;
     private bool facingChanged;
+    private int currentWhisp;
+    private Color cyan; 
+    private Color green;
+    private Color pink;
+    private Color blue;
+    private Color orange; 
 
     public string state {get; set;}
 
@@ -29,6 +35,14 @@ public class WhisperStateManager : AnimationPlayer
         chargeSprite.Playing = true;
         chargeLightAnimations = GetNode<AnimationPlayer>("ChargeLightAnimations");
 
+        cyan = new Color(0.42f, 0.76f, 0.74f);      //#6dc3be
+        green = new Color(0.4f, 0.8f, 0.38f);       //#65cd62
+        pink = new Color(0.91f, 0.41f, 0.94f);      //#e869ef
+        blue = new Color(0.13f, 0.19f, 0.9f);       //#2031e5
+        orange = new Color(0.84f, 0.44f, 0.11f);    //#d66f1c
+        currentWhisp = whisperController.whisp;
+        setColorModulation(whisperController.whisp);
+
         chargeOffset = new Vector2(0, 0);
         facingLeft = false;
         facingChanged = false;
@@ -38,8 +52,14 @@ public class WhisperStateManager : AnimationPlayer
         details = whisperController.getWhisperDetails();
         setSpriteDirection(whisperController.getIsFacingLeft());
         state = mainSprite.Animation;
+        setAnimationState();
+        setChargeLight();
+        checkWhispsSwitched();                 
+    }
 
-        
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void setAnimationState() {
         // If not on ground //
         if(((Boolean)details[1]) == false) {
             // If upwards motion //
@@ -53,7 +73,6 @@ public class WhisperStateManager : AnimationPlayer
                     this.Play("WhisperFall");
                 }
             }
-
         }
         else { // If on ground //
             // If moving on x axis // 
@@ -88,13 +107,27 @@ public class WhisperStateManager : AnimationPlayer
                 }
             }
         }
-   
+    }
 
-        ////// Charge Light //////
 
+
+    private void setChargeLight() {
+        // If Bullet is Charging/Charged //
         if((float)details[details.Length - 1] >= 0.1f) {
-            if(!(chargeSprite.Animation).Equals("Charging") && (float)details[details.Length - 1] <= 0.6f) {
-                chargeLightAnimations.Play("Charging");
+            //if not fully charged
+            if((float)details[details.Length - 1] <= 0.6f) {
+                if(!(chargeSprite.Animation).Equals("Charging")) {
+                    chargeLightAnimations.Play("Charging");
+                }
+            }
+            // If running //
+            else if((mainSprite.Animation).Equals("Run") && !(chargeSprite.Animation).Equals("ChargedRun")) {
+                chargeSprite.Animation = "ChargedRun";
+                chargeSprite.Frame = mainSprite.Frame;
+            }
+            // If not running //
+            else if(!(chargeSprite.Animation).Equals("Charged") && !(mainSprite.Animation).Equals("Run")) {
+                chargeLightAnimations.Play("Charged");
             }
         }
         else if((chargeSprite.Animation).Equals("Charged")){
@@ -103,11 +136,14 @@ public class WhisperStateManager : AnimationPlayer
         else if(!(chargeSprite.Animation).Equals("Dissolve")){
             chargeLightAnimations.Play("NoCharge");
         }
+        // Force running animation sync //
+        if((chargeSprite.Animation).Equals("ChargedRun")) {
+            chargeSprite.Frame = mainSprite.Frame;
+        }
         setChargePosition();
-                    
     }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
+ ///// Helpers ///////////////////////////////////////////////////////////////////////////////////////////
 
     private void setSpriteDirection(bool leftSide) {
         mainSprite.FlipH = leftSide;
@@ -119,26 +155,43 @@ public class WhisperStateManager : AnimationPlayer
         }
     }
 
-    private void setColorModulation() {
+    private void checkWhispsSwitched() {
+        if(whisperController.whisp != currentWhisp) {
+            currentWhisp = whisperController.whisp;
+            setColorModulation(currentWhisp);
+        }
+    }
 
+    private void setColorModulation(int whisp) {
+        if(whisp == 1) {
+            colorSprite.Modulate = green;
+        }
+        else if(whisp == 2) {
+            colorSprite.Modulate = pink;
+        }
+        else if(whisp == 3) {
+            colorSprite.Modulate = blue;
+        }
+        else if(whisp == 4) {
+            colorSprite.Modulate = orange;
+        }
+        else {
+            colorSprite.Modulate = cyan;
+        }
+        chargeSprite.Modulate = (colorSprite.Modulate)*1.5f;
     }
 
     private void setChargePosition() {
-        if(state.Equals("Run")) {
+        if(state.Contains("Jump") || state.Contains("Fall")) {
             if(facingLeft) {
-                chargeOffset.x = -7;
-                chargeSprite.RotationDegrees = -5;
+                chargeOffset.x = -2;
             }
             else {
-                chargeOffset.x = 7;
-                chargeSprite.RotationDegrees = 5;
+                chargeOffset.x = 2;
             }
-            chargeOffset.y = -2;
         }
         else {
             chargeOffset.x = 0;
-            chargeOffset.y = 0;
-            chargeSprite.RotationDegrees = 0;
         }
         chargeSprite.Position = chargeOffset;
     }
