@@ -74,13 +74,17 @@ public class WhisperStateManager : AnimationPlayer
                 }
             }
         }
+        // If no longer falling, Transition from falling //
+        else if((mainSprite.Animation).Equals("Fall")) {
+            transitionAnimation();
+        }
         else { // If on ground //
             // If moving on x axis // 
             if(((Vector2)details[0]).x != 0) {
-                    if(!(mainSprite.Animation).Equals("Run") || facingChanged) {
-                        this.Play("WhisperRun");
-                        facingChanged = false;
-                    }
+                if(!(mainSprite.Animation).Equals("Run") || facingChanged) {
+                    this.Play("WhisperRun");
+                    facingChanged = false;
+                }
             }
             else { // If not moving on x axis //
                 // If bullet is not ready (shot)  OR  Bullet is buffered //
@@ -130,7 +134,7 @@ public class WhisperStateManager : AnimationPlayer
                 chargeLightAnimations.Play("Charged");
             }
         }
-        else if((chargeSprite.Animation).Equals("Charged")){
+        else if((chargeSprite.Animation).Equals("Charged") || (chargeSprite.Animation).Equals("ChargedRun")) {
             chargeLightAnimations.Play("Dissolve");
         }
         else if(!(chargeSprite.Animation).Equals("Dissolve")){
@@ -202,7 +206,7 @@ public class WhisperStateManager : AnimationPlayer
 
     ////// SIGNALS ///////////////////////////////////////////////////////
 
-    private void transitionToDefault() {
+    private void transitionAnimation() {
         if(!(mainSprite.Animation).Equals("default") && !(mainSprite.Animation).Contains("Transition")) {
             mainSprite.Animation = mainSprite.Animation + "Transition";
             colorSprite.Animation = colorSprite.Animation + "Transition";
