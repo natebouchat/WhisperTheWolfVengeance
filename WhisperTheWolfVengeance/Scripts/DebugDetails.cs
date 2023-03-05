@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class DebugDetails : CanvasLayer
+public partial class DebugDetails : CanvasLayer
 {
     private VBoxContainer debug;
     private WhisperController whisperController;
@@ -14,7 +14,7 @@ public class DebugDetails : CanvasLayer
         whisperStateManager = GetNode<WhisperStateManager>("../../WhisperAnimations");
     }
 
-    public override void _Process(float delta) {
+    public void _Process(float delta) {
         checkToggleDebug();
         setDebugDetails(whisperController.getWhisperDetails());
     }

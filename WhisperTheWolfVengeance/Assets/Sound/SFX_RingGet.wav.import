@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/SFX_RingGet.wav-119b71a8db84b8853c08583276703da0.sample"
+type="AudioStreamWAV"
+uid="uid://dmed1pt3hkhij"
+path="res://.godot/imported/SFX_RingGet.wav-119b71a8db84b8853c08583276703da0.sample"
 
 [deps]
 
 source_file="res://Assets/Sound/SFX_RingGet.wav"
-dest_files=[ "res://.import/SFX_RingGet.wav-119b71a8db84b8853c08583276703da0.sample" ]
+dest_files=["res://.godot/imported/SFX_RingGet.wav-119b71a8db84b8853c08583276703da0.sample"]
 
 [params]
 

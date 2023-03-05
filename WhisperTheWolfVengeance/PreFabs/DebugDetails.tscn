@@ -1,9 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Assets/Roboto-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/Roboto-Medium.ttf" type="FontFile" id=1]
 [ext_resource path="res://Scripts/DebugDetails.cs" type="Script" id=2]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="FontFile" id=1]
 size = 32
 font_data = ExtResource( 1 )
 
@@ -11,53 +11,53 @@ font_data = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 516.0
-margin_top = 15.0
-margin_right = 648.0
-margin_bottom = 95.0
+offset_left = 516.0
+offset_top = 15.0
+offset_right = 648.0
+offset_bottom = 95.0
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Velocity" type="Label" parent="VBoxContainer"]
-margin_right = 190.0
-margin_bottom = 38.0
+offset_right = 190.0
+offset_bottom = 38.0
 custom_fonts/font = SubResource( 1 )
 text = "Velocity: "
 
 [node name="On Floor" type="Label" parent="VBoxContainer"]
-margin_top = 42.0
-margin_right = 190.0
-margin_bottom = 80.0
+offset_top = 42.0
+offset_right = 190.0
+offset_bottom = 80.0
 custom_fonts/font = SubResource( 1 )
 text = "On Floor:"
 
 [node name="Cooldown" type="Label" parent="VBoxContainer"]
-margin_top = 84.0
-margin_right = 190.0
-margin_bottom = 122.0
+offset_top = 84.0
+offset_right = 190.0
+offset_bottom = 122.0
 custom_fonts/font = SubResource( 1 )
 text = "Cooldown: "
 
 [node name="Buffer" type="Label" parent="VBoxContainer"]
-margin_top = 126.0
-margin_right = 190.0
-margin_bottom = 164.0
-rect_pivot_offset = Vector2( -1514, -258 )
+offset_top = 126.0
+offset_right = 190.0
+offset_bottom = 164.0
+pivot_offset = Vector2( -1514, -258 )
 custom_fonts/font = SubResource( 1 )
 text = "Buffer:"
 
 [node name="Charge Time" type="Label" parent="VBoxContainer"]
-margin_top = 168.0
-margin_right = 190.0
-margin_bottom = 206.0
-rect_pivot_offset = Vector2( -1514, -258 )
+offset_top = 168.0
+offset_right = 190.0
+offset_bottom = 206.0
+pivot_offset = Vector2( -1514, -258 )
 custom_fonts/font = SubResource( 1 )
 text = "Charge Time:"
 
 [node name="State" type="Label" parent="VBoxContainer"]
-margin_top = 210.0
-margin_right = 190.0
-margin_bottom = 248.0
+offset_top = 210.0
+offset_right = 190.0
+offset_bottom = 248.0
 custom_fonts/font = SubResource( 1 )
 text = "State: "

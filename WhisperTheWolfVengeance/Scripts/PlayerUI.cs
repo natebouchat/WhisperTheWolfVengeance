@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class PlayerUI : CanvasLayer
+public partial class PlayerUI : CanvasLayer
 {
     int rings;
 
@@ -10,7 +10,7 @@ public class PlayerUI : CanvasLayer
         rings = 0;
     }
 
-    public override void _Process(float delta)
+    public void _Process(float delta)
     {
       this.GetChild<Label>(0).Text = "Rings: " + rings;
     }

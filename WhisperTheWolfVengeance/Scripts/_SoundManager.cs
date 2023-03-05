@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class _SoundManager : Node
+public partial class _SoundManager : Node
 {
     static Node allMusic;
     static Node allSFX;

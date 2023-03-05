@@ -1,12 +1,12 @@
 using Godot;
 using System;
 
-public class WhisperStateManager : AnimationPlayer
+public partial class WhisperStateManager : AnimationPlayer
 {
     private WhisperController whisperController;
-    private AnimatedSprite mainSprite;
-    private AnimatedSprite colorSprite;
-    private AnimatedSprite chargeSprite;
+    private AnimatedSprite2D mainSprite;
+    private AnimatedSprite2D colorSprite;
+    private AnimatedSprite2D chargeSprite;
     private AnimationPlayer chargeLightAnimations;
     private System.Object[] details;
     private Vector2 chargeOffset;
@@ -24,15 +24,15 @@ public class WhisperStateManager : AnimationPlayer
     public override void _Ready()
     {
         whisperController = GetParent<WhisperController>();
-        mainSprite = GetNode<AnimatedSprite>("../MainSprite");
+        mainSprite = GetNode<AnimatedSprite2D>("../MainSprite");
         mainSprite.Animation = "default";
-        mainSprite.Playing = true;
-        colorSprite = GetNode<AnimatedSprite>("../MainSprite/ColorSprite");
+        //mainSprite.Playing = true;
+        colorSprite = GetNode<AnimatedSprite2D>("../MainSprite/ColorSprite");
         colorSprite.Animation = "default";
-        colorSprite.Playing = true;
-        chargeSprite = GetNode<AnimatedSprite>("../MainSprite/ChargingSprite");
+        //colorSprite.Playing = true;
+        chargeSprite = GetNode<AnimatedSprite2D>("../MainSprite/ChargingSprite");
         chargeSprite.Animation = "default";
-        chargeSprite.Playing = true;
+        //chargeSprite.Playing = true;
         chargeLightAnimations = GetNode<AnimationPlayer>("ChargeLightAnimations");
 
         cyan = new Color(0.42f, 0.76f, 0.74f);      //#6dc3be
@@ -41,24 +41,24 @@ public class WhisperStateManager : AnimationPlayer
         blue = new Color(0.13f, 0.19f, 0.9f);       //#2031e5
         orange = new Color(0.84f, 0.44f, 0.11f);    //#d66f1c
         currentWhisp = whisperController.whisp;
-        setColorModulation(whisperController.whisp);
+        //setColorModulation(whisperController.whisp);
 
         chargeOffset = new Vector2(0, 0);
         facingLeft = false;
         facingChanged = false;
     }
 
-    public override void _Process(float delta) {
+    public void _Process(float delta) {
         details = whisperController.getWhisperDetails();
-        setSpriteDirection(whisperController.getIsFacingLeft());
+        //setSpriteDirection(whisperController.getIsFacingLeft());
         state = mainSprite.Animation;
-        setAnimationState();
-        setChargeLight();
-        checkWhispsSwitched();                 
+        //setAnimationState();
+        //setChargeLight();
+        //checkWhispsSwitched();                 
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
     private void setAnimationState() {
         // If not on ground //
         if(((Boolean)details[1]) == false) {
@@ -99,7 +99,7 @@ public class WhisperStateManager : AnimationPlayer
                         if((float)details[details.Length - 1] < 0.6f) {
                             this.Play("WhisperIdleCharge");
                         }
-                        else { // Maintain Charged Sprite //
+                        else { // Maintain Charged Sprite2D //
                             this.Play("WhisperIdlePreCharged");
                         }
                     }
@@ -212,5 +212,5 @@ public class WhisperStateManager : AnimationPlayer
             colorSprite.Animation = colorSprite.Animation + "Transition";
         }
     }
-
+*/
 }

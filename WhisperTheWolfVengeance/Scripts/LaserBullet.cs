@@ -1,11 +1,11 @@
 using Godot;
 using System;
 
-public class LaserBullet : KinematicBody2D
+public partial class LaserBullet : CharacterBody2D
 {
     private Vector2 motion;
     private Vector2 UP = new Vector2(0,-1);
-    private AnimatedSprite bullet;
+    private AnimatedSprite2D bullet;
 
     [Export]
     private int speed = 900;
@@ -13,15 +13,15 @@ public class LaserBullet : KinematicBody2D
     public override void _Ready()
     {
         motion = new Vector2();
-        bullet = GetNode<AnimatedSprite>("AnimatedSprite");
+        bullet = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         bullet.Animation = "default";
-        bullet.Playing = true;
+        //bullet.Playing = true;
     }
 
-    public override void _Process(float delta)
+    public void _Process(float delta)
     {
-        motion.x = speed;
-        motion = MoveAndSlide(motion, UP);
+        //motion.x = speed;
+        //motion = MoveAndSlide(motion, UP);
         if(IsOnWall()) {
             GetNode<CollisionShape2D>("CollisionShape2D").Scale = new Vector2(0.5f, 1);
             bulletHit();
@@ -37,7 +37,7 @@ public class LaserBullet : KinematicBody2D
     }
 
     public void flipBullet () {
-        GetNode<AnimatedSprite>("AnimatedSprite").FlipH = true;
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").FlipH = true;
         speed = -speed;
     }
 

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Ring : Area2D
+public partial class Ring : Area2D
 {
     private CollisionShape2D WhisperCollide;
     private PlayerUI playerUI;
