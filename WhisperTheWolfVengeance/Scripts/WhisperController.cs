@@ -21,8 +21,8 @@ public partial class WhisperController : CharacterBody2D
     private bool bulletIsReady;
     private bool bufferBullet;
     private bool facingLeft;
-    private float bulletTimer;
-    private float chargingTimer;
+    private double bulletTimer;
+    private double chargingTimer;
     
     public int whisp {get; set;}
 
@@ -30,8 +30,8 @@ public partial class WhisperController : CharacterBody2D
         motion = new Vector2();
         laserBullet = ResourceLoader.Load<PackedScene>("res://PreFabs/LaserBullet.tscn");
         point = GetNode<Marker2D>("GunPoint");
-        //rightPoint = new Vector2(point.Position.x, point.Position.y);
-        //leftPoint = new Vector2(-point.Position.x, point.Position.y);
+        rightPoint = new Vector2(point.Position.X, point.Position.Y);
+        leftPoint = new Vector2(-point.Position.X, point.Position.Y);
         bulletIsReady = true;
         bufferBullet = false;
         facingLeft = false;
@@ -40,39 +40,40 @@ public partial class WhisperController : CharacterBody2D
         whisp = 0;
     }
 
-    public void _Process(float delta) {
+    public override void _Process(double delta) {
         gravity(delta);
         playerInput(delta);
-        //motion = MoveAndSlide(motion, UP);
+        this.Velocity = motion;
+        MoveAndSlide();
         setBulletIsReady(delta);
     }
 
  /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void playerInput(float delta) {
+    private void playerInput(double delta) {
         if(Input.IsActionPressed("ui_right")) {
-            //motion.x = maxSpeed;
+            motion.X = maxSpeed;
             point.Position = rightPoint;
             facingLeft = false;
         }
             else if(Input.IsActionPressed("ui_left")) {
-                //motion.x = -maxSpeed;
+                motion.X = -maxSpeed;
                 point.Position = leftPoint;
                 facingLeft = true;
             }
             else {
-                //motion.x = 0;
+                motion.X = 0;
             }
         if(IsOnFloor() && Input.IsActionPressed("ui_up")) {
-            //motion.y = -jumpForce; 
+            motion.Y = -jumpForce; 
         }
         if(Input.IsActionPressed("shoot")) {
-            if(chargingTimer < 0.6f) {
+            if(chargingTimer < 0.6) {
                 chargingTimer += delta;
             }
         }
         else if(Input.IsActionJustReleased("shoot") || bufferBullet == true) {
-            if(chargingTimer <= 0.6f) {
+            if(chargingTimer <= 0.6) {
                 //normal bullet
                 chargingTimer = 0;
                 if(bulletIsReady) {
@@ -109,21 +110,21 @@ public partial class WhisperController : CharacterBody2D
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void gravity(float delta) {
-        /*
-        motion.y += 20*(delta*60);
-        if(motion.y > -50) {
-            motion.y += 20*(delta*60);
+    private void gravity(double delta) {
+        
+        motion.Y += (float)(20*(delta*60));
+        if(motion.Y > -50) {
+            motion.Y += (float)(20*(delta*60));
         }
-        if(motion.y > maxFallSpeed) {
-            motion.y = maxFallSpeed;
+        if(motion.Y > maxFallSpeed) {
+            motion.Y = maxFallSpeed;
         } 
-        */
+        
     }
 
     private void shootLaserBullet(bool charged) {
-        /*
-        LaserBullet bullet = (LaserBullet)laserBullet.Instance();
+        
+        LaserBullet bullet = (LaserBullet)laserBullet.Instantiate();
         bullet.GlobalPosition = point.GlobalPosition;
         if(facingLeft) {
             bullet.flipBullet();
@@ -132,10 +133,10 @@ public partial class WhisperController : CharacterBody2D
         if(charged) {
             bullet.chargedBullet();
         }
-        */
+        
     }
 
-    private void setBulletIsReady(float delta) {
+    private void setBulletIsReady(double delta) {
         if(bulletTimer < bulletCooldown) {
             bulletTimer += delta;
         }

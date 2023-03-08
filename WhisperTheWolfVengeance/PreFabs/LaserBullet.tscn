@@ -1,45 +1,67 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=11 format=3 uid="uid://3bx0437owi3b"]
 
-[ext_resource path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserDefault/LaserDefault0002.png" type="Texture2D" id=1]
-[ext_resource path="res://Scripts/LaserBullet.cs" type="Script" id=2]
-[ext_resource path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserDefault/LaserDefault0000.png" type="Texture2D" id=3]
-[ext_resource path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserDefault/LaserDefault0001.png" type="Texture2D" id=4]
-[ext_resource path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserDefault/LaserDefault0003.png" type="Texture2D" id=5]
-[ext_resource path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserHit/LaserHit0000.png" type="Texture2D" id=6]
-[ext_resource path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserHit/LaserHit0002.png" type="Texture2D" id=7]
-[ext_resource path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserHit/LaserHit0001.png" type="Texture2D" id=8]
+[ext_resource type="Texture2D" uid="uid://druta35ff5hui" path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserDefault/LaserDefault0002.png" id="1"]
+[ext_resource type="Script" path="res://Scripts/LaserBullet.cs" id="2"]
+[ext_resource type="Texture2D" uid="uid://h66oblwk5pvs" path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserDefault/LaserDefault0000.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://do1tj3n1l6q5n" path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserDefault/LaserDefault0001.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://crl6e685qdaeg" path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserDefault/LaserDefault0003.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://chhncy8afgyrl" path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserHit/LaserHit0000.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://bn2gh0hi8i617" path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserHit/LaserHit0002.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://blsiqj2abv0k5" path="res://Assets/AnimWhisper/WhispBullets/LaserBullet/LaserHit/LaserHit0001.png" id="8"]
 
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "Hit",
+[sub_resource type="SpriteFrames" id="2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7")
+}],
+"loop": false,
+"name": &"Hit",
 "speed": 12.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 5 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 12.0
-} ]
+}]
 
-[sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 17, 10 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(17, 10)
 
 [node name="LaserWhisp" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 5
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2( -4, 0 )
-scale = Vector2( 1.5, 1.25 )
-frames = SubResource( 2 )
+position = Vector2(-4, 0)
+scale = Vector2(1.5, 1.25)
+sprite_frames = SubResource("2")
+animation = &"Hit"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 visible = false
-position = Vector2( 1, 0 )
+position = Vector2(1, 0)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="onBulletScreenExit"]

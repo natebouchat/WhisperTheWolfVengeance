@@ -14,14 +14,14 @@ public partial class LaserBullet : CharacterBody2D
     {
         motion = new Vector2();
         bullet = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-        bullet.Animation = "default";
-        //bullet.Playing = true;
+        bullet.Play("default");
     }
 
-    public void _Process(float delta)
+    public override void _Process(double delta)
     {
-        //motion.x = speed;
-        //motion = MoveAndSlide(motion, UP);
+        motion.X = speed;
+        Velocity = motion;
+        MoveAndSlide();
         if(IsOnWall()) {
             GetNode<CollisionShape2D>("CollisionShape2D").Scale = new Vector2(0.5f, 1);
             bulletHit();

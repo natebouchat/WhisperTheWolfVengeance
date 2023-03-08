@@ -25,14 +25,11 @@ public partial class WhisperStateManager : AnimationPlayer
     {
         whisperController = GetParent<WhisperController>();
         mainSprite = GetNode<AnimatedSprite2D>("../MainSprite");
-        mainSprite.Animation = "default";
-        //mainSprite.Playing = true;
+        mainSprite.Play("default");
         colorSprite = GetNode<AnimatedSprite2D>("../MainSprite/ColorSprite");
-        colorSprite.Animation = "default";
-        //colorSprite.Playing = true;
+        colorSprite.Play("default");
         chargeSprite = GetNode<AnimatedSprite2D>("../MainSprite/ChargingSprite");
-        chargeSprite.Animation = "default";
-        //chargeSprite.Playing = true;
+        chargeSprite.Play("default");
         chargeLightAnimations = GetNode<AnimationPlayer>("ChargeLightAnimations");
 
         cyan = new Color(0.42f, 0.76f, 0.74f);      //#6dc3be
@@ -41,29 +38,29 @@ public partial class WhisperStateManager : AnimationPlayer
         blue = new Color(0.13f, 0.19f, 0.9f);       //#2031e5
         orange = new Color(0.84f, 0.44f, 0.11f);    //#d66f1c
         currentWhisp = whisperController.whisp;
-        //setColorModulation(whisperController.whisp);
+        setColorModulation(whisperController.whisp);
 
         chargeOffset = new Vector2(0, 0);
         facingLeft = false;
         facingChanged = false;
     }
 
-    public void _Process(float delta) {
+    public override void _Process(double delta) {
         details = whisperController.getWhisperDetails();
-        //setSpriteDirection(whisperController.getIsFacingLeft());
+        setSpriteDirection(whisperController.getIsFacingLeft());
         state = mainSprite.Animation;
-        //setAnimationState();
-        //setChargeLight();
-        //checkWhispsSwitched();                 
+        setAnimationState();
+        setChargeLight();
+        checkWhispsSwitched();                 
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/*
+
     private void setAnimationState() {
         // If not on ground //
         if(((Boolean)details[1]) == false) {
             // If upwards motion //
-            if(((Vector2)details[0]).y < 0) {
+            if(((Vector2)details[0]).Y < 0) {
                 if(!((mainSprite.Animation).Equals("Jump") || (mainSprite.Animation).Equals("JumpEnd"))) {
                     this.Play("WhisperJump");
                 }
@@ -80,7 +77,7 @@ public partial class WhisperStateManager : AnimationPlayer
         }
         else { // If on ground //
             // If moving on x axis // 
-            if(((Vector2)details[0]).x != 0) {
+            if(((Vector2)details[0]).X != 0) {
                 if(!(mainSprite.Animation).Equals("Run") || facingChanged) {
                     this.Play("WhisperRun");
                     facingChanged = false;
@@ -94,9 +91,9 @@ public partial class WhisperStateManager : AnimationPlayer
                     }
                 }
                 // Bullet Charging or Charged //
-                else if((float)details[details.Length - 1] >= 0.1f) {
+                else if((double)details[details.Length - 1] >= 0.1) {
                     if(!((mainSprite.Animation).Equals("IdleCharging") || ((mainSprite.Animation).Equals("IdleCharged")))) {
-                        if((float)details[details.Length - 1] < 0.6f) {
+                        if((double)details[details.Length - 1] < 0.6) {
                             this.Play("WhisperIdleCharge");
                         }
                         else { // Maintain Charged Sprite2D //
@@ -117,9 +114,9 @@ public partial class WhisperStateManager : AnimationPlayer
 
     private void setChargeLight() {
         // If Bullet is Charging/Charged //
-        if((float)details[details.Length - 1] >= 0.1f) {
+        if((double)details[details.Length - 1] >= 0.1) {
             //if not fully charged
-            if((float)details[details.Length - 1] <= 0.6f) {
+            if((double)details[details.Length - 1] <= 0.6) {
                 if(!(chargeSprite.Animation).Equals("Charging")) {
                     chargeLightAnimations.Play("Charging");
                 }
@@ -188,18 +185,18 @@ public partial class WhisperStateManager : AnimationPlayer
     private void setChargePosition() {
         if(state.Contains("Jump") || state.Contains("Fall")) {
             if(state.Equals("Fall")) {
-                chargeOffset.y = -1;
+                chargeOffset.Y = -1;
             }
             if(facingLeft) {
-                chargeOffset.x = -2;
+                chargeOffset.X = -2;
             }
             else {
-                chargeOffset.x = 2;
+                chargeOffset.X = 2;
             }
         }
         else {
-            chargeOffset.x = 0;
-            chargeOffset.y = 0;
+            chargeOffset.X = 0;
+            chargeOffset.Y = 0;
         }
         chargeSprite.Position = chargeOffset;
     }
@@ -207,10 +204,9 @@ public partial class WhisperStateManager : AnimationPlayer
     ////// SIGNALS ///////////////////////////////////////////////////////
 
     private void transitionAnimation() {
-        if(!(mainSprite.Animation).Equals("default") && !(mainSprite.Animation).Contains("Transition")) {
+        if(!(mainSprite.Animation).Equals("default") && !((string)(mainSprite.Animation)).Contains("Transition")) {
             mainSprite.Animation = mainSprite.Animation + "Transition";
             colorSprite.Animation = colorSprite.Animation + "Transition";
         }
     }
-*/
 }

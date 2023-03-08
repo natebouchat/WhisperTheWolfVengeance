@@ -522,7 +522,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("52")
 }],
-"loop": true,
+"loop": false,
 "name": &"Charging",
 "speed": 24.0
 }, {
@@ -530,18 +530,21 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("42")
 }],
-"loop": true,
+"loop": false,
 "name": &"Dissolve",
 "speed": 12.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="5"]
-size = Vector2(31.5, 72.5)
+size = Vector2(66, 146)
 
 [sub_resource type="Animation" id="16"]
 resource_name = "WhisperFall"
@@ -868,20 +871,18 @@ script = ExtResource("2")
 
 [node name="MainSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")
-animation = &"JumpEnd"
+animation = &"Fall"
 
 [node name="ColorSprite" type="AnimatedSprite2D" parent="MainSprite"]
 modulate = Color(0.427451, 0.764706, 0.745098, 1)
 sprite_frames = SubResource("3")
-animation = &"JumpEnd"
+animation = &"Fall"
 
 [node name="ChargingSprite" type="AnimatedSprite2D" parent="MainSprite"]
 sprite_frames = SubResource("10")
-animation = &"ChargedRun"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0.5, 40.5)
+position = Vector2(0, 38)
 shape = SubResource("5")
 
 [node name="PlayerUI" parent="." instance=ExtResource("10")]

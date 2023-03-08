@@ -14,7 +14,7 @@ public partial class DebugDetails : CanvasLayer
         whisperStateManager = GetNode<WhisperStateManager>("../../WhisperAnimations");
     }
 
-    public void _Process(float delta) {
+    public override void _Process(double delta) {
         checkToggleDebug();
         setDebugDetails(whisperController.getWhisperDetails());
     }

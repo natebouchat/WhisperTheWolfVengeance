@@ -1,38 +1,64 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://dyiqnf5hw45e4"]
 
-[ext_resource path="res://Assets/AnimRing/RingSpin0000.png" type="Texture2D" id=1]
-[ext_resource path="res://Assets/AnimRing/RingSpin0008.png" type="Texture2D" id=2]
-[ext_resource path="res://Assets/AnimRing/RingSpin0006.png" type="Texture2D" id=3]
-[ext_resource path="res://Assets/AnimRing/RingSpin0010.png" type="Texture2D" id=4]
-[ext_resource path="res://Assets/AnimRing/RingSpin0016.png" type="Texture2D" id=5]
-[ext_resource path="res://Assets/AnimRing/RingSpin0004.png" type="Texture2D" id=6]
-[ext_resource path="res://Assets/AnimRing/RingSpin0014.png" type="Texture2D" id=7]
-[ext_resource path="res://Assets/AnimRing/RingSpin0012.png" type="Texture2D" id=8]
-[ext_resource path="res://Scripts/Ring.cs" type="Script" id=9]
+[ext_resource type="Texture2D" uid="uid://bgqgmi72xtore" path="res://Assets/AnimRing/RingSpin0000.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://camld5iumto5p" path="res://Assets/AnimRing/RingSpin0008.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cy5jcpiy40nmv" path="res://Assets/AnimRing/RingSpin0006.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://wvehs0smox56" path="res://Assets/AnimRing/RingSpin0010.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cugq7ayjdes5p" path="res://Assets/AnimRing/RingSpin0016.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://d3n3q7lbr3vku" path="res://Assets/AnimRing/RingSpin0004.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://dq0p5knho63c5" path="res://Assets/AnimRing/RingSpin0014.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://can4u0i2hf3jv" path="res://Assets/AnimRing/RingSpin0012.png" id="8"]
+[ext_resource type="Script" path="res://Scripts/Ring.cs" id="9"]
 
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 1 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 5 ) ],
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 8.0
-} ]
+}]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id="2"]
 radius = 25.02
 
 [node name="Ring" type="Area2D"]
 collision_layer = 0
 collision_mask = 3
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2( 0.75, 0.75 )
-frames = SubResource( 1 )
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("1")
 frame = 4
-playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource("2")
 
 [connection signal="body_entered" from="." to="." method="OnRingEntered"]

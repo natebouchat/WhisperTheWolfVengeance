@@ -10,6 +10,7 @@ public partial class Ring : Area2D
     {  
         WhisperCollide = GetNode<CollisionShape2D>("../Whisper/CollisionShape2D");
         playerUI = GetNode<PlayerUI>("../Whisper/PlayerUI");
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("default");
     }
 
     public void OnRingEntered(Node Collider) {
