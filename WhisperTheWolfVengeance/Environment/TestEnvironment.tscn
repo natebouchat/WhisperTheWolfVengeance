@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bre2njxbexev8"]
+[gd_scene load_steps=5 format=3 uid="uid://bre2njxbexev8"]
 
 [ext_resource type="PackedScene" uid="uid://bl1oqk85csa" path="res://PreFabs/Whisper.tscn" id="1"]
 [ext_resource type="TileSet" uid="uid://bmhc7s3inj2st" path="res://Environment/TempTile.tres" id="2"]
 [ext_resource type="PackedScene" uid="uid://dyiqnf5hw45e4" path="res://PreFabs/Ring.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://dnats2ibivcs5" path="res://PreFabs/EggPawn.tscn" id="4_xbg7r"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -10,10 +11,10 @@
 position = Vector2(635, 331)
 tile_set = ExtResource("2")
 format = 2
-layer_0/tile_data = PackedInt32Array(196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 196605, 0, 0, 131074, 0, 0, 131069, 0, 0)
+layer_0/tile_data = PackedInt32Array(196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 196605, 0, 0, 131074, 0, 0, 131069, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0)
 
 [node name="Whisper" parent="." instance=ExtResource("1")]
-position = Vector2(265, 710)
+position = Vector2(260, 722)
 
 [node name="Ring" parent="." instance=ExtResource("3")]
 position = Vector2(454, 657)
@@ -26,3 +27,6 @@ position = Vector2(541, 639)
 
 [node name="Ring4" parent="." instance=ExtResource("3")]
 position = Vector2(624, 688)
+
+[node name="EggPawn" parent="." instance=ExtResource("4_xbg7r")]
+position = Vector2(1007, 736)

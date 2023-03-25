@@ -1,18 +1,17 @@
 using Godot;
 using System;
 
-public partial class LaserBullet : CharacterBody2D
+public partial class LaserBullet : Area2D
 {
     private Vector2 motion;
-    private Vector2 UP = new Vector2(0,-1);
     private AnimatedSprite2D bullet;
 
     [Export]
-    private int speed = 900;
+    private int speed = 15;
 
     public override void _Ready()
     {
-        motion = new Vector2();
+        motion = new Vector2(speed, 0);
         bullet = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         bullet.Play("default");
     }
@@ -20,20 +19,13 @@ public partial class LaserBullet : CharacterBody2D
     public override void _Process(double delta)
     {
         motion.X = speed;
-        Velocity = motion;
-        MoveAndSlide();
-        if(IsOnWall()) {
-            GetNode<CollisionShape2D>("CollisionShape2D").Scale = new Vector2(0.5f, 1);
-            bulletHit();
-        }
-        else if(IsOnCeiling()) {
-            this.QueueFree();
-        }
+        this.Position += motion;
     }
 
     public void chargedBullet() {
         GetNode<CollisionShape2D>("CollisionShape2D").Scale = new Vector2(2, 2);
         bullet.Scale = new Vector2(3, 2.5f);
+        this.Name += "Charged";
     }
 
     public void flipBullet () {
@@ -41,8 +33,9 @@ public partial class LaserBullet : CharacterBody2D
         speed = -speed;
     }
 
-    private async void bulletHit() {
+    private async void bulletHit(Node Collider) {
         bullet.Animation = "Hit";
+        speed = 0;
         await ToSignal(bullet, "animation_finished");
         this.QueueFree();
     }

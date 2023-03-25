@@ -46,7 +46,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(17, 10)
 
-[node name="LaserWhisp" type="CharacterBody2D"]
+[node name="LaserWhisp" type="Area2D"]
 collision_layer = 8
 collision_mask = 5
 script = ExtResource("2")
@@ -64,4 +64,5 @@ shape = SubResource("1")
 visible = false
 position = Vector2(1, 0)
 
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="onBulletScreenExit"]
+[connection signal="area_entered" from="." to="." method="bulletHit"]
+[connection signal="body_entered" from="." to="." method="bulletHit"]

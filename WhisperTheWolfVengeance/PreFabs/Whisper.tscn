@@ -866,7 +866,6 @@ _data = {
 [node name="Whisper" type="CharacterBody2D"]
 position = Vector2(854, 564)
 collision_layer = 2
-collision_mask = 5
 script = ExtResource("2")
 
 [node name="MainSprite" type="AnimatedSprite2D" parent="."]
