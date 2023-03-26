@@ -6,9 +6,9 @@ public partial class WhisperController : CharacterBody2D
     [Export]
     private int maxSpeed = 550;
     [Export]
-    private int maxFallSpeed = 1000;
+    private int maxFallSpeed = 1500;
     [Export]
-    private int jumpForce = 600;
+    private int jumpForce = 900;
     [Export]
     private float bulletCooldown = 0.25f;
     
@@ -114,10 +114,13 @@ public partial class WhisperController : CharacterBody2D
         
         motion.Y += (float)(20*(delta*60));
         if(motion.Y > -50) {
-            motion.Y += (float)(20*(delta*60));
+            motion.Y += (float)(22*(delta*60));
         }
         if(motion.Y > maxFallSpeed) {
             motion.Y = maxFallSpeed;
+        }
+        if(IsOnFloor()) {
+            motion.Y = 0;
         } 
         
     }

@@ -28,7 +28,13 @@ public partial class DebugDetails : CanvasLayer
 
     private void setDebugDetails(System.Object[] details) {
         for(int i = 0; i < details.Length; i++) {
-            debug.GetChild<Label>(i).Text = debug.GetChild<Label>(i).Name + ": " + details[i];
+            if(i == details.Length-1) {
+                debug.GetChild<Label>(i).Text = debug.GetChild<Label>(i).Name + ": " + Math.Round((double)details[i], 2);
+
+            }
+            else {
+                debug.GetChild<Label>(i).Text = debug.GetChild<Label>(i).Name + ": " + details[i];
+            }
         }
         debug.GetChild<Label>(debug.GetChildCount()-1).Text = "State: " + whisperStateManager.state;
     }

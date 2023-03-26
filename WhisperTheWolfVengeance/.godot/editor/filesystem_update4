@@ -2,6 +2,5 @@ res://default_env.tres
 res://Environment/TestEnvironment.tscn
 res://Environment/TempTile.tres
 res://PreFabs/Whisper.tscn
-res://PreFabs/LaserBullet.tscn
-res://PreFabs/Ring.tscn
 res://PreFabs/EggPawn.tscn
+res://PreFabs/LaserBullet.tscn
