@@ -3,20 +3,14 @@ using System;
 
 public partial class _SoundManager : Node
 {
-    static Node allMusic;
-    static Node allSFX;
-
+    public static int sfxVolume {get; set;}
+    public static int musicVolume {get; set;}
+    
     public override void _Ready()
     {
-        allMusic = GetNode<Node>("Music");
-        allSFX = GetNode<Node>("SFX");
+        sfxVolume = 0;
+        musicVolume = 0;
     }
 
-    public static void PlayMusic(String name) {
-        allMusic.GetNode<AudioStreamPlayer>(name).Play();
-    }
 
-    public static void PlaySFX(String name) {
-        allSFX.GetNode<AudioStreamPlayer>(name).Play();
-    }
 }

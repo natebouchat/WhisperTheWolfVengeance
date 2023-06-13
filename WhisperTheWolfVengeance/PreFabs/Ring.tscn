@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dyiqnf5hw45e4"]
+[gd_scene load_steps=13 format=3 uid="uid://dyiqnf5hw45e4"]
 
 [ext_resource type="Texture2D" uid="uid://bgqgmi72xtore" path="res://Assets/AnimRing/RingSpin0000.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://camld5iumto5p" path="res://Assets/AnimRing/RingSpin0008.png" id="2"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dq0p5knho63c5" path="res://Assets/AnimRing/RingSpin0014.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://can4u0i2hf3jv" path="res://Assets/AnimRing/RingSpin0012.png" id="8"]
 [ext_resource type="Script" path="res://Scripts/Ring.cs" id="9"]
+[ext_resource type="AudioStream" uid="uid://dmed1pt3hkhij" path="res://Assets/Sound/SFX_RingGet.wav" id="10_imn8f"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -60,5 +61,8 @@ frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("2")
+
+[node name="RingGet" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_imn8f")
 
 [connection signal="body_entered" from="." to="." method="OnRingEntered"]
