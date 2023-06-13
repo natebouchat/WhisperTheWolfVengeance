@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://bl1oqk85csa"]
+[gd_scene load_steps=93 format=3 uid="uid://bl1oqk85csa"]
 
 [ext_resource type="Texture2D" uid="uid://bgy4u6c31kdn6" path="res://Assets/AnimWhisper/WhisperIdle/IdleColor/IdleColor1.png" id="1"]
 [ext_resource type="Script" path="res://Scripts/WhisperController.cs" id="2"]
@@ -73,6 +73,7 @@
 [ext_resource type="Texture2D" uid="uid://5s275x0wxwb" path="res://Assets/AnimWhisper/WhisperFall/WhisperFallStart/WhisperFallStart.png" id="71"]
 [ext_resource type="Texture2D" uid="uid://dgj53102mvrk8" path="res://Assets/AnimWhisper/WhisperFall/WhisperFallTransition/WhisperFallTransitionColor.png" id="72"]
 [ext_resource type="Texture2D" uid="uid://b6u6kxq6dw47l" path="res://Assets/AnimWhisper/WhisperFall/WhisperFall1.png" id="73"]
+[ext_resource type="AudioStream" uid="uid://5nup1r3tax7y" path="res://Assets/Sound/SFX_DropRing.wav" id="74_irotu"]
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{
@@ -909,3 +910,6 @@ libraries = {
 
 [node name="GunPoint" type="Marker2D" parent="."]
 position = Vector2(88, 33)
+
+[node name="DropRings" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("74_irotu")

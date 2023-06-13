@@ -6,3 +6,6 @@ res://PreFabs/Whisper.tscn
 res://PreFabs/EggPawn.tscn
 res://PreFabs/LaserBullet.tscn
 res://PreFabs/_SoundManager.tscn
+res://Assets/FlashShader.tres
+res://Assets/FlashShader.gdshader
+res://Scripts/FlashShader.gdshader
