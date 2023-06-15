@@ -8,6 +8,7 @@ public partial class WhisperStateManager : AnimationPlayer
 	private AnimatedSprite2D colorSprite;
 	private AnimatedSprite2D chargeSprite;
 	private AnimationPlayer chargeLightAnimations;
+	private AudioStreamPlayer dropRingsSFX;
 	private System.Object[] details;
 	private Vector2 chargeOffset;
 	private bool facingLeft;
@@ -32,6 +33,9 @@ public partial class WhisperStateManager : AnimationPlayer
 		chargeSprite.Play("default");
 		chargeLightAnimations = GetNode<AnimationPlayer>("ChargeLightAnimations");
 
+		dropRingsSFX = GetNode<AudioStreamPlayer>("../DropRings");
+        dropRingsSFX.VolumeDb = _SoundManager.sfxVolume;
+
 		cyan = new Color(0.42f, 0.76f, 0.74f);      //#6dc3be
 		green = new Color(0.4f, 0.8f, 0.38f);       //#65cd62
 		pink = new Color(0.91f, 0.41f, 0.94f);      //#e869ef
@@ -54,6 +58,7 @@ public partial class WhisperStateManager : AnimationPlayer
 			SetChargeLight();
 		}
 		else if(!(mainSprite.Animation).Equals("Hurt")) {
+			dropRingsSFX.Play();
 			this.Play("WhisperHurt");
 		}
 		CheckWhispsSwitched();                 

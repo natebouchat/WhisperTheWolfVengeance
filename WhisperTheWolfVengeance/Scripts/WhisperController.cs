@@ -4,7 +4,7 @@ using System;
 public partial class WhisperController : CharacterBody2D
 {
 	[Export]
-	private int maxSpeed = 550;
+	private int maxSpeed = 600;
 	[Export]
 	private int maxFallSpeed = 1500;
 	[Export]
@@ -15,6 +15,8 @@ public partial class WhisperController : CharacterBody2D
 	private Vector2 UP = new Vector2(0,-1);
 	private Vector2 motion;
 	private PackedScene laserBullet;
+	private PackedScene droppedRing;
+	private PlayerUI playerUI;
 	private Marker2D point;
 	private Vector2 rightPoint;
 	private Vector2 leftPoint;
@@ -30,6 +32,8 @@ public partial class WhisperController : CharacterBody2D
 	public override void _Ready(){
 		motion = new Vector2();
 		laserBullet = ResourceLoader.Load<PackedScene>("res://PreFabs/LaserBullet.tscn");
+		droppedRing = ResourceLoader.Load<PackedScene>("res://PreFabs/Ring.tscn");
+		playerUI = GetNode<PlayerUI>("PlayerUI");
 		point = GetNode<Marker2D>("GunPoint");
 		rightPoint = new Vector2(point.Position.X, point.Position.Y);
 		leftPoint = new Vector2(-point.Position.X, point.Position.Y);
@@ -120,9 +124,9 @@ public partial class WhisperController : CharacterBody2D
 
 	private void Gravity(double delta) {
 		if(!IsOnFloor()) {
-			motion.Y += (float)(20*(delta*60));
+			motion.Y += (float)(delta*1200);
 			if(motion.Y > -100) {
-				motion.Y += (float)(22*(delta*60));
+				motion.Y += (float)(delta*1320);
 			}
 			if(motion.Y > maxFallSpeed) {
 				motion.Y = maxFallSpeed;
@@ -131,11 +135,9 @@ public partial class WhisperController : CharacterBody2D
 		else if(hurtCooldown <= 0) {
 			motion.Y = 0;
 		} 
-		
 	}
 
 	private void ShootLaserBullet(bool charged) {
-		
 		LaserBullet bullet = (LaserBullet)laserBullet.Instantiate();
 		bullet.GlobalPosition = point.GlobalPosition;
 		if(facingLeft) {
@@ -166,6 +168,16 @@ public partial class WhisperController : CharacterBody2D
 		}
 		motion.Y = -600;
 		hurtCooldown = 0.6;
+		DropAllRings();
+	}
+
+	private void DropAllRings() {
+		for(int i = 0; i < playerUI.rings; i++) {
+			Ring ring = (Ring)droppedRing.Instantiate();
+			GetParent().CallDeferred("add_child", ring);
+			ring.CallDeferred("DropRing", this.GlobalPosition);
+		}
+		playerUI.rings = 0;
 	}
 
 	public System.Object[] GetWhisperDetails() {

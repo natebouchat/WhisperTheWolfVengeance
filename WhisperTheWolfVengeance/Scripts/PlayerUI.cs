@@ -3,11 +3,11 @@ using System;
 
 public partial class PlayerUI : CanvasLayer
 {
-    int rings;
+    public int rings {get; set;}
 
     public override void _Ready()
     { 
-        rings = 0;
+        rings = 5;
     }
 
     public override void _Process(double delta)
@@ -19,7 +19,4 @@ public partial class PlayerUI : CanvasLayer
         rings += value;
     }
 
-    public void DropRings() {
-        rings = 0;
-    }
 }
