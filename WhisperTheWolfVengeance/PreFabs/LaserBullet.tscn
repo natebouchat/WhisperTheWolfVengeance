@@ -64,5 +64,5 @@ shape = SubResource("1")
 visible = false
 position = Vector2(1, 0)
 
-[connection signal="area_entered" from="." to="." method="bulletHit"]
-[connection signal="body_entered" from="." to="." method="bulletHit"]
+[connection signal="area_entered" from="." to="." method="BulletHit"]
+[connection signal="body_entered" from="." to="." method="BulletHit"]

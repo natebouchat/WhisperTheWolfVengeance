@@ -8,7 +8,7 @@ public partial class WhisperController : CharacterBody2D
 	[Export]
 	private int maxFallSpeed = 1500;
 	[Export]
-	private int jumpForce = 900;
+	private int jumpForce = 800;
 	[Export]
 	private float bulletCooldown = 0.25f;
 	
@@ -23,6 +23,7 @@ public partial class WhisperController : CharacterBody2D
 	private bool facingLeft;
 	private double bulletTimer;
 	private double chargingTimer;
+	public double hurtCooldown;
 	
 	public int whisp {get; set;}
 
@@ -37,63 +38,70 @@ public partial class WhisperController : CharacterBody2D
 		facingLeft = false;
 		bulletTimer = 0;
 		chargingTimer = 0;
+		hurtCooldown = 0;
 		whisp = 0;
 	}
 
 	public override void _Process(double delta) {
-		gravity(delta);
-		playerInput(delta);
+		Gravity(delta);
+		PlayerInput(delta);
 		this.Velocity = motion;
 		MoveAndSlide();
-		setBulletIsReady(delta);
+		SetBulletIsReady(delta);
 	}
 
  /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	private void playerInput(double delta) {
-		if(Input.IsActionPressed("ui_right")) {
-			motion.X = maxSpeed;
-			point.Position = rightPoint;
-			facingLeft = false;
-		}
-			else if(Input.IsActionPressed("ui_left")) {
-				motion.X = -maxSpeed;
-				point.Position = leftPoint;
-				facingLeft = true;
+	private void PlayerInput(double delta) {
+		if(hurtCooldown <= 0) {
+			if(Input.IsActionPressed("ui_right")) {
+				motion.X = maxSpeed;
+				point.Position = rightPoint;
+				facingLeft = false;
 			}
-			else {
-				motion.X = 0;
-			}
-		if(IsOnFloor() && Input.IsActionPressed("ui_up")) {
-			motion.Y = -jumpForce; 
-		}
-		if(Input.IsActionPressed("shoot")) {
-			if(chargingTimer < 0.6) {
-				chargingTimer += delta;
-			}
-		}
-		else if(Input.IsActionJustReleased("shoot") || bufferBullet == true) {
-			if(chargingTimer <= 0.6) {
-				//normal bullet
-				chargingTimer = 0;
-				if(bulletIsReady) {
-					shootLaserBullet(false);
-					bulletTimer = 0;
-					bulletIsReady = false;
-					bufferBullet = false;
+				else if(Input.IsActionPressed("ui_left")) {
+					motion.X = -maxSpeed;
+					point.Position = leftPoint;
+					facingLeft = true;
 				}
 				else {
-						bufferBullet = true;
+					motion.X = 0;
+				}
+			if(IsOnFloor() && Input.IsActionPressed("ui_up")) {
+				motion.Y = -jumpForce; 
+			}
+			if(Input.IsActionPressed("shoot")) {
+				if(chargingTimer < 0.6) {
+					chargingTimer += delta;
 				}
 			}
-			else {
-				//charged bullet
-				chargingTimer = 0;
-				shootLaserBullet(true);
-				bulletTimer = 0;
-				bulletIsReady = false;
+			else if(Input.IsActionJustReleased("shoot") || bufferBullet == true) {
+				if(chargingTimer <= 0.6) {
+					//normal bullet
+					chargingTimer = 0;
+					if(bulletIsReady) {
+						ShootLaserBullet(false);
+						bulletTimer = 0;
+						bulletIsReady = false;
+						bufferBullet = false;
+					}
+					else {
+							bufferBullet = true;
+					}
+				}
+				else {
+					//charged bullet
+					chargingTimer = 0;
+					ShootLaserBullet(true);
+					bulletTimer = 0;
+					bulletIsReady = false;
+				}
 			}
 		}
+		else {
+			hurtCooldown -= delta;
+		}
+
 		if(Input.IsActionJustPressed("rightWhisp")) {
 			whisp += 1;
 			if(whisp == 5) {
@@ -110,37 +118,37 @@ public partial class WhisperController : CharacterBody2D
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	private void gravity(double delta) {
+	private void Gravity(double delta) {
 		if(!IsOnFloor()) {
 			motion.Y += (float)(20*(delta*60));
-			if(motion.Y > -50) {
+			if(motion.Y > -100) {
 				motion.Y += (float)(22*(delta*60));
 			}
 			if(motion.Y > maxFallSpeed) {
 				motion.Y = maxFallSpeed;
 			}
 		}
-		else {
+		else if(hurtCooldown <= 0) {
 			motion.Y = 0;
 		} 
 		
 	}
 
-	private void shootLaserBullet(bool charged) {
+	private void ShootLaserBullet(bool charged) {
 		
 		LaserBullet bullet = (LaserBullet)laserBullet.Instantiate();
 		bullet.GlobalPosition = point.GlobalPosition;
 		if(facingLeft) {
-			bullet.flipBullet();
+			bullet.FlipBullet();
 		}
 		GetParent().AddChild(bullet);
 		if(charged) {
-			bullet.chargedBullet();
+			bullet.ChargedBullet();
 		}
 		
 	}
 
-	private void setBulletIsReady(double delta) {
+	private void SetBulletIsReady(double delta) {
 		if(bulletTimer < bulletCooldown) {
 			bulletTimer += delta;
 		}
@@ -149,12 +157,23 @@ public partial class WhisperController : CharacterBody2D
 		}
 	}
 
-	public System.Object[] getWhisperDetails() {
+	public void WhipserIsHurt() {
+		if(facingLeft) {
+			motion.X = 600;
+		}
+		else {
+			motion.X = -600;
+		}
+		motion.Y = -600;
+		hurtCooldown = 0.6;
+	}
+
+	public System.Object[] GetWhisperDetails() {
 		System.Object[] obj = new System.Object[] {motion, IsOnFloor(), !bulletIsReady, bufferBullet, chargingTimer};
 		return obj;
 	}
 
-	public bool getIsFacingLeft() {
+	public bool GetIsFacingLeft() {
 		return facingLeft;
 	}
 }

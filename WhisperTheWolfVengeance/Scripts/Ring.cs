@@ -27,7 +27,7 @@ public partial class Ring : Area2D
     private async void CollectRing() {
             ringCollected = true;
             this.Visible = false;
-            playerUI.addRings(1);
+            playerUI.AddRings(1);
             ringGetSFX.Play();
             await ToSignal(ringGetSFX, "finished");
             this.QueueFree();

@@ -15,11 +15,11 @@ public partial class PlayerUI : CanvasLayer
       this.GetChild<Label>(0).Text = "Rings: " + rings;
     }
 
-    public void addRings(int value) {
+    public void AddRings(int value) {
         rings += value;
     }
 
-    public void dropRings() {
+    public void DropRings() {
         rings = 0;
     }
 }

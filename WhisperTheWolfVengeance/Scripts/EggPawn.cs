@@ -19,7 +19,7 @@ public partial class EggPawn : CharacterBody2D
 
     public override void _Process(double delta)
     {
-        gravity(delta);
+        Gravity(delta);
         this.Velocity = motion;
         MoveAndSlide();
         if(interaction.damage != 0) {
@@ -31,7 +31,7 @@ public partial class EggPawn : CharacterBody2D
         }
     }
 
-    private void gravity(double delta) {
+    private void Gravity(double delta) {
         motion.Y += (float)(20*(delta*60));
         if(motion.Y > -50) {
             motion.Y += (float)(20*(delta*60));

@@ -22,25 +22,25 @@ public partial class LaserBullet : Area2D
 		this.Position += motion;
 	}
 
-	public void chargedBullet() {
+	public void ChargedBullet() {
 		GetNode<CollisionShape2D>("CollisionShape2D").Scale = new Vector2(2, 2);
 		bullet.Scale = new Vector2(3, 2.5f);
 		this.Name += "Charged";
 	}
 
-	public void flipBullet () {
+	public void FlipBullet () {
 		GetNode<AnimatedSprite2D>("AnimatedSprite2D").FlipH = true;
 		speed = -speed;
 	}
 
-	private async void bulletHit(Node Collider) {
+	private async void BulletHit(Node Collider) {
 		bullet.Animation = "Hit";
 		speed = 0;
 		await ToSignal(bullet, "animation_finished");
 		this.QueueFree();
 	}
 
-	private void onBulletScreenExit() {
+	private void OnBulletScreenExit() {
 		this.QueueFree();
 	}
 }

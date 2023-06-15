@@ -1,10 +1,11 @@
-[gd_scene load_steps=93 format=3 uid="uid://bl1oqk85csa"]
+[gd_scene load_steps=96 format=3 uid="uid://bl1oqk85csa"]
 
 [ext_resource type="Texture2D" uid="uid://bgy4u6c31kdn6" path="res://Assets/AnimWhisper/WhisperIdle/IdleColor/IdleColor1.png" id="1"]
 [ext_resource type="Script" path="res://Scripts/WhisperController.cs" id="2"]
 [ext_resource type="Texture2D" uid="uid://dgvpm0gyusoqn" path="res://Assets/AnimWhisper/WhisperIdle/IdleColor/IdleColor16.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://bjbk16177mcfy" path="res://Assets/AnimWhisper/WhisperIdle/WhisperIdle1.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://c5ma0ktj3fqw6" path="res://Assets/AnimWhisper/WhisperIdle/WhisperIdle9.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://21li5u4cd2en" path="res://Assets/AnimWhisper/WhisperHurt/WhisperHurt1.png" id="5_7fco7"]
 [ext_resource type="Texture2D" uid="uid://h7m2ul5dvvb5" path="res://Assets/AnimWhisper/WhisperIdle/WhisperIdle16.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://cs6o705wp1p0q" path="res://Assets/AnimWhisper/WhisperIdle/IdleColor/IdleColor9.png" id="7"]
 [ext_resource type="Script" path="res://Scripts/WhisperStateManager.cs" id="8"]
@@ -30,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://bb4y7a2dmwptv" path="res://Assets/AnimWhisper/WhisperRun/RunColor/RunColor7.png" id="28"]
 [ext_resource type="Texture2D" uid="uid://2qb0tyhdsru0" path="res://Assets/AnimWhisper/WhisperRun/RunColor/RunColor2.png" id="29"]
 [ext_resource type="Texture2D" uid="uid://dk4okwaxcowc" path="res://Assets/AnimWhisper/WhisperRun/RunTransition/WhisperRunTransition.png" id="30"]
+[ext_resource type="Texture2D" uid="uid://b4si2hgoshgik" path="res://Assets/AnimWhisper/WhisperHurt/HurtColor/WhisperHurtColor1.png" id="30_j5gr6"]
 [ext_resource type="Texture2D" uid="uid://dps0l8qkr3mrg" path="res://Assets/AnimWhisper/WhisperRun/RunTransition/WhisperRunColorTransition.png" id="31"]
 [ext_resource type="Texture2D" uid="uid://op5c45bmj67l" path="res://Assets/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot2.png" id="32"]
 [ext_resource type="Texture2D" uid="uid://bivoixm3503c2" path="res://Assets/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot1.png" id="33"]
@@ -100,6 +102,14 @@ animations = [{
 "loop": true,
 "name": &"FallTransition",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_7fco7")
+}],
+"loop": true,
+"name": &"Hurt",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -280,6 +290,14 @@ animations = [{
 "loop": true,
 "name": &"FallTransition",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_j5gr6")
+}],
+"loop": true,
+"name": &"Hurt",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -615,7 +633,7 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"transitionAnimation"
+"method": &"TransitionAnimation"
 }]
 }
 
@@ -761,9 +779,39 @@ tracks/1/keys = {
 "values": ["RunTransition", "Run"]
 }
 
+[sub_resource type="Animation" id="Animation_4tqwd"]
+resource_name = "WhisperHurt"
+length = 1.00001
+step = 0.0833333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"Hurt", &"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainSprite/ColorSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"Hurt", &"default"]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hljqt"]
 _data = {
 "WhisperFall": SubResource("16"),
+"WhisperHurt": SubResource("Animation_4tqwd"),
 "WhisperIdle": SubResource("6"),
 "WhisperIdleCharge": SubResource("9"),
 "WhisperIdlePreCharged": SubResource("14"),
@@ -871,17 +919,18 @@ script = ExtResource("2")
 
 [node name="MainSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")
-animation = &"Fall"
+animation = &"JumpEnd"
 
 [node name="ColorSprite" type="AnimatedSprite2D" parent="MainSprite"]
 modulate = Color(0.427451, 0.764706, 0.745098, 1)
 sprite_frames = SubResource("3")
-animation = &"Fall"
+animation = &"JumpEnd"
 
 [node name="ChargingSprite" type="AnimatedSprite2D" parent="MainSprite"]
 sprite_frames = SubResource("10")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 38)
 shape = SubResource("5")
 
