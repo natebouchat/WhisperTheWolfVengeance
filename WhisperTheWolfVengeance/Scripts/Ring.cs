@@ -9,6 +9,7 @@ public partial class Ring : Area2D
     private Vector2 motion;
     private Random random;
     private bool ringHasPhysics;
+    private bool hasBounced;
     private double recollectDelay;
 
     public override void _Ready()
@@ -21,6 +22,7 @@ public partial class Ring : Area2D
         droppedRingBody = GetNode<CharacterBody2D>("CharacterBody2D");
         motion = new Vector2(400, 400);
         ringHasPhysics = false;
+        hasBounced = false;
         recollectDelay = 0;
     }
 
@@ -66,6 +68,10 @@ public partial class Ring : Area2D
 				motion.Y = 800;
 			}
 		}
+        else if(hasBounced == false) {
+            hasBounced = true;
+            motion.Y = (-1*motion.Y)/2;
+        }
 		else {
 			motion.Y = 0;
 		}
