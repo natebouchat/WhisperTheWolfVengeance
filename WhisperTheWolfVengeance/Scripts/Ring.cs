@@ -1,11 +1,10 @@
 using Godot;
 using System;
 
-public partial class Ring : Area2D
+public partial class Ring : CharacterBody2D
 {
     private PlayerUI playerUI;
     private AudioStreamPlayer ringGetSFX;
-    private CharacterBody2D droppedRingBody;
     private Vector2 motion;
     private Random random;
     private bool ringHasPhysics;
@@ -15,11 +14,11 @@ public partial class Ring : Area2D
     public override void _Ready()
     {  
         playerUI = GetNode<PlayerUI>("../Whisper/PlayerUI");
-        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("default");
         ringGetSFX = GetNode<AudioStreamPlayer>("RingGet");
         ringGetSFX.VolumeDb = _SoundManager.sfxVolume;
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Modulate = new Color(1,1,1,1);
+        GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("default");
 
-        droppedRingBody = GetNode<CharacterBody2D>("CharacterBody2D");
         motion = new Vector2(400, 400);
         ringHasPhysics = false;
         hasBounced = false;
@@ -29,27 +28,27 @@ public partial class Ring : Area2D
     public override void _Process(double delta) {
         if(ringHasPhysics) {
             RingPhysics(delta);
-            droppedRingBody.MoveAndSlide();
+            MoveAndSlide();
             recollectDelay -= delta;
-            this.GlobalPosition = droppedRingBody.GlobalPosition;
-            droppedRingBody.GlobalPosition = this.GlobalPosition;
         }
     }
 
-    public void OnRingEntered(Node Collider) {
-        if(Collider.Name.Equals("Whisper") && recollectDelay <= 0) {
+    public void OnRingEntered(Node collider) {
+        if(recollectDelay <= 0) {
             CollectRing();
         }
     }
 
     public void DropRing(Vector2 spawnPosition) {
         recollectDelay = 0.6;
+        this.CollisionMask = 1;
         ringHasPhysics = true;
         this.GlobalPosition = spawnPosition;
         random = new Random();
         int angle = random.Next(360);
         motion.X = (float)(Math.Cos(angle) * 600);
         motion.Y = (float)(Math.Sin(angle) * 600);
+        GetNode<AnimationPlayer>("AnimationPlayer").Play("DelayedDisappear"); 
     }
 
     private async void CollectRing() {
@@ -62,7 +61,7 @@ public partial class Ring : Area2D
     }
 
     private void RingPhysics(double delta) {
-		if(!droppedRingBody.IsOnFloor()) {
+		if(!IsOnFloor()) {
 			motion.Y += (float)(delta*1200);
 			if(motion.Y > 800) {
 				motion.Y = 800;
@@ -89,7 +88,7 @@ public partial class Ring : Area2D
             }
         }
 
-        droppedRingBody.Velocity = motion;
+        this.Velocity = motion;
 	}
 
 }

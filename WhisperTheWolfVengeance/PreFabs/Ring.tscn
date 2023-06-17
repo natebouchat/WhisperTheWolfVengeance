@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dyiqnf5hw45e4"]
+[gd_scene load_steps=15 format=3 uid="uid://dyiqnf5hw45e4"]
 
 [ext_resource type="Texture2D" uid="uid://bgqgmi72xtore" path="res://Assets/AnimRing/RingSpin0000.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://camld5iumto5p" path="res://Assets/AnimRing/RingSpin0008.png" id="2"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://Scripts/Ring.cs" id="9"]
 [ext_resource type="AudioStream" uid="uid://dmed1pt3hkhij" path="res://Assets/Sound/SFX_RingGet.wav" id="10_imn8f"]
 
-[sub_resource type="SpriteFrames" id="1"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_en0jd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -46,30 +46,72 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="CircleShape2D" id="2"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_bcn3q"]
 radius = 25.02
 
-[node name="Ring" type="Area2D"]
+[sub_resource type="Animation" id="Animation_lwhh4"]
+resource_name = "DelayedDisappear"
+length = 5.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.9, 4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5, 5.1, 5.2, 5.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(5.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sqrga"]
+_data = {
+"DelayedDisappear": SubResource("Animation_lwhh4")
+}
+
+[node name="Ring" type="CharacterBody2D"]
 collision_layer = 0
-collision_mask = 3
-monitorable = false
+collision_mask = 0
 script = ExtResource("9")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.588235)
 scale = Vector2(0.75, 0.75)
-sprite_frames = SubResource("1")
-frame = 4
+sprite_frames = SubResource("SpriteFrames_en0jd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("2")
+visible = false
+shape = SubResource("CircleShape2D_bcn3q")
 
 [node name="RingGet" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_imn8f")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("2")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("CircleShape2D_bcn3q")
 
-[connection signal="body_entered" from="." to="." method="OnRingEntered"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sqrga")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="OnRingEntered"]

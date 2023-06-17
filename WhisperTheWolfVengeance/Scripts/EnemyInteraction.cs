@@ -14,9 +14,7 @@ public partial class EnemyInteraction : Area2D
 	}
 
 	public void OnCharacterEntered(Node Collider) {
-		if(Collider.Name.Equals("Whisper")) {
-			((WhisperController)Collider).WhipserIsHurt();
-		}
+		((WhisperController)Collider).WhipserIsHurt();
 	}
 
 	public void OnAreaEntered(Node Collider) {
