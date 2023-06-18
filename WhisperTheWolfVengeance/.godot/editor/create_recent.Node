@@ -1,4 +1,12 @@
+Timer
+Sprite2D
 AnimationPlayer
+Polygon2D
+RichTextLabel
+ColorRect
+NinePatchRect
+CanvasLayer
+Label
+CollisionShape2D
 Area2D
 CharacterBody2D
-CollisionShape2D

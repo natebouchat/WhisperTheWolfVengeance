@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwmcdslmp2sv3"]
+
+[ext_resource type="Texture2D" uid="uid://bjxfr0jgf8i6y" path="res://Assets/Dialogue/Stills/Debug/Debug_Debug.png" id="1_b0wi1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndg85"]
+size = Vector2(80, 80)
+
+[node name="DialogueTrigger" type="Area2D"]
+
+[node name="Temp" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_b0wi1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_ndg85")
+debug_color = Color(0, 0.647059, 0.196078, 0.419608)

@@ -1,8 +1,8 @@
 res://default_env.tres
-res://PreFabs/Ring.tscn
 res://Environment/TempTile.tres
+res://PreFabs/DialogueTest.tscn
 res://Environment/TestEnvironment.tscn
-res://PreFabs/Whisper.tscn
 res://PreFabs/EggPawn.tscn
-res://PreFabs/LaserBullet.tscn
-res://Environment/tempTileBuilder.tscn
+res://PreFabs/Ring.tscn
+res://Environment/DialogueManager.tscn
+res://PreFabs/Whisper.tscn

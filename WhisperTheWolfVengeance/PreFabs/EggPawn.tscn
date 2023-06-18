@@ -103,8 +103,10 @@ collision_mask = 10
 script = ExtResource("3_i1xy0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 position = Vector2(0, 27.5)
 shape = SubResource("2")
+debug_color = Color(0.972549, 0, 0.431373, 0.419608)
 
 [node name="EnemyAnimation" type="AnimationPlayer" parent="."]
 libraries = {
