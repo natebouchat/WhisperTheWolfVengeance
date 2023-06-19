@@ -1,4 +1,6 @@
 res://Scripts
+res://Environment
+res://Assets/AnimWhisper/WhisperIdle
 res://PreFabs
 res://Assets/Dialogue/Stills/Debug
 res://Assets/AnimWhisper/WhisperHurt/HurtColor

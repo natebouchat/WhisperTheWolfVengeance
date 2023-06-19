@@ -1,22 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://r3b6cjwnyogb"]
 
-[ext_resource path="res://Assets/Roboto-Medium.ttf" type="FontFile" id=1]
-[ext_resource path="res://Scripts/PlayerUI.cs" type="Script" id=2]
-[ext_resource path="res://PreFabs/DebugDetails.tscn" type="PackedScene" id=3]
-
-[sub_resource type="FontFile" id=1]
-size = 32
-font_data = ExtResource( 1 )
+[ext_resource type="Script" path="res://Scripts/PlayerUI.cs" id="2"]
+[ext_resource type="PackedScene" uid="uid://csboujmo4spiw" path="res://PreFabs/DebugDetails.tscn" id="3"]
 
 [node name="PlayerUI" type="CanvasLayer"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Rings" type="Label" parent="."]
 offset_left = 15.0
 offset_top = 11.0
 offset_right = 112.0
 offset_bottom = 49.0
-custom_fonts/font = SubResource( 1 )
+theme_override_font_sizes/font_size = 30
 text = "Rings: "
 
-[node name="DebugDetails" parent="." instance=ExtResource( 3 )]
+[node name="DebugDetails" parent="." instance=ExtResource("3")]

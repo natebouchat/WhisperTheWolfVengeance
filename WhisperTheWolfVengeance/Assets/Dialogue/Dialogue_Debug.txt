@@ -1,4 +1,8 @@
-[Whisper:Temp]
+[<<Whisper_default]
 
-[Debug:Debug]
-This is A Test
+[>>Debug_Debug]
+This is A Test.
+
+[<<Whisper_Happy]
+This seems to work.
+Yay!

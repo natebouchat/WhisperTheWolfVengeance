@@ -2,39 +2,44 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class DialogueManager : ColorRect
+public partial class DialogueManager : CanvasLayer
 {
-	[Export]
-	public string dialoguePath {get; set;}
 	[Export]
 	private float textSpeed = 0.05f;
 
 	private Polygon2D indicator;
 	private RichTextLabel displayedText;
 	private Timer timer;
+	private Sprite2D characterSpriteL;
+	private Sprite2D characterSpriteR;
 	private List<string> dialogue;
 	private int phraseNum;
 	private bool finished;
+	private bool hasPulledFromFile;
 
-	// Called when the node enters the scene tree for the first time.
+	public WhisperController controller{get; set;}
+
 	public override void _Ready()
 	{
 		indicator = GetNode<Polygon2D>("Indicator");
-		displayedText = GetNode<RichTextLabel>("RichTextLabel");
+		displayedText = GetNode<RichTextLabel>("TextBox/RichTextLabel");
 		timer = GetNode<Timer>("Timer");
+		characterSpriteL = GetNode<Sprite2D>("LeftPosition/CharacterSpriteL");
+		characterSpriteR = GetNode<Sprite2D>("RightPosition/CharacterSpriteR");
+		characterSpriteL.GlobalPosition = GetNode<Marker2D>("LeftPosition").GlobalPosition;
+		characterSpriteR.GlobalPosition = GetNode<Marker2D>("RightPosition").GlobalPosition;
+
 		timer.WaitTime = textSpeed;
-		
-		dialogue = GetDialogue();
 		phraseNum = 0;
 		finished = false;
-		NextPhrase();
+		hasPulledFromFile = false;
+
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 		indicator.Visible = finished;
-		if(Input.IsActionJustPressed("shoot")) {
+		if(Input.IsActionJustPressed("shoot") && hasPulledFromFile) {
 			if(finished) {
 				NextPhrase();
 			}
@@ -44,50 +49,48 @@ public partial class DialogueManager : ColorRect
 		}
 	}
 
-	private List<string> GetDialogue() {
+	public void GetDialogueFromFile(string path, Node player) {
+		dialogue = new List<string>();
+		string aLine = "";
+		controller = (WhisperController)player;
 
-		List<string> lines = new List<string>();
-		
 		try {
-			using var file = FileAccess.Open(dialoguePath, FileAccess.ModeFlags.Read);
+			using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
 			while (file.GetPosition() < file.GetLength())
 			{
-				lines.Add(file.GetLine());
-				if(string.IsNullOrWhiteSpace(lines[lines.Count-1])) {
-					lines.RemoveAt(lines.Count - 1);
+				aLine = file.GetLine();
+				if(!string.IsNullOrWhiteSpace(aLine)) {
+					dialogue.Add(aLine);
 				}
 			}
 			file.Close();
 		}
 		catch(Exception e) {
-			lines.Add("Error reading from file: " + dialoguePath);
-			GD.PrintErr(e);
+			dialogue.Add("Error reading from file: " + path);
 		}
-		
-		return lines;
+		hasPulledFromFile = true;
+		NextPhrase();
 	}
-
-	
-	
  
 	private async void NextPhrase() {
-		
 		if(phraseNum >= dialogue.Count) {
-			QueueFree();
+			controller.disableControls = false;
+			this.QueueFree();
 		}
 		else {
+			while(dialogue[phraseNum][0] == '[') {
+				if(dialogue[phraseNum][1] == '<') {
+					characterSpriteL.Texture = SetSpriteTexture(dialogue[phraseNum]);
+				}
+				else {
+					characterSpriteR.Texture = SetSpriteTexture(dialogue[phraseNum]);
+				}
+				phraseNum++;
+			}
+
 			finished = false;
-		
 			displayedText.Text = dialogue[phraseNum];
 			displayedText.VisibleCharacters = 0;
-
-			/*
-			//File f = File.new()
-			//var img = dialog[phraseNum]["Name"] + dialog[phraseNum]["Emotion"] + ".png";
-			//if f.file_exists(img):
-			//	$Portrait.texture = load(img);
-			//else: $Portrait.texture = null
-			*/
 			
 			while (displayedText.VisibleCharacters < (displayedText.Text).Length) {
 				displayedText.VisibleCharacters += 1;
@@ -95,11 +98,22 @@ public partial class DialogueManager : ColorRect
 				timer.Start();
 				await ToSignal(timer, "timeout");
 			}
-			
+			phraseNum++;
 			finished = true;
-			phraseNum += 1;
-
 		}
 
+	}
+
+	private Texture2D SetSpriteTexture(string characterStill) {
+		string emotion = characterStill.Substring(3, characterStill.Length - 4);
+		string name = "";
+		for(int i = 0; i < emotion.Length; i++) {
+			if(emotion[i] == '_') {
+				break;
+			}
+			name += emotion[i];
+		}
+		CompressedTexture2D image = ResourceLoader.Load<CompressedTexture2D>("res://Assets/Dialogue/Stills/" + name + "/" + emotion + ".png");
+		return image;
 	}
 }

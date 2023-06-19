@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dktj36q0ixtb8"
-path="res://.godot/imported/Whisper_Temp.png-bca28a9f7b0bd0380c277e2015cce1dd.ctex"
+uid="uid://brll3aenijgys"
+path="res://.godot/imported/Whisper_Happy.png-67a92c2bf67e3175ab9a3083d752c69e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Dialogue/Stills/Whisper/Whisper_Temp.png"
-dest_files=["res://.godot/imported/Whisper_Temp.png-bca28a9f7b0bd0380c277e2015cce1dd.ctex"]
+source_file="res://Assets/Dialogue/Stills/Whisper/Whisper_Happy.png"
+dest_files=["res://.godot/imported/Whisper_Happy.png-67a92c2bf67e3175ab9a3083d752c69e.ctex"]
 
 [params]
 

@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cs6o705wp1p0q" path="res://Assets/AnimWhisper/WhisperIdle/IdleColor/IdleColor9.png" id="7"]
 [ext_resource type="Script" path="res://Scripts/WhisperStateManager.cs" id="8"]
 [ext_resource type="Texture2D" uid="uid://d4hm0wtpjt5d4" path="res://Assets/AnimWhisper/WhisperRun/WhisperRun4.png" id="9"]
-[ext_resource type="PackedScene" path="res://PreFabs/PlayerUI.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://r3b6cjwnyogb" path="res://PreFabs/PlayerUI.tscn" id="10"]
 [ext_resource type="Texture2D" uid="uid://c0hwfvmq4jgvt" path="res://Assets/AnimWhisper/WhisperRun/WhisperRun10.png" id="11"]
 [ext_resource type="Texture2D" uid="uid://cprxikrousx6q" path="res://Assets/AnimWhisper/WhisperRun/WhisperRun6.png" id="12"]
 [ext_resource type="Texture2D" uid="uid://dtf3axoqo1bbw" path="res://Assets/AnimWhisper/WhisperRun/WhisperRun1.png" id="13"]
@@ -919,12 +919,12 @@ script = ExtResource("2")
 
 [node name="MainSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")
-animation = &"JumpEnd"
+animation = &"FallStart"
 
 [node name="ColorSprite" type="AnimatedSprite2D" parent="MainSprite"]
 modulate = Color(0.427451, 0.764706, 0.745098, 1)
 sprite_frames = SubResource("3")
-animation = &"JumpEnd"
+animation = &"FallStart"
 
 [node name="ChargingSprite" type="AnimatedSprite2D" parent="MainSprite"]
 sprite_frames = SubResource("10")
@@ -938,12 +938,14 @@ shape = SubResource("5")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(97, -27)
+zoom = Vector2(1.25, 1.25)
 limit_left = 0
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.06
 drag_right_margin = 0.0
+drag_bottom_margin = 0.1
 editor_draw_limits = true
 
 [node name="WhisperAnimations" type="AnimationPlayer" parent="."]

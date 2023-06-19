@@ -33,7 +33,7 @@ public partial class Ring : CharacterBody2D
         }
     }
 
-    public void OnRingEntered(Node collider) {
+    public void OnRingEntered(Node Collider) {
         if(recollectDelay <= 0) {
             CollectRing();
         }
