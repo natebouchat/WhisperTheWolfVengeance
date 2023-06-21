@@ -28,7 +28,7 @@ public partial class WhisperController : CharacterBody2D
 	
 	public double hurtCooldown {get; set;}
 	public int whisp {get; set;}
-	public bool disableControls{get; set;}
+	public bool controlsEnabled{get; set;}
 
 	public override void _Ready(){
 		motion = new Vector2();
@@ -45,16 +45,13 @@ public partial class WhisperController : CharacterBody2D
 		chargingTimer = 0;
 		hurtCooldown = 0;
 		whisp = 0;
-		disableControls = false;
+		controlsEnabled = true;
 	}
 
 	public override void _Process(double delta) {
 		Gravity(delta);
-		if(!disableControls) {
+		if(controlsEnabled) {
 			PlayerInput(delta);
-		}
-		else {
-			motion.X = 0;
 		}
 		this.Velocity = motion;
 		MoveAndSlide();
@@ -194,5 +191,10 @@ public partial class WhisperController : CharacterBody2D
 
 	public bool GetIsFacingLeft() {
 		return facingLeft;
+	}
+
+	public void disableControls() {
+		controlsEnabled = false;
+		motion.X = 0;
 	}
 }

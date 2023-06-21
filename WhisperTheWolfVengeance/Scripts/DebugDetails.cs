@@ -15,15 +15,17 @@ public partial class DebugDetails : CanvasLayer
     }
 
     public override void _Process(double delta) {
-        CheckToggleDebug();
-        SetDebugDetails(whisperController.GetWhisperDetails());
+        if(CheckToggleDebug()) {
+            SetDebugDetails(whisperController.GetWhisperDetails());
+        }
     }
 
 
-    private void CheckToggleDebug() {
+    private bool CheckToggleDebug() {
         if(Input.IsActionJustPressed("ui_focus_next")) {
             this.Visible = !this.Visible;
         }
+        return this.Visible;
     }
 
     private void SetDebugDetails(System.Object[] details) {

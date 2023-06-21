@@ -12,10 +12,12 @@ public partial class DialogueManager : CanvasLayer
 	private Timer timer;
 	private Sprite2D characterSpriteL;
 	private Sprite2D characterSpriteR;
+	private AnimationPlayer stillAnimations;
 	private List<string> dialogue;
 	private int phraseNum;
 	private bool finished;
 	private bool hasPulledFromFile;
+	private bool leftCharacterSpeaking;
 
 	public WhisperController controller{get; set;}
 
@@ -24,16 +26,15 @@ public partial class DialogueManager : CanvasLayer
 		indicator = GetNode<Polygon2D>("Indicator");
 		displayedText = GetNode<RichTextLabel>("TextBox/RichTextLabel");
 		timer = GetNode<Timer>("Timer");
-		characterSpriteL = GetNode<Sprite2D>("LeftPosition/CharacterSpriteL");
-		characterSpriteR = GetNode<Sprite2D>("RightPosition/CharacterSpriteR");
-		characterSpriteL.GlobalPosition = GetNode<Marker2D>("LeftPosition").GlobalPosition;
-		characterSpriteR.GlobalPosition = GetNode<Marker2D>("RightPosition").GlobalPosition;
+		characterSpriteL = GetNode<Sprite2D>("CharacterSpriteL");
+		characterSpriteR = GetNode<Sprite2D>("CharacterSpriteR");
+		stillAnimations = GetNode<AnimationPlayer>("AnimationPlayer");
 
 		timer.WaitTime = textSpeed;
 		phraseNum = 0;
 		finished = false;
 		hasPulledFromFile = false;
-
+		leftCharacterSpeaking = true;
 	}
 
 	public override void _Process(double delta)
@@ -74,16 +75,24 @@ public partial class DialogueManager : CanvasLayer
  
 	private async void NextPhrase() {
 		if(phraseNum >= dialogue.Count) {
-			controller.disableControls = false;
+			controller.controlsEnabled = true;
 			this.QueueFree();
 		}
 		else {
 			while(dialogue[phraseNum][0] == '[') {
 				if(dialogue[phraseNum][1] == '<') {
 					characterSpriteL.Texture = SetSpriteTexture(dialogue[phraseNum]);
+					if(!leftCharacterSpeaking) {
+						stillAnimations.PlayBackwards("SwitchSpeaker");
+						leftCharacterSpeaking = true;
+					}
 				}
 				else {
 					characterSpriteR.Texture = SetSpriteTexture(dialogue[phraseNum]);
+					if(leftCharacterSpeaking) {
+						stillAnimations.Play("SwitchSpeaker");
+						leftCharacterSpeaking = false;
+					}
 				}
 				phraseNum++;
 			}
