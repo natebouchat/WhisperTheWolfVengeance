@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://bre2njxbexev8"]
 
-[ext_resource type="PackedScene" uid="uid://bl1oqk85csa" path="res://PreFabs/Whisper.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cxff88y2j7le7" path="res://PreFabs/Whisper.tscn" id="1"]
 [ext_resource type="TileSet" uid="uid://bmhc7s3inj2st" path="res://Environment/TempTile.tres" id="2"]
-[ext_resource type="PackedScene" uid="uid://dyiqnf5hw45e4" path="res://PreFabs/Ring.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://b32exwk2xjqsd" path="res://PreFabs/EggPawn.tscn" id="4_xbg7r"]
+[ext_resource type="PackedScene" path="res://PreFabs/Ring.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://b0y2qps8sdm34" path="res://PreFabs/EggPawn.tscn" id="4_xbg7r"]
 [ext_resource type="PackedScene" uid="uid://cwmcdslmp2sv3" path="res://PreFabs/DialogueTest.tscn" id="5_c1cqm"]
 
 [node name="Node2D" type="Node2D"]

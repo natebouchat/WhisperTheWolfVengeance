@@ -126,7 +126,7 @@ public partial class WhisperStateManager : AnimationPlayer
 		// If Bullet is Charging/Charged //
 		if((double)details[details.Length - 1] >= 0.1) {
 			//if not fully charged
-			if((double)details[details.Length - 1] <= 0.6) {
+			if((double)details[details.Length - 1] < 0.6) {
 				if(!(chargeSprite.Animation).Equals("Charging")) {
 					chargeLightAnimations.Play("Charging");
 				}

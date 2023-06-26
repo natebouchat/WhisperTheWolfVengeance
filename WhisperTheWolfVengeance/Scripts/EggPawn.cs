@@ -7,14 +7,21 @@ public partial class EggPawn : CharacterBody2D
     private int maxFallSpeed = 1000;
 
     private EnemyInteraction interaction;
+    private AnimationPlayer enemyAnimation;
+    private AnimatedSprite2D explosion;
     private Vector2 motion;
     private int health;
 
     public override void _Ready()
     {
         interaction = GetNode<EnemyInteraction>("Area2D");
+        enemyAnimation = GetNode<AnimationPlayer>("EnemyAnimation");
+		enemyAnimation.Play("Idle");
+        explosion = GetNode<AnimatedSprite2D>("Explosion");
+        explosion.Visible = false;
         motion = new Vector2();
         health = 10;
+
     }
 
     public override void _Process(double delta)
@@ -25,10 +32,19 @@ public partial class EggPawn : CharacterBody2D
         if(interaction.damage != 0) {
             health -= interaction.damage;
             if(health <= 0) {
-                this.QueueFree();
+                explosion.Play();
+                interaction.CollisionMask = 0;
+                enemyAnimation.Play("Die");
             }
-            interaction.damage = 0;
+            else {
+                enemyAnimation.Play("Hurt");
+                interaction.damage = 0;
+            }
         }
+    }
+
+    public void TakeDamage(int damage) {
+
     }
 
     private void Gravity(double delta) {

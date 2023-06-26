@@ -1,9 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://b32exwk2xjqsd"]
+[gd_scene load_steps=24 format=3 uid="uid://b0y2qps8sdm34"]
 
-[ext_resource type="Texture2D" uid="uid://dfy733fpu5862" path="res://Assets/AnimEggPawn/eggPawnIdle1.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://dfy733fpu5862" path="res://Assets/Animations/AnimEggPawn/eggPawnIdle1.png" id="1"]
 [ext_resource type="Script" path="res://Scripts/EggPawn.cs" id="2"]
 [ext_resource type="Shader" path="res://Scripts/FlashShader.gdshader" id="2_8g8ly"]
 [ext_resource type="Script" path="res://Scripts/EnemyInteraction.cs" id="3_i1xy0"]
+[ext_resource type="Texture2D" uid="uid://dfirpee705jyg" path="res://Assets/Animations/AnimEggPawn/Explode/Explode1.png" id="4_dxr6h"]
+[ext_resource type="Texture2D" uid="uid://b5ykvp8vft45n" path="res://Assets/Animations/AnimEggPawn/Explode/Explode2.png" id="5_rlfpp"]
+[ext_resource type="Texture2D" uid="uid://ceu83w0m4g6wl" path="res://Assets/Animations/AnimEggPawn/Explode/Explode3.png" id="6_y20jw"]
+[ext_resource type="Texture2D" uid="uid://csm4qn15gfdhl" path="res://Assets/Animations/AnimEggPawn/Explode/Explode4.png" id="7_a1wk3"]
+[ext_resource type="Texture2D" uid="uid://bxhxi2rorohuj" path="res://Assets/Animations/AnimEggPawn/Explode/Explode5.png" id="8_gphej"]
+[ext_resource type="Texture2D" uid="uid://0b5vpbpndqba" path="res://Assets/Animations/AnimEggPawn/Explode/Explode6.png" id="9_eea4i"]
+[ext_resource type="Texture2D" uid="uid://ckghn23norxod" path="res://Assets/Animations/AnimEggPawn/Explode/Explode7.png" id="10_mmgl0"]
+[ext_resource type="Texture2D" uid="uid://bprj2yje1h575" path="res://Assets/Animations/AnimEggPawn/Explode/Explode8.png" id="11_lsjlu"]
+[ext_resource type="Texture2D" uid="uid://cqvh5vqan3r2g" path="res://Assets/Animations/AnimEggPawn/Explode/Explode9.png" id="12_8d7gp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bjafj"]
 shader = ExtResource("2_8g8ly")
@@ -26,8 +35,102 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_jitiq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_dxr6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_rlfpp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_y20jw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_a1wk3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_gphej")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_eea4i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_mmgl0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_lsjlu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8d7gp")
+}],
+"loop": true,
+"name": &"Explode",
+"speed": 18.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="2"]
 size = Vector2(88, 131)
+
+[sub_resource type="Animation" id="Animation_xxt8i"]
+resource_name = "Die"
+step = 0.0555556
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Explosion:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Explosion:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Explode"]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.222222),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_dgvf8"]
 resource_name = "Hurt"
@@ -78,6 +181,7 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5qn8t"]
 _data = {
+"Die": SubResource("Animation_xxt8i"),
 "Hurt": SubResource("Animation_dgvf8"),
 "Idle": SubResource("Animation_7wksw"),
 "RESET": SubResource("Animation_6cmja")
@@ -91,6 +195,11 @@ script = ExtResource("2")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_ah5aa")
 sprite_frames = SubResource("1")
+
+[node name="Explosion" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_jitiq")
+animation = &"Explode"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
