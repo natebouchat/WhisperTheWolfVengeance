@@ -3,7 +3,10 @@
 [>>Debug_Debug]
 This is A Test.
 
-[<<Whisper_Happy]
+[<<Whisper_default]
+Hello World!
+
+[<<Whisper_Solemn]
 This seems to work.
 Yay!
 
