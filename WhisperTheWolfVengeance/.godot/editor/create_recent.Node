@@ -1,5 +1,7 @@
-AnimatedSprite2D
 AnimationPlayer
+CollisionShape2D
+AnimatedSprite2D
+CharacterBody2D
 ColorRect
 VBoxContainer
 CenterContainer
@@ -13,6 +15,4 @@ Sprite2D
 RichTextLabel
 NinePatchRect
 Label
-CollisionShape2D
 Area2D
-CharacterBody2D

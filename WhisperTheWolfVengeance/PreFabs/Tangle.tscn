@@ -1,0 +1,90 @@
+[gd_scene load_steps=11 format=3 uid="uid://gcr7i6ig5xb0"]
+
+[ext_resource type="Texture2D" uid="uid://dh1exhtuidjuc" path="res://Assets/Animations/AnimTangle/Blink/TangleBlink1.png" id="1_4qrwj"]
+[ext_resource type="Script" path="res://Scripts/TangleStateManager.cs" id="1_bpqvc"]
+[ext_resource type="Texture2D" uid="uid://8jlxq5jpcyed" path="res://Assets/Animations/AnimTangle/Idle/TangleIdle1.png" id="1_qdem1"]
+[ext_resource type="Texture2D" uid="uid://dq5lirp6h86iw" path="res://Assets/Animations/AnimTangle/Blink/TangleBlink2.png" id="2_47rug"]
+[ext_resource type="Texture2D" uid="uid://cbkro5x4c2af2" path="res://Assets/Animations/AnimTangle/Idle/TangleIdle2.png" id="2_54b3w"]
+[ext_resource type="Texture2D" uid="uid://13cdq3puopov" path="res://Assets/Animations/AnimTangle/Idle/TangleIdle3.png" id="3_si75b"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y3ldo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4qrwj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_47rug")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_si75b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_54b3w")
+}],
+"loop": true,
+"name": &"Blink",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("1_qdem1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_54b3w")
+}, {
+"duration": 2.0,
+"texture": ExtResource("3_si75b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_54b3w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nvjqw"]
+size = Vector2(63, 157)
+
+[sub_resource type="Animation" id="Animation_thr7x"]
+resource_name = "Idle"
+length = 2.25001
+loop_mode = 1
+step = 0.125
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.75, 2.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [&"default", &"Blink", &"default"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jxn3i"]
+_data = {
+"Idle": SubResource("Animation_thr7x")
+}
+
+[node name="Tangle" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_bpqvc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y3ldo")
+animation = &"Blink"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(5.5, 15.5)
+shape = SubResource("RectangleShape2D_nvjqw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CollisionShape2D")
+libraries = {
+"": SubResource("AnimationLibrary_jxn3i")
+}

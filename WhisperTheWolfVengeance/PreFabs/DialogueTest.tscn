@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://cwmcdslmp2sv3"]
 
-[ext_resource type="Texture2D" uid="uid://bjxfr0jgf8i6y" path="res://Assets/Dialogue/Stills/Debug/Debug_Debug.png" id="1_b0wi1"]
 [ext_resource type="Script" path="res://Scripts/DialogueInitialization.cs" id="1_nnb57"]
+[ext_resource type="PackedScene" uid="uid://gcr7i6ig5xb0" path="res://PreFabs/Tangle.tscn" id="2_ycue5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ndg85"]
-size = Vector2(80, 80)
+size = Vector2(104, 256.5)
 
 [node name="DialogueTrigger" type="Area2D"]
 collision_layer = 0
@@ -12,13 +12,11 @@ collision_mask = 2
 script = ExtResource("1_nnb57")
 textFilePath = "res://Assets/Dialogue/Dialogue_Debug.txt"
 
-[node name="Temp" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_b0wi1")
+[node name="Tangle" parent="." instance=ExtResource("2_ycue5")]
+facingLeft = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -1)
+position = Vector2(-101, -30.75)
 shape = SubResource("RectangleShape2D_ndg85")
 debug_color = Color(0, 0.647059, 0.196078, 0.419608)
 

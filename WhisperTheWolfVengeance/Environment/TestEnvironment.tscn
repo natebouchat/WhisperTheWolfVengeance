@@ -33,4 +33,4 @@ position = Vector2(624, 688)
 position = Vector2(1007, 736)
 
 [node name="DialogueTrigger" parent="." instance=ExtResource("5_c1cqm")]
-position = Vector2(1338, 806)
+position = Vector2(1324, 750)
