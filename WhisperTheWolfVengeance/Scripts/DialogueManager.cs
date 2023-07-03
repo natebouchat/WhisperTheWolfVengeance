@@ -28,6 +28,7 @@ public partial class DialogueManager : CanvasLayer
 		timer = GetNode<Timer>("Timer");
 		characterSpriteL = GetNode<Sprite2D>("CharacterSpriteL");
 		characterSpriteR = GetNode<Sprite2D>("CharacterSpriteR");
+		characterSpriteR.FlipH = true;
 		stillAnimations = GetNode<AnimationPlayer>("AnimationPlayer");
 
 		timer.WaitTime = textSpeed;
@@ -79,7 +80,7 @@ public partial class DialogueManager : CanvasLayer
 			this.QueueFree();
 		}
 		else {
-			while(dialogue[phraseNum][0] == '[') {
+			while(dialogue[phraseNum][0] == '{') {
 				if(dialogue[phraseNum][1] == '<') {
 					characterSpriteL.Texture = SetSpriteTexture(dialogue[phraseNum]);
 					if(!leftCharacterSpeaking) {

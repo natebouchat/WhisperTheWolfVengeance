@@ -1,14 +1,17 @@
-[<<Whisper_default]
+{<<Whisper_default}
 
-[>>Debug_Debug]
-This is A Test.
+{>>Tangle_Waving}
+Heya Whisper!
 
-[<<Whisper_default]
-Hello World!
+{<<Whisper_default}
+[i]Hey.[i]
 
-[<<Whisper_Solemn]
-This seems to work.
-Yay!
+{>>Tangle_default}
+I'm glad you could make it here on such short notice.
+Are you ready for a new adventure?
 
-[>>Debug_Debug]
-Hooray!
+{<<Whisper_default}
+[i]...[i]
+
+{<<Whisper_Solemn}
+[i]Let's go.[i]

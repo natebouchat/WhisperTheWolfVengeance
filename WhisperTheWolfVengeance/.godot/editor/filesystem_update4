@@ -1,9 +1,8 @@
 res://default_env.tres
+res://Environment/TestEnvironment.tscn
 res://Scripts/WhisperController.cs
 res://Environment/TempTile.tres
-res://PreFabs/tangle.tscn
-res://PreFabs/DialogueTest.tscn
-res://Environment/TestEnvironment.tscn
 res://PreFabs/Whisper.tscn
+res://PreFabs/DialogueTest.tscn
 res://PreFabs/DialogueManager.tscn
 res://PreFabs/Tangle.tscn
