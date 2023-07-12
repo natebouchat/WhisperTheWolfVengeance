@@ -14,6 +14,7 @@ public partial class WhisperController : CharacterBody2D
 	
 	private Vector2 UP = new Vector2(0,-1);
 	private Vector2 motion;
+	private Vector2 externalMotion;
 	private PackedScene laserBullet;
 	private PackedScene droppedRing;
 	private PlayerUI playerUI;
@@ -23,6 +24,7 @@ public partial class WhisperController : CharacterBody2D
 	private bool bulletIsReady;
 	private bool bufferBullet;
 	private bool facingLeft;
+	private bool motionAdded;
 	private double bulletTimer;
 	private double chargingTimer;
 	
@@ -32,6 +34,7 @@ public partial class WhisperController : CharacterBody2D
 
 	public override void _Ready(){
 		motion = new Vector2();
+		externalMotion = new Vector2();
 		laserBullet = ResourceLoader.Load<PackedScene>("res://PreFabs/LaserBullet.tscn");
 		droppedRing = ResourceLoader.Load<PackedScene>("res://PreFabs/Ring.tscn");
 		playerUI = GetNode<PlayerUI>("PlayerUI");
@@ -41,6 +44,7 @@ public partial class WhisperController : CharacterBody2D
 		bulletIsReady = true;
 		bufferBullet = false;
 		facingLeft = false;
+		motionAdded = false;
 		bulletTimer = 0;
 		chargingTimer = 0;
 		hurtCooldown = 0;
@@ -53,7 +57,9 @@ public partial class WhisperController : CharacterBody2D
 		if(controlsEnabled) {
 			PlayerInput(delta);
 		}
-		this.Velocity = motion;
+		CalculateExternalMotion(delta);
+		
+		this.Velocity = motion + externalMotion;
 		MoveAndSlide();
 		SetBulletIsReady(delta);
 	}
@@ -124,12 +130,10 @@ public partial class WhisperController : CharacterBody2D
 		}
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	private void Gravity(double delta) {
 		if(!IsOnFloor()) {
 			motion.Y += (float)(delta*1200);
-			if(motion.Y > -100) {
+			if(motion.Y > -800) {
 				motion.Y += (float)(delta*1320);
 			}
 			if(motion.Y > maxFallSpeed) {
@@ -138,8 +142,40 @@ public partial class WhisperController : CharacterBody2D
 		}
 		else if(hurtCooldown <= 0) {
 			motion.Y = 0;
-		} 
+		}
 	}
+
+	private void CalculateExternalMotion(double delta) {
+			if(externalMotion.X > 0) {
+				externalMotion.X -= (float)(Math.Sqrt(delta * 20 * externalMotion.X));
+				if(externalMotion.X < 100 || Velocity.X < 0) {
+					externalMotion.X = 0;
+				}
+			}
+			else if(externalMotion.X < 0) {
+				externalMotion.X += (float)(Math.Sqrt(delta * 10 * externalMotion.X));
+				if(externalMotion.X > -100  || Velocity.X > 0) {
+					externalMotion.X = 0;
+				}
+			}
+
+			if((!IsOnFloor() && externalMotion.Y != 0) || motionAdded) {
+				motionAdded = false;
+				externalMotion.Y += (float)(delta*1200);
+				if(externalMotion.Y > -400) {
+					externalMotion.Y += (float)(delta*1320);
+				}
+				if(externalMotion.Y > maxFallSpeed) {
+					externalMotion.Y = maxFallSpeed;
+				}
+			}
+			else {
+				externalMotion.Y = 0;
+			}
+		
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	private void ShootLaserBullet(bool charged) {
 		LaserBullet bullet = (LaserBullet)laserBullet.Instantiate();
@@ -161,6 +197,12 @@ public partial class WhisperController : CharacterBody2D
 		else {
 			bulletIsReady = true;
 		}
+	}
+
+	public void AddMotion(int xVal, int yVal) {
+		externalMotion.X = xVal;
+		externalMotion.Y = yVal;
+		motionAdded = true;
 	}
 
 	public void WhipserIsHurt() {

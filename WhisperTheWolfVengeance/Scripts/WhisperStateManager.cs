@@ -215,8 +215,14 @@ public partial class WhisperStateManager : AnimationPlayer
 
 	private void TransitionAnimation() {
 		if(!(mainSprite.Animation).Equals("default") && !((string)(mainSprite.Animation)).Contains("Transition")) {
-			mainSprite.Animation = mainSprite.Animation + "Transition";
-			colorSprite.Animation = colorSprite.Animation + "Transition";
+			if((mainSprite.Animation).Equals("FallStart")) {
+				mainSprite.Animation = "default";
+				colorSprite.Animation = "default";
+			}
+			else {
+				mainSprite.Animation = mainSprite.Animation + "Transition";
+				colorSprite.Animation = colorSprite.Animation + "Transition";
+			}
 		}
 	}
 }

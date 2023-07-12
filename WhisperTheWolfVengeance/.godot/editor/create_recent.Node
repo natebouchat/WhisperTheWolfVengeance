@@ -1,6 +1,9 @@
-AnimationPlayer
 CollisionShape2D
+Area2D
+AudioStreamPlayer
+StaticBody2D
 AnimatedSprite2D
+AnimationPlayer
 CharacterBody2D
 ColorRect
 VBoxContainer
@@ -15,4 +18,3 @@ Sprite2D
 RichTextLabel
 NinePatchRect
 Label
-Area2D

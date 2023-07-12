@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://cxff88y2j7le7"]
+[gd_scene load_steps=96 format=3 uid="uid://cypoesvfj2rqu"]
 
 [ext_resource type="Script" path="res://Scripts/WhisperController.cs" id="2"]
 [ext_resource type="Texture2D" uid="uid://b6u6kxq6dw47l" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFall1.png" id="2_57f2e"]
@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/WhisperStateManager.cs" id="8"]
 [ext_resource type="Texture2D" uid="uid://cywcj5w3pb4jo" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot3.png" id="8_1434q"]
 [ext_resource type="Texture2D" uid="uid://d2yenq7ntcf1m" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/IdleShootTransition/IdleShootTransition6.png" id="9_hjxtg"]
-[ext_resource type="PackedScene" uid="uid://r3b6cjwnyogb" path="res://PreFabs/PlayerUI.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://Components/PlayerUI.tscn" id="10"]
 [ext_resource type="Texture2D" uid="uid://ddyngoggsfonv" path="res://Assets/Animations/AnimWhisper/WhisperJump/WhisperJump1.png" id="10_68e8k"]
 [ext_resource type="Texture2D" uid="uid://byuf2nlbr55rk" path="res://Assets/Animations/AnimWhisper/WhisperJump/WhisperJump2.png" id="11_naa4h"]
 [ext_resource type="Texture2D" uid="uid://buf4l78hx45ql" path="res://Assets/Animations/AnimWhisper/WhisperJump/WhisperJump3.png" id="12_aht8c"]
@@ -913,10 +913,13 @@ _data = {
 }
 
 [node name="Whisper" type="CharacterBody2D"]
+top_level = true
 position = Vector2(854, 564)
 collision_layer = 2
 script = ExtResource("2")
 maxSpeed = 500
+maxFallSpeed = 4000
+jumpForce = 1000
 
 [node name="MainSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")
@@ -929,7 +932,6 @@ animation = &"FallStart"
 
 [node name="ChargingSprite" type="AnimatedSprite2D" parent="MainSprite"]
 sprite_frames = SubResource("10")
-animation = &"Charged"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

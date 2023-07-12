@@ -67,7 +67,7 @@ public partial class DialogueManager : CanvasLayer
 			}
 			file.Close();
 		}
-		catch(Exception e) {
+		catch(Exception) {
 			dialogue.Add("Error reading from file: " + path);
 		}
 		hasPulledFromFile = true;

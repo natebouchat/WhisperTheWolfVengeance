@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=15 format=3 uid="uid://b8ono4oq6kov6"]
 
 [ext_resource type="Texture2D" uid="uid://bgqgmi72xtore" path="res://Assets/Animations/AnimRing/RingSpin0000.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://camld5iumto5p" path="res://Assets/Animations/AnimRing/RingSpin0008.png" id="2"]

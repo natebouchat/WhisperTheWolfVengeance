@@ -1,7 +1,8 @@
-res://Assets/Animations/AnimTangle/Idle
 res://Scripts
-res://Assets/Animations/AnimTangle/Blink
 res://PreFabs
+res://Assets/Animations/AnimSpring/Yellow
+res://Assets/Animations/AnimTangle/Idle
+res://Assets/Animations/AnimTangle/Blink
 res://Assets/Animations/AnimEggPawn/Explode
 res://Environment
 res://Assets/Dialogue/Stills/Debug

@@ -43,9 +43,10 @@ public partial class EggPawn : CharacterBody2D
         }
     }
 
-    public void TakeDamage(int damage) {
-
-    }
+    public void AddMotion(int xVal, int yVal) {
+		motion.X += xVal;
+		motion.Y += yVal;
+	}
 
     private void Gravity(double delta) {
         motion.Y += (float)(20*(delta*60));

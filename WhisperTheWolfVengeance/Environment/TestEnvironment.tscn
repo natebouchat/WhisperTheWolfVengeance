@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bre2njxbexev8"]
+[gd_scene load_steps=6 format=3 uid="uid://o1uyesueh23t"]
 
-[ext_resource type="PackedScene" uid="uid://cxff88y2j7le7" path="res://PreFabs/Whisper.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cypoesvfj2rqu" path="res://PreFabs/Whisper.tscn" id="1"]
 [ext_resource type="TileSet" uid="uid://bmhc7s3inj2st" path="res://Environment/TempTile.tres" id="2"]
-[ext_resource type="PackedScene" path="res://PreFabs/Ring.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://b8ono4oq6kov6" path="res://PreFabs/Ring.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://b0y2qps8sdm34" path="res://PreFabs/EggPawn.tscn" id="4_xbg7r"]
-[ext_resource type="PackedScene" uid="uid://cwmcdslmp2sv3" path="res://PreFabs/DialogueTest.tscn" id="5_c1cqm"]
+[ext_resource type="PackedScene" uid="uid://dndo8aswateqa" path="res://PreFabs/Spring.tscn" id="5_hj7wf"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -15,7 +15,7 @@ format = 2
 layer_0/tile_data = PackedInt32Array(196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 196605, 0, 0, 131074, 0, 0, 131069, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0)
 
 [node name="Whisper" parent="." instance=ExtResource("1")]
-position = Vector2(260, 722)
+position = Vector2(774, 722)
 
 [node name="Ring" parent="." instance=ExtResource("3")]
 position = Vector2(454, 657)
@@ -30,7 +30,17 @@ position = Vector2(541, 639)
 position = Vector2(624, 688)
 
 [node name="EggPawn" parent="." instance=ExtResource("4_xbg7r")]
-position = Vector2(1007, 736)
+position = Vector2(1318, 743)
 
-[node name="DialogueTrigger" parent="." instance=ExtResource("5_c1cqm")]
-position = Vector2(1324, 750)
+[node name="Spring" parent="." instance=ExtResource("5_hj7wf")]
+position = Vector2(292, 815)
+
+[node name="Ring5" parent="." instance=ExtResource("3")]
+position = Vector2(1415, 663)
+
+[node name="Ring6" parent="." instance=ExtResource("3")]
+position = Vector2(1819, 669)
+
+[node name="Spring2" parent="." instance=ExtResource("5_hj7wf")]
+position = Vector2(431, 822)
+rotation = 0.853466
