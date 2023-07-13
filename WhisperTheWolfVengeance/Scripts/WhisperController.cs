@@ -73,14 +73,18 @@ public partial class WhisperController : CharacterBody2D
 				point.Position = rightPoint;
 				facingLeft = false;
 			}
-				else if(Input.IsActionPressed("ui_left")) {
-					motion.X = -maxSpeed;
-					point.Position = leftPoint;
-					facingLeft = true;
+			else if(Input.IsActionPressed("ui_left")) {
+				motion.X = -maxSpeed;
+				point.Position = leftPoint;
+				facingLeft = true;
+			}
+			else {
+				motion.X = 0;
+				if((Input.IsActionJustReleased("ui_right") && externalMotion.X < 0) || (Input.IsActionJustReleased("ui_left") && externalMotion.X > 0)) {
+					externalMotion.X = Velocity.X;
 				}
-				else {
-					motion.X = 0;
-				}
+			}
+
 			if(IsOnFloor() && Input.IsActionPressed("ui_up")) {
 				motion.Y = -jumpForce; 
 			}
@@ -148,13 +152,13 @@ public partial class WhisperController : CharacterBody2D
 	private void CalculateExternalMotion(double delta) {
 			if(externalMotion.X > 0) {
 				externalMotion.X -= (float)(Math.Sqrt(delta * 20 * externalMotion.X));
-				if(externalMotion.X < 100 || Velocity.X < 0) {
+				if(externalMotion.X < 100) {
 					externalMotion.X = 0;
 				}
 			}
 			else if(externalMotion.X < 0) {
-				externalMotion.X += (float)(Math.Sqrt(delta * 10 * externalMotion.X));
-				if(externalMotion.X > -100  || Velocity.X > 0) {
+				externalMotion.X += (float)(Math.Sqrt(delta * 20 * -externalMotion.X));
+				if(externalMotion.X > -100) {
 					externalMotion.X = 0;
 				}
 			}
@@ -202,17 +206,21 @@ public partial class WhisperController : CharacterBody2D
 	public void AddMotion(int xVal, int yVal) {
 		externalMotion.X = xVal;
 		externalMotion.Y = yVal;
+		motion.Y = 0;
 		motionAdded = true;
 	}
 
 	public void WhipserIsHurt() {
 		if(facingLeft) {
-			motion.X = 600;
+			externalMotion.X = 800;
 		}
 		else {
-			motion.X = -600;
+			externalMotion.X = -800;
 		}
-		motion.Y = -600;
+		externalMotion.Y = -1200;
+		motion.X = 0;
+		motion.Y = 0;
+		motionAdded = true;
 		hurtCooldown = 0.6;
 		DropAllRings();
 	}
@@ -227,7 +235,7 @@ public partial class WhisperController : CharacterBody2D
 	}
 
 	public System.Object[] GetWhisperDetails() {
-		System.Object[] obj = new System.Object[] {motion, IsOnFloor(), !bulletIsReady, bufferBullet, chargingTimer};
+		System.Object[] obj = new System.Object[] {Velocity, IsOnFloor(), !bulletIsReady, bufferBullet, chargingTimer};
 		return obj;
 	}
 

@@ -7,20 +7,21 @@ public partial class Spring : StaticBody2D
 	private int springForce = 2000;
 
 	private Area2D trigger;
-	private AudioStreamPlayer bounce;
+	private AudioStreamPlayer bounceSFX;
+	private AnimatedSprite2D spring;
 	
 	public override void _Ready()
 	{
 		trigger = GetNode<Area2D>("Area2D");
-		bounce =  GetNode<AudioStreamPlayer>("SpringSFX");
+		bounceSFX = GetNode<AudioStreamPlayer>("SpringSFX");
+		bounceSFX.VolumeDb = _SoundManager.sfxVolume;
+		spring = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		spring.Animation = "default";
 	}
-/*
-	public override void _Process(double delta)
-	{
-	}
-*/
+
 	private void OnSpringHit(Node Collider) {
-		bounce.Play();
+		bounceSFX.Play();
+		spring.Play("Bounce");
 		int xVal = (int)(Math.Sin(this.Rotation) * springForce);
 		int yVal = (int)(Math.Cos(this.Rotation) * springForce);
 		Collider.Call("AddMotion", xVal, -yVal);

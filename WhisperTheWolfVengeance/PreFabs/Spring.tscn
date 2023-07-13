@@ -1,14 +1,34 @@
-[gd_scene load_steps=7 format=3 uid="uid://dndo8aswateqa"]
+[gd_scene load_steps=10 format=3 uid="uid://dndo8aswateqa"]
 
 [ext_resource type="Script" path="res://Scripts/Spring.cs" id="1_lc8fg"]
-[ext_resource type="Texture2D" uid="uid://cfiyrr607wdso" path="res://Assets/Animations/AnimSpring/Yellow/SpringIdleY1.png" id="1_taedy"]
+[ext_resource type="Texture2D" uid="uid://dxubclptgmwey" path="res://Assets/Animations/AnimSpring/Yellow/SpringY0000.png" id="2_48ovp"]
+[ext_resource type="Texture2D" uid="uid://btupsmsiwc24j" path="res://Assets/Animations/AnimSpring/Yellow/SpringY0001.png" id="2_ue8ks"]
 [ext_resource type="AudioStream" uid="uid://c1sbj1uily1uw" path="res://Assets/Sound/SFX_Spring.wav" id="3_7i5or"]
+[ext_resource type="Texture2D" uid="uid://6v3x1vcl2lli" path="res://Assets/Animations/AnimSpring/Yellow/SpringY0002.png" id="3_yfdhn"]
+[ext_resource type="Texture2D" uid="uid://5dlpeyiifsij" path="res://Assets/Animations/AnimSpring/Yellow/SpringY0003.png" id="4_kq5gk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2q8u8"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_taedy")
+"texture": ExtResource("2_ue8ks")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yfdhn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kq5gk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_48ovp")
+}],
+"loop": false,
+"name": &"Bounce",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_48ovp")
 }],
 "loop": true,
 "name": &"default",
@@ -16,22 +36,23 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h4mcs"]
-size = Vector2(100, 44)
+size = Vector2(100, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1045"]
-size = Vector2(90, 14)
+size = Vector2(90, 17)
 
 [node name="Spring" type="StaticBody2D"]
 collision_mask = 0
 script = ExtResource("1_lc8fg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0.5, 2)
-scale = Vector2(0.858333, 0.95)
+position = Vector2(0, -5)
+scale = Vector2(1, 1.125)
 sprite_frames = SubResource("SpriteFrames_2q8u8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.8147e-06, 18)
+visible = false
+position = Vector2(-3.8147e-06, 20)
 shape = SubResource("RectangleShape2D_h4mcs")
 
 [node name="SpringSFX" type="AudioStreamPlayer" parent="."]
@@ -42,7 +63,8 @@ collision_layer = 0
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -9)
+visible = false
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_b1045")
 debug_color = Color(0.811765, 0.00392157, 0.984314, 0.419608)
 
