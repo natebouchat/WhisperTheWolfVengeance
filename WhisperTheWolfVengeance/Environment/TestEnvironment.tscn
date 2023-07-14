@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://o1uyesueh23t"]
+[gd_scene load_steps=7 format=3 uid="uid://o1uyesueh23t"]
 
 [ext_resource type="PackedScene" uid="uid://cypoesvfj2rqu" path="res://PreFabs/Whisper.tscn" id="1"]
 [ext_resource type="TileSet" uid="uid://bmhc7s3inj2st" path="res://Environment/TempTile.tres" id="2"]
 [ext_resource type="PackedScene" uid="uid://b8ono4oq6kov6" path="res://PreFabs/Ring.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://b0y2qps8sdm34" path="res://PreFabs/EggPawn.tscn" id="4_xbg7r"]
 [ext_resource type="PackedScene" uid="uid://dndo8aswateqa" path="res://PreFabs/Spring.tscn" id="5_hj7wf"]
+[ext_resource type="PackedScene" uid="uid://cwmcdslmp2sv3" path="res://Cutscenes/DialogueTest.tscn" id="6_htc87"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -44,3 +45,6 @@ position = Vector2(1819, 669)
 [node name="Spring2" parent="." instance=ExtResource("5_hj7wf")]
 position = Vector2(431, 822)
 rotation = 0.853466
+
+[node name="DialogueTrigger" parent="." instance=ExtResource("6_htc87")]
+position = Vector2(2064, 749)

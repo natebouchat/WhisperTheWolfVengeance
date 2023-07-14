@@ -1,17 +1,29 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://bqiqpmn3xigi"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerUI.cs" id="2"]
+[ext_resource type="PackedScene" uid="uid://x3p65kk4mks5" path="res://Components/SonicUI.tscn" id="2_6136u"]
 [ext_resource type="PackedScene" uid="uid://csboujmo4spiw" path="res://Components/DebugDetails.tscn" id="3"]
 
 [node name="PlayerUI" type="CanvasLayer"]
 script = ExtResource("2")
+metadata/_edit_horizontal_guides_ = [-608.0]
 
-[node name="Rings" type="Label" parent="."]
-offset_left = 15.0
-offset_top = 11.0
-offset_right = 112.0
-offset_bottom = 49.0
-theme_override_font_sizes/font_size = 30
-text = "Rings: "
+[node name="Rings" parent="." instance=ExtResource("2_6136u")]
+anchor_top = 0.0185185
+anchor_right = 0.03625
+offset_left = 14.0
+offset_top = 1.0
+offset_right = 121.4
+offset_bottom = -19.0
+text = "RINGS:"
+letterScale = Vector2(0.5, 0.5)
+
+[node name="BitmapFont" parent="." instance=ExtResource("2_6136u")]
+offset_left = 201.0
+offset_top = -7.0
+offset_right = 165.0
+offset_bottom = -20.0
+text = "0"
+letterScale = Vector2(0.5, 0.5)
 
 [node name="DebugDetails" parent="." instance=ExtResource("3")]

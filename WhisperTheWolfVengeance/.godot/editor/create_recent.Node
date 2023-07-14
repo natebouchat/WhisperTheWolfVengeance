@@ -1,8 +1,10 @@
+AnimatedSprite2D
+Sprite2D
+Label
 CollisionShape2D
 Area2D
 AudioStreamPlayer
 StaticBody2D
-AnimatedSprite2D
 AnimationPlayer
 CharacterBody2D
 ColorRect
@@ -14,7 +16,5 @@ CanvasLayer
 Polygon2D
 Marker2D
 Timer
-Sprite2D
 RichTextLabel
 NinePatchRect
-Label

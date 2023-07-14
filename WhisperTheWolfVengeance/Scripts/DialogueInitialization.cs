@@ -9,7 +9,7 @@ public partial class DialogueInitialization : Area2D
 	
 	public override void _Ready()
 	{
-		dialogueManager = ResourceLoader.Load<PackedScene>("res://PreFabs/DialogueManager.tscn");
+		dialogueManager = ResourceLoader.Load<PackedScene>("res://Components/DialogueManager.tscn");
 	}
 
 	public void BeginDialogueMode(Node Collider) {

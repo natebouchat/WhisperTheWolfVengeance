@@ -35,6 +35,18 @@ project/assembly_name="Whisper The Wolf Vengeance"
 
 common/drop_mouse_on_gui_input_disabled=true
 
+[importer_defaults]
+
+font_data_image={
+"character_margin": Rect2i(0, 0, 0, 0),
+"character_ranges": PackedStringArray("48-90"),
+"columns": 1,
+"compress": true,
+"fallbacks": [],
+"image_margin": Rect2i(0, 0, 0, 0),
+"rows": 1
+}
+
 [input]
 
 ui_focus_prev={

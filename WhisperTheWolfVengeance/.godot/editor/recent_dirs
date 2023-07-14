@@ -1,3 +1,7 @@
+res://Assets/SonicUIChars
+res://Components
+res://Assets
+res://
 res://Assets/Animations/AnimSpring/Yellow
 res://Scripts
 res://PreFabs
@@ -6,4 +10,3 @@ res://Assets/Animations/AnimTangle/Blink
 res://Assets/Animations/AnimEggPawn/Explode
 res://Environment
 res://Assets/Dialogue/Stills/Debug
-res://Assets

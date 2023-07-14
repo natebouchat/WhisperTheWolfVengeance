@@ -12,7 +12,7 @@ public partial class PlayerUI : CanvasLayer
 
     public override void _Process(double delta)
     {
-      this.GetChild<Label>(0).Text = "Rings: " + rings;
+      this.GetChild<Label>(1).Text = rings.ToString();
     }
 
     public void AddRings(int value) {

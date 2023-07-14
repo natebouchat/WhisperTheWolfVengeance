@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/WhisperStateManager.cs" id="8"]
 [ext_resource type="Texture2D" uid="uid://cywcj5w3pb4jo" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot3.png" id="8_1434q"]
 [ext_resource type="Texture2D" uid="uid://d2yenq7ntcf1m" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/IdleShootTransition/IdleShootTransition6.png" id="9_hjxtg"]
-[ext_resource type="PackedScene" path="res://Components/PlayerUI.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://bqiqpmn3xigi" path="res://Components/PlayerUI.tscn" id="10"]
 [ext_resource type="Texture2D" uid="uid://ddyngoggsfonv" path="res://Assets/Animations/AnimWhisper/WhisperJump/WhisperJump1.png" id="10_68e8k"]
 [ext_resource type="Texture2D" uid="uid://byuf2nlbr55rk" path="res://Assets/Animations/AnimWhisper/WhisperJump/WhisperJump2.png" id="11_naa4h"]
 [ext_resource type="Texture2D" uid="uid://buf4l78hx45ql" path="res://Assets/Animations/AnimWhisper/WhisperJump/WhisperJump3.png" id="12_aht8c"]

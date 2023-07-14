@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://csboujmo4spiw"]
+[gd_scene load_steps=3 format=3 uid="uid://csboujmo4spiw"]
 
 [ext_resource type="Script" path="res://Scripts/DebugDetails.cs" id="2"]
+[ext_resource type="FontFile" uid="uid://t5m1q8owmif3" path="res://Assets/Dialogue/Play-Regular.ttf" id="2_i0f25"]
 
 [node name="DebugDetails" type="CanvasLayer"]
 script = ExtResource("2")
@@ -13,30 +14,36 @@ offset_bottom = 218.0
 
 [node name="Velocity" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i0f25")
 theme_override_font_sizes/font_size = 30
 text = "Velocity: "
 
 [node name="On Floor" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i0f25")
 theme_override_font_sizes/font_size = 30
 text = "On Floor:"
 
 [node name="Cooldown" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i0f25")
 theme_override_font_sizes/font_size = 30
 text = "Cooldown: "
 
 [node name="Buffer" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i0f25")
 theme_override_font_sizes/font_size = 30
 text = "Buffer:"
 
 [node name="Charge Time" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i0f25")
 theme_override_font_sizes/font_size = 30
 text = "Charge Time:"
 
 [node name="State" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_i0f25")
 theme_override_font_sizes/font_size = 30
 text = "State: "
