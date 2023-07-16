@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://cypoesvfj2rqu"]
+[gd_scene load_steps=97 format=3 uid="uid://cypoesvfj2rqu"]
 
 [ext_resource type="Script" path="res://Scripts/WhisperController.cs" id="2"]
 [ext_resource type="Texture2D" uid="uid://b6u6kxq6dw47l" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFall1.png" id="2_57f2e"]
@@ -76,6 +76,7 @@
 [ext_resource type="Texture2D" uid="uid://cuke7xh12hspa" path="res://Assets/Animations/AnimWhisper/WhispBullets/ChargeLight/ChargingLight/WhisperChargingLight9.png" id="72_37fgg"]
 [ext_resource type="Texture2D" uid="uid://cfom5acmlxr1q" path="res://Assets/Animations/AnimWhisper/WhispBullets/ChargeLight/ChargingLight/WhisperChargingLight10.png" id="73_lo41q"]
 [ext_resource type="AudioStream" uid="uid://5nup1r3tax7y" path="res://Assets/Sound/SFX_DropRing.wav" id="74_irotu"]
+[ext_resource type="PackedScene" uid="uid://b83q7jnfde746" path="res://Components/PauseMenu.tscn" id="75_gxwhd"]
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{
@@ -939,6 +940,9 @@ position = Vector2(0, 38)
 shape = SubResource("5")
 
 [node name="PlayerUI" parent="." instance=ExtResource("10")]
+
+[node name="Pause Menu" parent="." instance=ExtResource("75_gxwhd")]
+visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(97, -27)

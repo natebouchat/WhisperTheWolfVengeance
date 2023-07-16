@@ -1,11 +1,9 @@
 res://default_env.tres
-res://Components/PlayerUI.tscn
+res://Components/PauseMenu.tscn
 res://Scripts/WhisperController.cs
 res://Environment/TempTile.tres
 res://Environment/TestEnvironment.tscn
 res://PreFabs/Whisper.tscn
 res://PreFabs/Spring.tscn
-res://Components/DebugDetails.tscn
-res://Components/SonicUI.tscn
-res://Components/DialogueManager.tscn
+res://Components/PlayerUI.tscn
 res://Cutscenes/DialogueTest.tscn
