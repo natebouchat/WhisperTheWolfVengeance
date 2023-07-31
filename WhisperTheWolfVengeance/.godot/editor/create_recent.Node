@@ -1,7 +1,10 @@
-Label
 ColorRect
-TextureProgressBar
+TextureButton
+VBoxContainer
+Button
 AnimationPlayer
+Label
+TextureProgressBar
 CenterContainer
 CanvasLayer
 AnimatedSprite2D
@@ -11,7 +14,6 @@ Area2D
 AudioStreamPlayer
 StaticBody2D
 CharacterBody2D
-VBoxContainer
 MarginContainer
 Container
 Polygon2D

@@ -1,9 +1,8 @@
 res://default_env.tres
-res://Components/PauseMenu.tscn
-res://Scripts/WhisperController.cs
-res://Environment/TempTile.tres
 res://Environment/TestEnvironment.tscn
+res://Scripts/WhisperController.cs
+res://Assets/UI/Options/Options.tres
+res://Environment/TempTile.tres
 res://PreFabs/Whisper.tscn
-res://PreFabs/Spring.tscn
+res://Components/PauseMenu.tscn
 res://Components/PlayerUI.tscn
-res://Cutscenes/DialogueTest.tscn

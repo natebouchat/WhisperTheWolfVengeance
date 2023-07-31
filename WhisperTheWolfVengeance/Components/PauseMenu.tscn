@@ -1,11 +1,56 @@
-[gd_scene load_steps=9 format=3 uid="uid://b83q7jnfde746"]
+[gd_scene load_steps=11 format=3 uid="uid://cedbpofo7je6h"]
 
 [ext_resource type="Script" path="res://Scripts/PauseMenu.cs" id="1_n3mbc"]
 [ext_resource type="Texture2D" uid="uid://cymlbmglqnu6b" path="res://Assets/Backgrounds/PauseBG.png" id="1_sga6j"]
 [ext_resource type="Texture2D" uid="uid://4f50v8frw6jw" path="res://Assets/Backgrounds/PauseSpinner.png" id="2_2x71u"]
 [ext_resource type="Texture2D" uid="uid://ybkoxpd4q1j3" path="res://Assets/Backgrounds/PauseGrid.png" id="2_tr1t0"]
 [ext_resource type="Texture2D" uid="uid://cfsmx05n76mea" path="res://Assets/Backgrounds/PauseBar.png" id="3_hc0cq"]
-[ext_resource type="FontFile" uid="uid://bijcdk21bgpl7" path="res://Assets/Dialogue/BittypixMonospace-3gAG.ttf" id="6_ksgcu"]
+[ext_resource type="Theme" uid="uid://drmxqvw83v4x6" path="res://Assets/UI/Options/Options.tres" id="7_jrhjn"]
+
+[sub_resource type="Animation" id="Animation_vxn3h"]
+resource_name = "FadeIn"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(870, -125), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:anchors_preset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [-1, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fxsah"]
+_data = {
+"FadeIn": SubResource("Animation_vxn3h")
+}
 
 [sub_resource type="Animation" id="Animation_fqytv"]
 resource_name = "Idle"
@@ -105,6 +150,12 @@ _data = {
 process_mode = 3
 script = ExtResource("1_n3mbc")
 
+[node name="FadeInOut" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_fxsah")
+}
+
 [node name="ColorRect" type="ColorRect" parent="."]
 process_mode = 2
 modulate = Color(0.427451, 0.764706, 0.745098, 1)
@@ -116,46 +167,110 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="PauseGrid" type="Sprite2D" parent="ColorRect"]
-position = Vector2(1200, 430)
+process_mode = 3
+position = Vector2(1190.4, 434.28)
 scale = Vector2(0.969495, 0.993056)
 texture = ExtResource("2_tr1t0")
+metadata/_edit_lock_ = true
 
 [node name="PauseBg" type="Sprite2D" parent="ColorRect"]
 position = Vector2(960, 539)
 texture = ExtResource("1_sga6j")
+metadata/_edit_lock_ = true
 
 [node name="PauseSpinner" type="Sprite2D" parent="ColorRect/PauseBg"]
 modulate = Color(0.207843, 0.207843, 0.207843, 1)
 position = Vector2(-291, 49.5)
+rotation = 0.125664
 scale = Vector2(2.24444, 2.17222)
 texture = ExtResource("2_2x71u")
 
 [node name="PauseSpinner2" type="Sprite2D" parent="ColorRect/PauseBg"]
 modulate = Color(0.913725, 0.913725, 0.913725, 1)
 position = Vector2(-370, 13)
-rotation = 0.523599
+rotation = 0.774927
 scale = Vector2(1.8, 1.8)
 texture = ExtResource("2_2x71u")
 
 [node name="PauseBar" type="Sprite2D" parent="ColorRect/PauseBg"]
-position = Vector2(-856, 390)
+position = Vector2(-852.813, 390)
+scale = Vector2(1.0625, 1)
 texture = ExtResource("3_hc0cq")
 
 [node name="PauseBar2" type="Sprite2D" parent="ColorRect/PauseBg"]
-position = Vector2(-855, 466)
+position = Vector2(-851.01, 465.96)
+scale = Vector2(1.0802, 1)
 texture = ExtResource("3_hc0cq")
 
 [node name="Paused" type="Label" parent="ColorRect"]
-offset_left = 871.0
-offset_top = 100.0
-offset_right = 1171.0
-offset_bottom = 154.0
-theme_override_fonts/font = ExtResource("6_ksgcu")
-theme_override_font_sizes/font_size = 50
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 53.0
+offset_bottom = 107.0
+grow_horizontal = 2
+theme = ExtResource("7_jrhjn")
 text = "Paused"
+horizontal_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="ColorRect"]
+[node name="UIDarkener" type="ColorRect" parent="ColorRect"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 156.0
+offset_right = 1865.0
+offset_bottom = 904.0
+color = Color(0, 0, 0, 0.737255)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -267.5
+offset_top = -322.0
+offset_right = 267.5
+offset_bottom = 322.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="Resume" type="Button" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(500, 125)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("7_jrhjn")
+text = "Resume"
+
+[node name="Whisps" type="Button" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(500, 125)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("7_jrhjn")
+text = "Whisps"
+
+[node name="Options" type="Button" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(500, 125)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("7_jrhjn")
+text = "Options"
+
+[node name="MainMenu" type="Button" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(500, 125)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("7_jrhjn")
+text = "Main Menu"
+
+[node name="BGAnimation" type="AnimationPlayer" parent="ColorRect"]
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_pit6s")
 }
+
+[connection signal="pressed" from="ColorRect/VBoxContainer/Resume" to="." method="OnResumePressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/Whisps" to="." method="OnWhispsPressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/Options" to="." method="OnOptionsPressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/MainMenu" to="." method="OnMainMenuPressed"]
