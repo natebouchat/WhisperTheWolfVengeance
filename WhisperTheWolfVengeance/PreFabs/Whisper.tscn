@@ -970,5 +970,5 @@ libraries = {
 [node name="GunPoint" type="Marker2D" parent="."]
 position = Vector2(88, 33)
 
-[node name="DropRings" type="AudioStreamPlayer" parent="."]
+[node name="SFXDropRings" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("74_irotu")

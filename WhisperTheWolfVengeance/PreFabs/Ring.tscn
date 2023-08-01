@@ -98,7 +98,7 @@ sprite_frames = SubResource("SpriteFrames_en0jd")
 visible = false
 shape = SubResource("CircleShape2D_bcn3q")
 
-[node name="RingGet" type="AudioStreamPlayer" parent="."]
+[node name="SFXRingGet" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_imn8f")
 
 [node name="Area2D" type="Area2D" parent="."]

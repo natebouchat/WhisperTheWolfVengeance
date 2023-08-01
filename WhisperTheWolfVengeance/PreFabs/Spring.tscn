@@ -55,7 +55,7 @@ visible = false
 position = Vector2(-3.8147e-06, 20)
 shape = SubResource("RectangleShape2D_h4mcs")
 
-[node name="SpringSFX" type="AudioStreamPlayer" parent="."]
+[node name="SFXSpring" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_7i5or")
 
 [node name="Area2D" type="Area2D" parent="."]

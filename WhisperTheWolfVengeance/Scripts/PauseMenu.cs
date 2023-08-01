@@ -5,8 +5,11 @@ public partial class PauseMenu : CanvasLayer
 {
 	private ColorRect pauseBG;
 	private Sprite2D grid;
-	private AnimationPlayer fadeInOut;
+	private Label header;
+	private AnimationPlayer menuAnim;
 	private Button[] buttons;
+	private PackedScene options;
+	private bool onPauseMenu;
 	
 	public override void _Ready()
 	{
@@ -15,19 +18,22 @@ public partial class PauseMenu : CanvasLayer
 		pauseBG.Scale = new Vector2(0.1f, 0.1f);
 		grid = GetNode<Sprite2D>("ColorRect/PauseGrid");
 		grid.Visible = false;
-		fadeInOut = GetNode<AnimationPlayer>("FadeInOut");
+		header = GetNode<Label>("ColorRect/Paused");
+		menuAnim = GetNode<AnimationPlayer>("MenuAnim");
 		GetNode<AnimationPlayer>("ColorRect/BGAnimation").Play("Idle");
+		GetNode<VBoxContainer>("ColorRect/PauseButtons").Position = new Vector2(692.5f, 220);
 
-		buttons = new Button[GetNode("ColorRect/VBoxContainer").GetChildCount()];
+		buttons = new Button[GetNode("ColorRect/PauseButtons").GetChildCount()];
 		for(int i = 0; i < buttons.Length; i++) {
-			buttons[i] = GetNode("ColorRect/VBoxContainer").GetChild<Button>(i);
+			buttons[i] = GetNode("ColorRect/PauseButtons").GetChild<Button>(i);
 			buttons[i].Disabled = true;
 		}
+		onPauseMenu = true;
 	}
 
 	public override void _Process(double delta)
 	{
-		if(Input.IsActionJustPressed("pause")) {
+		if(Input.IsActionJustPressed("pause") && onPauseMenu) {
 			PauseButtonPressed();
 		}
 		if(GetTree().Paused == true) {
@@ -35,9 +41,23 @@ public partial class PauseMenu : CanvasLayer
 		}
 	}
 
+	public void ReturnToPauseMenu() {
+		menuAnim.Play("SlideButtons");
+		SetButtonState(false);
+		buttons[0].GrabFocus();
+		onPauseMenu = true;
+		header.Text = "Paused";
+	}
+
 	private void SetButtonState(bool disabled) {
 		for(int i = 0; i < buttons.Length; i++) {
 			buttons[i].Disabled = disabled;
+			if(disabled) {
+				buttons[i].FocusMode = (Control.FocusModeEnum)0;
+			}
+			else {
+				buttons[i].FocusMode = (Control.FocusModeEnum)2;
+			}
 		}
 	}
 
@@ -72,15 +92,16 @@ public partial class PauseMenu : CanvasLayer
 
 	private async void FadeAnim(bool fadeIn) {
 		if(fadeIn) {
-			fadeInOut.Play("FadeIn");
+			menuAnim.Play("FadeIn");
 			this.Visible = true;
-			await ToSignal(fadeInOut, "animation_finished");
+			await ToSignal(menuAnim, "animation_finished");
 			grid.Visible = true;
 		}
 		else {
-			fadeInOut.PlayBackwards("FadeIn");
+			menuAnim.PlayBackwards("FadeIn");
 			grid.Visible = false;
-			await ToSignal(fadeInOut, "animation_finished");
+			await ToSignal(menuAnim, "animation_finished");
+			menuAnim.Play("SlideButtons");
 			this.Visible = false;
 		}
 	}
@@ -92,11 +113,18 @@ public partial class PauseMenu : CanvasLayer
 	}
 
 	private void OnWhispsPressed() {
-
+		menuAnim.PlayBackwards("SlideButtons");
+		SetButtonState(true);
 	}
 
 	private void OnOptionsPressed() {
-		
+		onPauseMenu  = false;
+		menuAnim.PlayBackwards("SlideButtons");
+		SetButtonState(true);
+		options = ResourceLoader.Load<PackedScene>("res://Components/OptionsMenu.tscn");
+		OptionsMenu optionsMenu = (OptionsMenu)options.Instantiate();
+		pauseBG.AddChild(optionsMenu);
+		header.Text = "Options";
 	}
 
 	private void OnMainMenuPressed() {

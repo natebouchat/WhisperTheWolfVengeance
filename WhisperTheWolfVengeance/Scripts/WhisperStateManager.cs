@@ -33,8 +33,8 @@ public partial class WhisperStateManager : AnimationPlayer
 		chargeSprite.Play("default");
 		chargeLightAnimations = GetNode<AnimationPlayer>("ChargeLightAnimations");
 
-		dropRingsSFX = GetNode<AudioStreamPlayer>("../DropRings");
-        dropRingsSFX.VolumeDb = _SoundManager.sfxVolume;
+		dropRingsSFX = GetNode<AudioStreamPlayer>("../SFXDropRings");
+        dropRingsSFX.VolumeDb = _SettingsManager.sfxVolume;
 
 		cyan = new Color(0.42f, 0.76f, 0.74f);      //#6dc3be
 		green = new Color(0.4f, 0.8f, 0.38f);       //#65cd62

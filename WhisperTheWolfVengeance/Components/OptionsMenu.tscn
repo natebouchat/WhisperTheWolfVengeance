@@ -1,0 +1,135 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbvpbpql40my3"]
+
+[ext_resource type="Theme" uid="uid://drmxqvw83v4x6" path="res://Assets/UI/Options/Options.tres" id="1_ry1xx"]
+[ext_resource type="Script" path="res://Scripts/OptionsMenu.cs" id="2_k47mp"]
+
+[sub_resource type="Animation" id="Animation_vfh54"]
+resource_name = "SlideButtonsIn"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OptionButtons:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.0259, 0.15),
+"transitions": PackedFloat32Array(0.7, 1),
+"update": 0,
+"values": [Vector2(2189, 218), Vector2(485, 218)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fvq04"]
+_data = {
+"SlideButtonsIn": SubResource("Animation_vfh54")
+}
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_k47mp")
+
+[node name="OptionButtons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1229.0
+offset_top = -322.0
+offset_right = 2159.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ry1xx")
+theme_override_constants/separation = 50
+
+[node name="GridContainer" type="GridContainer" parent="OptionButtons"]
+layout_mode = 2
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 30
+columns = 2
+
+[node name="MusicVolume" type="Label" parent="OptionButtons/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Music Volume"
+
+[node name="MusicSlider" type="HSlider" parent="OptionButtons/GridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+min_value = -50.0
+max_value = 50.0
+tick_count = 3
+ticks_on_borders = true
+
+[node name="SFXVolume" type="Label" parent="OptionButtons/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "SFX Volume"
+
+[node name="SFXSlider" type="HSlider" parent="OptionButtons/GridContainer"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+min_value = -50.0
+max_value = 50.0
+tick_count = 3
+ticks_on_borders = true
+
+[node name="FullScreen" type="Label" parent="OptionButtons/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Full Screen"
+
+[node name="FullScreenCheck" type="CheckBox" parent="OptionButtons/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="LegacyJump" type="Label" parent="OptionButtons/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Legacy Jump"
+
+[node name="LegacyJumpCheck" type="CheckBox" parent="OptionButtons/GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Controls" type="Button" parent="OptionButtons"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = " Controls "
+
+[node name="Back" type="Button" parent="OptionButtons"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = " Back "
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fvq04")
+}
+
+[connection signal="mouse_entered" from="OptionButtons/GridContainer/MusicSlider" to="." method="SetButtonFocus" binds= [0]]
+[connection signal="value_changed" from="OptionButtons/GridContainer/MusicSlider" to="." method="OnMusicSliderMoved"]
+[connection signal="mouse_entered" from="OptionButtons/GridContainer/SFXSlider" to="." method="SetButtonFocus" binds= [1]]
+[connection signal="value_changed" from="OptionButtons/GridContainer/SFXSlider" to="." method="OnSFXSliderMoved"]
+[connection signal="mouse_entered" from="OptionButtons/GridContainer/FullScreenCheck" to="." method="SetButtonFocus" binds= [2]]
+[connection signal="toggled" from="OptionButtons/GridContainer/FullScreenCheck" to="." method="OnFullScreenToggled"]
+[connection signal="mouse_entered" from="OptionButtons/GridContainer/LegacyJumpCheck" to="." method="SetButtonFocus" binds= [3]]
+[connection signal="toggled" from="OptionButtons/GridContainer/LegacyJumpCheck" to="." method="OnLegacyJumpToggled"]
+[connection signal="mouse_entered" from="OptionButtons/Controls" to="." method="SetButtonFocus" binds= [4]]
+[connection signal="pressed" from="OptionButtons/Controls" to="." method="OnControlsPressed"]
+[connection signal="mouse_entered" from="OptionButtons/Back" to="." method="SetButtonFocus" binds= [5]]
+[connection signal="pressed" from="OptionButtons/Back" to="." method="OnBackPressed"]

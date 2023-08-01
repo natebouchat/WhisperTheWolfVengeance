@@ -13,8 +13,8 @@ public partial class Spring : StaticBody2D
 	public override void _Ready()
 	{
 		trigger = GetNode<Area2D>("Area2D");
-		bounceSFX = GetNode<AudioStreamPlayer>("SpringSFX");
-		bounceSFX.VolumeDb = _SoundManager.sfxVolume;
+		bounceSFX = GetNode<AudioStreamPlayer>("SFXSpring");
+		bounceSFX.VolumeDb = _SettingsManager.sfxVolume;
 		spring = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		spring.Animation = "default";
 	}

@@ -14,8 +14,8 @@ public partial class Ring : CharacterBody2D
     public override void _Ready()
     {  
         playerUI = GetNode<PlayerUI>("../Whisper/PlayerUI");
-        ringGetSFX = GetNode<AudioStreamPlayer>("RingGet");
-        ringGetSFX.VolumeDb = _SoundManager.sfxVolume;
+        ringGetSFX = GetNode<AudioStreamPlayer>("SFXRingGet");
+        ringGetSFX.VolumeDb = _SettingsManager.sfxVolume;
         GetNode<AnimatedSprite2D>("AnimatedSprite2D").Modulate = new Color(1,1,1,1);
         GetNode<AnimatedSprite2D>("AnimatedSprite2D").Play("default");
 

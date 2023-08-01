@@ -1,9 +1,14 @@
-ColorRect
-TextureButton
+AnimationPlayer
 VBoxContainer
 Button
-AnimationPlayer
+CheckBox
 Label
+GridContainer
+Control
+HBoxContainer
+HSlider
+ColorRect
+TextureButton
 TextureProgressBar
 CenterContainer
 CanvasLayer

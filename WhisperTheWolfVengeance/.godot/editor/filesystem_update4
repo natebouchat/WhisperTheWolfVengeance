@@ -5,4 +5,6 @@ res://Assets/UI/Options/Options.tres
 res://Environment/TempTile.tres
 res://PreFabs/Whisper.tscn
 res://Components/PauseMenu.tscn
-res://Components/PlayerUI.tscn
+res://Components/OptionsMenu.tscn
+res://PreFabs/Spring.tscn
+res://PreFabs/Ring.tscn

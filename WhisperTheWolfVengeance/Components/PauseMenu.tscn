@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cedbpofo7je6h"]
+[gd_scene load_steps=12 format=3 uid="uid://cedbpofo7je6h"]
 
 [ext_resource type="Script" path="res://Scripts/PauseMenu.cs" id="1_n3mbc"]
 [ext_resource type="Texture2D" uid="uid://cymlbmglqnu6b" path="res://Assets/Backgrounds/PauseBG.png" id="1_sga6j"]
@@ -47,9 +47,27 @@ tracks/2/keys = {
 "values": [-1, 15]
 }
 
+[sub_resource type="Animation" id="Animation_tuvje"]
+resource_name = "SlideButtons"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect/PauseButtons:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(0.732043, 1),
+"update": 0,
+"values": [Vector2(-850, 220), Vector2(692.5, 218)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fxsah"]
 _data = {
-"FadeIn": SubResource("Animation_vxn3h")
+"FadeIn": SubResource("Animation_vxn3h"),
+"SlideButtons": SubResource("Animation_tuvje")
 }
 
 [sub_resource type="Animation" id="Animation_fqytv"]
@@ -150,7 +168,7 @@ _data = {
 process_mode = 3
 script = ExtResource("1_n3mbc")
 
-[node name="FadeInOut" type="AnimationPlayer" parent="."]
+[node name="MenuAnim" type="AnimationPlayer" parent="."]
 process_mode = 3
 libraries = {
 "": SubResource("AnimationLibrary_fxsah")
@@ -162,13 +180,18 @@ modulate = Color(0.427451, 0.764706, 0.745098, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 870.0
+offset_top = -125.0
+offset_right = 870.0
+offset_bottom = -125.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.1, 0.1)
 color = Color(0, 0, 0, 1)
 
 [node name="PauseGrid" type="Sprite2D" parent="ColorRect"]
 process_mode = 3
-position = Vector2(1190.4, 434.28)
+position = Vector2(1180.8, 438.56)
 scale = Vector2(0.969495, 0.993056)
 texture = ExtResource("2_tr1t0")
 metadata/_edit_lock_ = true
@@ -181,25 +204,25 @@ metadata/_edit_lock_ = true
 [node name="PauseSpinner" type="Sprite2D" parent="ColorRect/PauseBg"]
 modulate = Color(0.207843, 0.207843, 0.207843, 1)
 position = Vector2(-291, 49.5)
-rotation = 0.125664
+rotation = 0.251328
 scale = Vector2(2.24444, 2.17222)
 texture = ExtResource("2_2x71u")
 
 [node name="PauseSpinner2" type="Sprite2D" parent="ColorRect/PauseBg"]
 modulate = Color(0.913725, 0.913725, 0.913725, 1)
 position = Vector2(-370, 13)
-rotation = 0.774927
+rotation = 1.02626
 scale = Vector2(1.8, 1.8)
 texture = ExtResource("2_2x71u")
 
 [node name="PauseBar" type="Sprite2D" parent="ColorRect/PauseBg"]
-position = Vector2(-852.813, 390)
-scale = Vector2(1.0625, 1)
+position = Vector2(-849.625, 390)
+scale = Vector2(1.125, 1)
 texture = ExtResource("3_hc0cq")
 
 [node name="PauseBar2" type="Sprite2D" parent="ColorRect/PauseBg"]
-position = Vector2(-851.01, 465.96)
-scale = Vector2(1.0802, 1)
+position = Vector2(-847.02, 465.92)
+scale = Vector2(1.1604, 1)
 texture = ExtResource("3_hc0cq")
 
 [node name="Paused" type="Label" parent="ColorRect"]
@@ -221,7 +244,7 @@ offset_right = 1865.0
 offset_bottom = 904.0
 color = Color(0, 0, 0, 0.737255)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+[node name="PauseButtons" type="VBoxContainer" parent="ColorRect"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -230,38 +253,39 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -267.5
 offset_top = -322.0
-offset_right = 267.5
+offset_right = 267.501
 offset_bottom = 322.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 40
-
-[node name="Resume" type="Button" parent="ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(500, 125)
-layout_mode = 2
-size_flags_vertical = 4
 theme = ExtResource("7_jrhjn")
+theme_override_constants/separation = 60
+
+[node name="Resume" type="Button" parent="ColorRect/PauseButtons"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "Resume"
 
-[node name="Whisps" type="Button" parent="ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(500, 125)
+[node name="Whisps" type="Button" parent="ColorRect/PauseButtons"]
+custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("7_jrhjn")
 text = "Whisps"
 
-[node name="Options" type="Button" parent="ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(500, 125)
+[node name="Options" type="Button" parent="ColorRect/PauseButtons"]
+custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("7_jrhjn")
 text = "Options"
 
-[node name="MainMenu" type="Button" parent="ColorRect/VBoxContainer"]
-custom_minimum_size = Vector2(500, 125)
+[node name="MainMenu" type="Button" parent="ColorRect/PauseButtons"]
+custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("7_jrhjn")
 text = "Main Menu"
 
 [node name="BGAnimation" type="AnimationPlayer" parent="ColorRect"]
@@ -270,7 +294,7 @@ libraries = {
 "": SubResource("AnimationLibrary_pit6s")
 }
 
-[connection signal="pressed" from="ColorRect/VBoxContainer/Resume" to="." method="OnResumePressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/Whisps" to="." method="OnWhispsPressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/Options" to="." method="OnOptionsPressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/MainMenu" to="." method="OnMainMenuPressed"]
+[connection signal="pressed" from="ColorRect/PauseButtons/Resume" to="." method="OnResumePressed"]
+[connection signal="pressed" from="ColorRect/PauseButtons/Whisps" to="." method="OnWhispsPressed"]
+[connection signal="pressed" from="ColorRect/PauseButtons/Options" to="." method="OnOptionsPressed"]
+[connection signal="pressed" from="ColorRect/PauseButtons/MainMenu" to="." method="OnMainMenuPressed"]

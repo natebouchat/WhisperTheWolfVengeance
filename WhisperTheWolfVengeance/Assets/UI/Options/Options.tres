@@ -16,7 +16,7 @@ texture = ExtResource("2_hbhy7")
 [resource]
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/font_sizes/font_size = 50
+Button/font_sizes/font_size = 40
 Button/fonts/font = ExtResource("1_ejnwr")
 Button/styles/focus = SubResource("StyleBoxTexture_t45ef")
 Button/styles/hover = SubResource("StyleBoxTexture_qy4yl")
