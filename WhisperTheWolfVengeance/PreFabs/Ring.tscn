@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b8ono4oq6kov6"]
+[gd_scene load_steps=16 format=3 uid="uid://b8ono4oq6kov6"]
 
 [ext_resource type="Texture2D" uid="uid://bgqgmi72xtore" path="res://Assets/Animations/AnimRing/RingSpin0000.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://camld5iumto5p" path="res://Assets/Animations/AnimRing/RingSpin0008.png" id="2"]
@@ -61,7 +61,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 3.9, 4, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 5, 5.1, 5.2, 5.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
+"update": 1,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 0.196078)]
 }
 tracks/1/type = "method"
@@ -79,18 +79,35 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_6r1ei"]
+resource_name = "MutedCollect"
+length = 0.63
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sqrga"]
 _data = {
-"DelayedDisappear": SubResource("Animation_lwhh4")
+"DelayedDisappear": SubResource("Animation_lwhh4"),
+"MutedCollect": SubResource("Animation_6r1ei")
 }
 
 [node name="Ring" type="CharacterBody2D"]
+visible = false
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("9")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.588235)
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_en0jd")
 
@@ -115,4 +132,9 @@ libraries = {
 "": SubResource("AnimationLibrary_sqrga")
 }
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.63
+one_shot = true
+
 [connection signal="body_entered" from="Area2D" to="." method="OnRingEntered"]
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

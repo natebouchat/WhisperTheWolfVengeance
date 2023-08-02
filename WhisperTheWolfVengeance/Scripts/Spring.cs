@@ -20,7 +20,9 @@ public partial class Spring : StaticBody2D
 	}
 
 	private void OnSpringHit(Node Collider) {
-		bounceSFX.Play();
+		if(_SettingsManager.sfxVolume > -25) {
+			bounceSFX.Play();
+		}
 		spring.Play("Bounce");
 		int xVal = (int)(Math.Sin(this.Rotation) * springForce);
 		int yVal = (int)(Math.Cos(this.Rotation) * springForce);

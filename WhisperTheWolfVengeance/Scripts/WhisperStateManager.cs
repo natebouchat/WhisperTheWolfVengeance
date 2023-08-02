@@ -58,7 +58,9 @@ public partial class WhisperStateManager : AnimationPlayer
 			SetChargeLight();
 		}
 		else if(!(mainSprite.Animation).Equals("Hurt")) {
-			dropRingsSFX.Play();
+			if(_SettingsManager.sfxVolume > -25) {
+				dropRingsSFX.Play();
+			}
 			this.Play("WhisperHurt");
 		}
 		CheckWhispsSwitched();                 

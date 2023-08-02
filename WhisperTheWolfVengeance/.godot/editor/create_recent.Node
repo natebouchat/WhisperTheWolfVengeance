@@ -1,8 +1,9 @@
-AnimationPlayer
+Label
 VBoxContainer
+Timer
+AnimationPlayer
 Button
 CheckBox
-Label
 GridContainer
 Control
 HBoxContainer
@@ -23,6 +24,5 @@ MarginContainer
 Container
 Polygon2D
 Marker2D
-Timer
 RichTextLabel
 NinePatchRect

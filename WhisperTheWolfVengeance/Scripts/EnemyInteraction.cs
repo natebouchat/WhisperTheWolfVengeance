@@ -17,10 +17,10 @@ public partial class EnemyInteraction : Area2D
 	public void OnAreaEntered(Node Collider) {
         if(((string)(Collider.Name)).Contains("Whisp")) {
 			if(((string)(Collider.Name)).Contains("Charged")) {
-				damage += 10;
+				damage += 25;
 			}
 			else {
-				damage += 5;
+				damage += 10;
 			}
         }
 	}

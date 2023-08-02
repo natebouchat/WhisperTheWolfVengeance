@@ -1,0 +1,16 @@
+Cyan
+Laser Whisp
+
+The most versatile of my Whisps, Cyan is great for almost any situation. They specialize in creating energy beams to quickly neutralize foes.
+
+Laser Beam
+Basic ranged attack.
+1x damage
+
+Charged Beam
+Bigger beam and extra damage.
+2.5x damage
+
+Chaos Beam
+Use Chaos energy to send a volley of piercing beams through directional crystals, covering a massive area!
+3x damage per hit.

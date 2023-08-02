@@ -20,7 +20,7 @@ public partial class EggPawn : CharacterBody2D
         explosion = GetNode<AnimatedSprite2D>("Explosion");
         explosion.Visible = false;
         motion = new Vector2();
-        health = 10;
+        health = 25;
 
     }
 
