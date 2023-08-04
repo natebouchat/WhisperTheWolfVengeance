@@ -14,18 +14,18 @@ public partial class PauseMenu : CanvasLayer
 	public override void _Ready()
 	{
 		this.Visible = false;
-		pauseBG = GetNode<ColorRect>("ColorRect");
+		pauseBG = GetNode<ColorRect>("PauseBG");
 		pauseBG.Scale = new Vector2(0.1f, 0.1f);
-		grid = GetNode<Sprite2D>("ColorRect/PauseGrid");
+		grid = GetNode<Sprite2D>("PauseBG/PauseGrid");
 		grid.Visible = false;
-		header = GetNode<Label>("ColorRect/Paused");
+		header = GetNode<Label>("PauseBG/PauseTitle");
 		menuAnim = GetNode<AnimationPlayer>("MenuAnim");
-		GetNode<AnimationPlayer>("ColorRect/BGAnimation").Play("Idle");
-		GetNode<VBoxContainer>("ColorRect/PauseButtons").Position = new Vector2(692.5f, 220);
+		GetNode<AnimationPlayer>("PauseBG/BGAnimation").Play("Idle");
+		GetNode<VBoxContainer>("PauseBG/PauseButtons").Position = new Vector2(692.5f, 220);
 
-		buttons = new Button[GetNode("ColorRect/PauseButtons").GetChildCount()];
+		buttons = new Button[GetNode("PauseBG/PauseButtons").GetChildCount()];
 		for(int i = 0; i < buttons.Length; i++) {
-			buttons[i] = GetNode("ColorRect/PauseButtons").GetChild<Button>(i);
+			buttons[i] = GetNode("PauseBG/PauseButtons").GetChild<Button>(i);
 			buttons[i].Disabled = true;
 		}
 		onPauseMenu = true;
@@ -124,7 +124,6 @@ public partial class PauseMenu : CanvasLayer
 		options = ResourceLoader.Load<PackedScene>("res://Components/OptionsMenu.tscn");
 		OptionsMenu optionsMenu = (OptionsMenu)options.Instantiate();
 		pauseBG.AddChild(optionsMenu);
-		header.Text = "Options";
 	}
 
 	private void OnMainMenuPressed() {

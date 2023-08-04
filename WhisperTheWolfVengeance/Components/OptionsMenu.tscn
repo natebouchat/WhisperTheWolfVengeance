@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbvpbpql40my3"]
+[gd_scene load_steps=7 format=3 uid="uid://cbvpbpql40my3"]
 
 [ext_resource type="Theme" uid="uid://drmxqvw83v4x6" path="res://Assets/UI/Options/Options.tres" id="1_ry1xx"]
 [ext_resource type="Script" path="res://Scripts/OptionsMenu.cs" id="2_k47mp"]
@@ -21,9 +21,27 @@ tracks/0/keys = {
 "values": [Vector2(1931, 10), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_jm0xq"]
+resource_name = "SlideButtonsOut"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(0.707107, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1975, 6)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fvq04"]
 _data = {
-"SlideButtonsIn": SubResource("Animation_vfh54")
+"SlideButtonsIn": SubResource("Animation_vfh54"),
+"SlideButtonsOut": SubResource("Animation_jm0xq")
 }
 
 [node name="OptionsMenu" type="Control"]
@@ -31,10 +49,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1931.0
-offset_top = 10.0
-offset_right = 1931.0
-offset_bottom = 10.0
+offset_left = -1557.35
+offset_top = 4.73118
+offset_right = -1557.35
+offset_bottom = 4.7312
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ry1xx")

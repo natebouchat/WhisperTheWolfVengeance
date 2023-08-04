@@ -13,7 +13,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:scale")
+tracks/0/path = NodePath("PauseBG:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -25,7 +25,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect:position")
+tracks/1/path = NodePath("PauseBG:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -37,7 +37,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect:anchors_preset")
+tracks/2/path = NodePath("PauseBG:anchors_preset")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -54,7 +54,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect/PauseButtons:position")
+tracks/0/path = NodePath("PauseBG/PauseButtons:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -77,7 +77,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect/PauseBg/PauseSpinner:rotation")
+tracks/0/path = NodePath("PauseBG/PauseBg/PauseSpinner:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -89,7 +89,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ColorRect/PauseBg/PauseSpinner2:rotation")
+tracks/1/path = NodePath("PauseBG/PauseBg/PauseSpinner2:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -101,7 +101,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ColorRect/PauseBg/PauseBar:scale")
+tracks/2/path = NodePath("PauseBG/PauseBg/PauseBar:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -113,7 +113,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ColorRect/PauseBg/PauseBar:position")
+tracks/3/path = NodePath("PauseBG/PauseBg/PauseBar:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -125,7 +125,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ColorRect/PauseBg/PauseBar2:scale")
+tracks/4/path = NodePath("PauseBG/PauseBg/PauseBar2:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -137,7 +137,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ColorRect/PauseBg/PauseBar2:position")
+tracks/5/path = NodePath("PauseBG/PauseBg/PauseBar2:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -149,7 +149,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("ColorRect/PauseGrid:position")
+tracks/6/path = NodePath("PauseBG/PauseGrid:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -174,58 +174,53 @@ libraries = {
 "": SubResource("AnimationLibrary_fxsah")
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="PauseBG" type="ColorRect" parent="."]
 process_mode = 2
 modulate = Color(0.427451, 0.764706, 0.745098, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 870.0
-offset_top = -125.0
-offset_right = 870.0
-offset_bottom = -125.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.1, 0.1)
 color = Color(0, 0, 0, 1)
 
-[node name="PauseGrid" type="Sprite2D" parent="ColorRect"]
+[node name="PauseGrid" type="Sprite2D" parent="PauseBG"]
 process_mode = 3
 position = Vector2(1180.8, 438.56)
 scale = Vector2(0.969495, 0.993056)
 texture = ExtResource("2_tr1t0")
 metadata/_edit_lock_ = true
 
-[node name="PauseBg" type="Sprite2D" parent="ColorRect"]
+[node name="PauseBg" type="Sprite2D" parent="PauseBG"]
 position = Vector2(960, 539)
 texture = ExtResource("1_sga6j")
 metadata/_edit_lock_ = true
 
-[node name="PauseSpinner" type="Sprite2D" parent="ColorRect/PauseBg"]
+[node name="PauseSpinner" type="Sprite2D" parent="PauseBG/PauseBg"]
 modulate = Color(0.207843, 0.207843, 0.207843, 1)
 position = Vector2(-291, 49.5)
 rotation = 0.251328
 scale = Vector2(2.24444, 2.17222)
 texture = ExtResource("2_2x71u")
 
-[node name="PauseSpinner2" type="Sprite2D" parent="ColorRect/PauseBg"]
+[node name="PauseSpinner2" type="Sprite2D" parent="PauseBG/PauseBg"]
 modulate = Color(0.913725, 0.913725, 0.913725, 1)
 position = Vector2(-370, 13)
 rotation = 1.02626
 scale = Vector2(1.8, 1.8)
 texture = ExtResource("2_2x71u")
 
-[node name="PauseBar" type="Sprite2D" parent="ColorRect/PauseBg"]
+[node name="PauseBar" type="Sprite2D" parent="PauseBG/PauseBg"]
 position = Vector2(-849.625, 390)
 scale = Vector2(1.125, 1)
 texture = ExtResource("3_hc0cq")
 
-[node name="PauseBar2" type="Sprite2D" parent="ColorRect/PauseBg"]
+[node name="PauseBar2" type="Sprite2D" parent="PauseBG/PauseBg"]
 position = Vector2(-847.02, 465.92)
 scale = Vector2(1.1604, 1)
 texture = ExtResource("3_hc0cq")
 
-[node name="Paused" type="Label" parent="ColorRect"]
+[node name="PauseTitle" type="Label" parent="PauseBG"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -236,7 +231,7 @@ theme = ExtResource("7_jrhjn")
 text = "Paused"
 horizontal_alignment = 1
 
-[node name="UIDarkener" type="ColorRect" parent="ColorRect"]
+[node name="UIDarkener" type="ColorRect" parent="PauseBG"]
 layout_mode = 0
 offset_left = 55.0
 offset_top = 156.0
@@ -244,7 +239,7 @@ offset_right = 1865.0
 offset_bottom = 904.0
 color = Color(0, 0, 0, 0.737255)
 
-[node name="PauseButtons" type="VBoxContainer" parent="ColorRect"]
+[node name="PauseButtons" type="VBoxContainer" parent="PauseBG"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -260,41 +255,41 @@ grow_vertical = 2
 theme = ExtResource("7_jrhjn")
 theme_override_constants/separation = 60
 
-[node name="Resume" type="Button" parent="ColorRect/PauseButtons"]
+[node name="Resume" type="Button" parent="PauseBG/PauseButtons"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Resume"
 
-[node name="Whisps" type="Button" parent="ColorRect/PauseButtons"]
+[node name="Whisps" type="Button" parent="PauseBG/PauseButtons"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Whisps"
 
-[node name="Options" type="Button" parent="ColorRect/PauseButtons"]
+[node name="Options" type="Button" parent="PauseBG/PauseButtons"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Options"
 
-[node name="MainMenu" type="Button" parent="ColorRect/PauseButtons"]
+[node name="MainMenu" type="Button" parent="PauseBG/PauseButtons"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Main Menu"
 
-[node name="BGAnimation" type="AnimationPlayer" parent="ColorRect"]
+[node name="BGAnimation" type="AnimationPlayer" parent="PauseBG"]
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_pit6s")
 }
 
-[connection signal="pressed" from="ColorRect/PauseButtons/Resume" to="." method="OnResumePressed"]
-[connection signal="pressed" from="ColorRect/PauseButtons/Whisps" to="." method="OnWhispsPressed"]
-[connection signal="pressed" from="ColorRect/PauseButtons/Options" to="." method="OnOptionsPressed"]
-[connection signal="pressed" from="ColorRect/PauseButtons/MainMenu" to="." method="OnMainMenuPressed"]
+[connection signal="pressed" from="PauseBG/PauseButtons/Resume" to="." method="OnResumePressed"]
+[connection signal="pressed" from="PauseBG/PauseButtons/Whisps" to="." method="OnWhispsPressed"]
+[connection signal="pressed" from="PauseBG/PauseButtons/Options" to="." method="OnOptionsPressed"]
+[connection signal="pressed" from="PauseBG/PauseButtons/MainMenu" to="." method="OnMainMenuPressed"]

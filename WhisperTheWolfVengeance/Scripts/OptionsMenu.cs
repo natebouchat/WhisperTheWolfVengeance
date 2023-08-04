@@ -8,10 +8,14 @@ public partial class OptionsMenu : Control
 	private Label musicLabel;
 	private Label sfxLabel;
 	private Control[] buttons;
+	private PackedScene controls;
 	private bool settingChanged;
+	private bool disabled;
 	
 	public override void _Ready()
 	{	
+		GetNode<Label>("../PauseTitle").Text = "Options";
+		
 		this.Position = new Vector2(1931, 10);
 		menuAnim = GetNode<AnimationPlayer>("AnimationPlayer");
 		audioTest = GetNode<AudioStreamPlayer>("SFXRingGet");
@@ -19,6 +23,7 @@ public partial class OptionsMenu : Control
 		sfxLabel = GetNode<Label>("VolumeLabels/SFXVolume");
 		menuAnim.Play("SlideButtonsIn");
 		settingChanged = false;
+		disabled = false;
 
 		buttons = new Control[6];
 		buttons[0] = GetNode<Control>("OptionButtons/GridContainer/MusicSlider");
@@ -40,8 +45,8 @@ public partial class OptionsMenu : Control
 
 	public override void _Process(double delta)
 	{
-		if(Input.IsActionJustPressed("pause")) {
-			PauseButtonPressed();
+		if(Input.IsActionJustPressed("pause") && !disabled) {
+			LeaveOptions(true);
 		}
 	}
 
@@ -49,9 +54,15 @@ public partial class OptionsMenu : Control
 		buttons[i].GrabFocus();
 	}
 
-	private async void PauseButtonPressed() {
-		menuAnim.PlayBackwards("SlideButtonsIn");
-		GetNode<PauseMenu>("../../").ReturnToPauseMenu();
+	private async void LeaveOptions(bool backToPauseMenu) {
+		disabled = true;
+		if(backToPauseMenu) {
+			menuAnim.PlayBackwards("SlideButtonsIn");
+			GetNode<PauseMenu>("../../").ReturnToPauseMenu();
+		}
+		else {
+			menuAnim.Play("SlideButtonsOut");
+		}
 		await ToSignal(menuAnim, "animation_finished");
 		this.QueueFree();
 	}
@@ -68,6 +79,10 @@ public partial class OptionsMenu : Control
 		for(int i = 0; i < aNode.GetChildCount(); i++) {
 			UpdateSoundVolume(aNode.GetChild(i));
 		}
+	}
+
+	public void SlideButtonsFromRight() {
+		menuAnim.PlayBackwards("SlideButtonsOut");
 	}
 
 /////// Signals /////////////////////////////////////////////////////////////////////////////
@@ -102,7 +117,10 @@ public partial class OptionsMenu : Control
 	}
 
 	private void OnControlsPressed() {
-
+		controls = ResourceLoader.Load<PackedScene>("res://Components/ControlsMenu.tscn");
+		ControlsMenu controlsMenu = (ControlsMenu)controls.Instantiate();
+		GetParent().AddChild(controlsMenu);
+		LeaveOptions(false);
 	}
 	
 	private void OnBackPressed() {
@@ -110,7 +128,7 @@ public partial class OptionsMenu : Control
 			UpdateSoundVolume(GetTree().Root);
 			_SettingsManager.SaveSettings();
 		}
-		PauseButtonPressed();
+		LeaveOptions(true);
 	}
 
 }
