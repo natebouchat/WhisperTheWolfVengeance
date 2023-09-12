@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Whisper The Wolf Vengeance"
 run/main_scene="res://Environment/TestEnvironment.tscn"
-config/features=PackedStringArray("4.0", "C#")
+config/features=PackedStringArray("4.1", "C#")
 config/icon="res://Icon.png"
 
 [autoload]
