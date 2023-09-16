@@ -1,14 +1,27 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "4WDWds72TVTofiqSZXxfzZYkckSy27m51daU94A5eL6Sqj4u1/eR0WFkraqJNTZXc7sNbJEn7LYY6/IiXkQL7g==",
+=======
+  "dgSpecHash": "AI74Nu+98LqpUmcVeCZ8ixFFJMli8AVvZR8WERNL4yLMpMQLUy9A40Ny595EqZ4+1MWx6DI497/r07mfGagiWw==",
+>>>>>>> db884a127b50a47317d20474e3e2ec56e2d645c6
   "success": true,
   "projectFilePath": "/home/burnt/Documents/GitHub/WhisperTheWolfVengeance/WhisperTheWolfVengeance/Whisper The Wolf Vengeance.csproj",
   "expectedPackageFiles": [
+<<<<<<< HEAD
     "/home/burnt/.nuget/packages/godot.sourcegenerators/4.1.1/godot.sourcegenerators.4.1.1.nupkg.sha512",
     "/home/burnt/.nuget/packages/godotsharp/4.1.1/godotsharp.4.1.1.nupkg.sha512",
     "/home/burnt/.nuget/packages/godotsharpeditor/4.1.1/godotsharpeditor.4.1.1.nupkg.sha512",
     "/home/burnt/.nuget/packages/microsoft.netcore.app.ref/6.0.21/microsoft.netcore.app.ref.6.0.21.nupkg.sha512",
     "/home/burnt/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.21/microsoft.aspnetcore.app.ref.6.0.21.nupkg.sha512"
+=======
+    "C:\\Users\\burnt\\.nuget\\packages\\godot.sourcegenerators\\4.1.1\\godot.sourcegenerators.4.1.1.nupkg.sha512",
+    "C:\\Users\\burnt\\.nuget\\packages\\godotsharp\\4.1.1\\godotsharp.4.1.1.nupkg.sha512",
+    "C:\\Users\\burnt\\.nuget\\packages\\godotsharpeditor\\4.1.1\\godotsharpeditor.4.1.1.nupkg.sha512",
+    "C:\\Users\\burnt\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.11\\microsoft.netcore.app.ref.6.0.11.nupkg.sha512",
+    "C:\\Users\\burnt\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.11\\microsoft.windowsdesktop.app.ref.6.0.11.nupkg.sha512",
+    "C:\\Users\\burnt\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.11\\microsoft.aspnetcore.app.ref.6.0.11.nupkg.sha512"
+>>>>>>> db884a127b50a47317d20474e3e2ec56e2d645c6
   ],
   "logs": []
 }
