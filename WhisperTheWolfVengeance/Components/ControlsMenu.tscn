@@ -110,7 +110,7 @@ horizontal_alignment = 2
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "A"
+text = "D"
 
 [node name="Left" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 layout_mode = 2
@@ -122,7 +122,7 @@ horizontal_alignment = 2
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "D"
+text = "A"
 
 [node name="Jump" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 layout_mode = 2
