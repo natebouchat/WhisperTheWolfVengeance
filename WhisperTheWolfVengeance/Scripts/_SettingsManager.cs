@@ -85,10 +85,10 @@ public partial class _SettingsManager : Node
     public static void SetScreenMode(bool setFullScreen) {
         fullScreen = setFullScreen;
         if(setFullScreen) {
-            DisplayServer.WindowSetMode((DisplayServer.WindowMode)3);
+            DisplayServer.WindowSetMode(DisplayServer.WindowMode.Fullscreen);
         }
         else {
-            DisplayServer.WindowSetMode((DisplayServer.WindowMode)0);
+            DisplayServer.WindowSetMode(DisplayServer.WindowMode.Windowed);
         }
     }
 
