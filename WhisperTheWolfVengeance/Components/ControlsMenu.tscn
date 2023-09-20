@@ -93,6 +93,7 @@ layout_mode = 2
 color = Color(1, 1, 1, 0.588235)
 
 [node name="ControlsButtons" type="GridContainer" parent="ScrollContainer/VBoxContainer"]
+texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -113,6 +114,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 text = "D"
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("3_kp23o")
 
 [node name="Left" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
@@ -127,6 +130,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 text = "A"
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("3_kp23o")
 
 [node name="Jump" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
@@ -135,12 +140,14 @@ theme_override_font_sizes/font_size = 32
 text = "Jump"
 horizontal_alignment = 2
 
-[node name="ui_up" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
+[node name="jump" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 text = "W"
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("3_kp23o")
 
 [node name="Crouch" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
@@ -155,6 +162,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 text = "S"
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("3_kp23o")
 
 [node name="Shoot" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
@@ -169,6 +178,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 text = "Enter"
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("3_kp23o")
 
 [node name="NextWhisp" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
@@ -183,6 +194,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 text = "E"
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("3_kp23o")
 
 [node name="PrevWhisp" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
@@ -197,6 +210,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 text = "Q"
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("3_kp23o")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

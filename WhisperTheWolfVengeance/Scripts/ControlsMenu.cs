@@ -69,6 +69,21 @@ public partial class ControlsMenu : Control
 					aButton.SetButtonText(ControlConfigButtons.KeybindMode.Keyboard);
 				}
 			}
+			else if(Input.GetJoyName(0).ToLower().Contains("nintendo")) {
+				foreach(ControlConfigButtons aButton in keybindButtons) {
+					aButton.SetButtonText(ControlConfigButtons.KeybindMode.Nintendo);
+				}
+			}
+			else if(Input.GetJoyName(0).ToLower().Contains("ps") || Input.GetJoyName(0).ToLower().Contains("playstation")) {
+				foreach(ControlConfigButtons aButton in keybindButtons) {
+					aButton.SetButtonText(ControlConfigButtons.KeybindMode.Playstation);
+				}
+			}
+			else {
+				foreach(ControlConfigButtons aButton in keybindButtons) {
+					aButton.SetButtonText(ControlConfigButtons.KeybindMode.Xbox);
+				}
+			}
 		}
 		else if(promptMode.Selected == 1) {
 			foreach(ControlConfigButtons aButton in keybindButtons) {
@@ -76,13 +91,19 @@ public partial class ControlsMenu : Control
 			}
 		}
 		else if(promptMode.Selected == 2) {
-			//Xbox
+			foreach(ControlConfigButtons aButton in keybindButtons) {
+				aButton.SetButtonText(ControlConfigButtons.KeybindMode.Xbox);
+			}
 		}
 		else if(promptMode.Selected == 3) {
-			//Playstation
+			foreach(ControlConfigButtons aButton in keybindButtons) {
+				aButton.SetButtonText(ControlConfigButtons.KeybindMode.Playstation);
+			}
 		}
 		else if(promptMode.Selected == 4) {
-			//Nintendo
+			foreach(ControlConfigButtons aButton in keybindButtons) {
+				aButton.SetButtonText(ControlConfigButtons.KeybindMode.Nintendo);
+			}
 		}
 	}
 

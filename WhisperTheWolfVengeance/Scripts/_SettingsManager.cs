@@ -48,7 +48,7 @@ public partial class _SettingsManager : Node
                     allInputs += "JoypadButton:" + (int)aButton.ButtonIndex + ", ";
                 }
                 else if (a is InputEventJoypadMotion joystick) {
-                    allInputs += "JoypadMotion:" + joystick.Axis;
+                    allInputs += "JoypadMotion:" + (int)joystick.Axis;
                     if (allActions[i].Equals("ui_up") || allActions[i].Equals("ui_left")) {
                         allInputs += "/-, ";
                     }
