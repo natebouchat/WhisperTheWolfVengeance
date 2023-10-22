@@ -1,12 +1,10 @@
 using Godot;
 using System;
-using System.Runtime.CompilerServices;
 
 /*
 TODO 
 Properly save mouse input to save.cfg
 */
-
 
 public partial class ControlConfigButtons : Button
 {
@@ -16,23 +14,24 @@ public partial class ControlConfigButtons : Button
 	public enum KeybindMode {Keyboard, Xbox, Playstation, Nintendo};
     private KeybindMode currentMode;
     private bool waitingInput;
-    private bool ignoreConfirm;
-
+    private bool ignoreDoubleConfirm;
 
     public override void _Ready() {
         waitingInput = false;
-        ignoreConfirm = false;
+        ignoreDoubleConfirm = false;
 		key = null;
 		mouseButton = null;
 		joyButton = null;
     }
 
-    public override void _Input(InputEvent anEvent) {   
-        if(waitingInput == true) {
-            this.ToggleMode = true;
+    public override void _Input(InputEvent anEvent) { 
+        //ignore initial button release
+        if(waitingInput && !anEvent.IsReleased()) {
+            //ignore confirmation double up
             if(anEvent.IsAction("ui_accept")) {
-                ignoreConfirm = true;
+                SetInputDelay(0.01);
             }
+
             if(anEvent is InputEventKey aKey) {
                 this.Text = OS.GetKeycodeString(aKey.PhysicalKeycode);
 				if(key == null) {
@@ -45,13 +44,15 @@ public partial class ControlConfigButtons : Button
             }
 			else if(anEvent is InputEventMouseButton aMouseButton) {
 				this.Text = GetMouseBindName((int)aMouseButton.ButtonIndex);
+                //Ignore LMB mask confirmation
+                if((int)aMouseButton.ButtonIndex == 1) {
+                    SetInputDelay(0.01);
+                }
+
 				if(mouseButton == null) {
 					mouseButton = new InputEventMouseButton();
 					key = null;
 				}
-                if((int)aMouseButton.ButtonIndex == 0) {
-                    ignoreConfirm = true;
-                }
 				mouseButton.ButtonIndex = aMouseButton.ButtonIndex;
                 this.ButtonPressed = false;
                 waitingInput = false;
@@ -65,17 +66,28 @@ public partial class ControlConfigButtons : Button
         }
     }
 
+    private void SetInputDelay(double time) {
+        Timer timer = new Timer();
+        this.AddChild(timer);
+        timer = this.GetChild<Timer>(0);
+        ignoreDoubleConfirm = true;
+        timer.Start(time);
+        timer.Timeout += OnDelayTimeout;
+    }
+
+    private void OnDelayTimeout() {
+        ignoreDoubleConfirm = false;
+        this.ButtonPressed = false;
+        Timer timer = this.GetChild<Timer>(0);
+        this.RemoveChild(timer);
+        timer.QueueFree();
+    }
+
     public override void _Toggled(bool wasPressed) {
-        if(wasPressed == true && !ignoreConfirm) {
-            this.ToggleMode = false;
+        if(wasPressed && !ignoreDoubleConfirm) {
             waitingInput = true;
             this.Text = "Waiting";
         }
-        else if(ignoreConfirm && this.ToggleMode) {
-            ignoreConfirm = false;
-            GD.Print("print");
-        }
-
     }
 
 	public void SetButtonText(KeybindMode bind) {

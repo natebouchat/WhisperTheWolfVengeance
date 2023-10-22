@@ -102,18 +102,19 @@ theme_override_constants/v_separation = 50
 columns = 2
 metadata/_edit_group_ = true
 
-[node name="Right" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
+[node name="Jump" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "Right"
+text = "Jump"
 horizontal_alignment = 2
 
-[node name="ui_right" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
-custom_minimum_size = Vector2(100, 50)
+[node name="jump" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
-text = "D"
+action_mode = 0
+text = "W"
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("3_kp23o")
@@ -129,23 +130,8 @@ custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
+action_mode = 0
 text = "A"
-icon_alignment = 1
-expand_icon = true
-script = ExtResource("3_kp23o")
-
-[node name="Jump" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Jump"
-horizontal_alignment = 2
-
-[node name="jump" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-toggle_mode = true
-text = "W"
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("3_kp23o")
@@ -161,7 +147,25 @@ custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
+action_mode = 0
 text = "S"
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_kp23o")
+
+[node name="Right" type="Label" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Right"
+horizontal_alignment = 2
+
+[node name="ui_right" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+toggle_mode = true
+action_mode = 0
+text = "D"
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("3_kp23o")
@@ -177,6 +181,7 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
+action_mode = 0
 text = "Enter"
 icon_alignment = 1
 expand_icon = true
@@ -193,6 +198,7 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
+action_mode = 0
 text = "E"
 icon_alignment = 1
 expand_icon = true
@@ -209,6 +215,7 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
+action_mode = 0
 text = "Q"
 icon_alignment = 1
 expand_icon = true
@@ -239,3 +246,4 @@ libraries = {
 }
 
 [connection signal="pressed" from="HBoxContainer/Back" to="." method="OnBackPressed"]
+[connection signal="pressed" from="HBoxContainer/Reset" to="." method="OnResetPressed"]

@@ -24,6 +24,7 @@ public partial class ControlsMenu : Control
 
 		InitializePromptButtons();
 		SetControlPrompts();
+		promptMode.GrabFocus();
 	}
 
 	public override void _Process(double delta)
@@ -111,5 +112,11 @@ public partial class ControlsMenu : Control
 
 	private void OnBackPressed() {
 		LeaveControls();
+	}
+
+	private void OnResetPressed() {
+		InputMap.LoadFromProjectSettings();
+		InitializePromptButtons();
+		SetControlPrompts();
 	}
 }
