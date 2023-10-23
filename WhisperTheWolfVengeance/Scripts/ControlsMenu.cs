@@ -5,6 +5,7 @@ public partial class ControlsMenu : Control
 {
 	private AnimationPlayer menuAnim;
 	private PackedScene options;
+	private PackedScene confirmationMenu;
 	private OptionButton promptMode;
 	private ControlConfigButtons[] keybindButtons;
 	private bool disabled;
@@ -12,6 +13,7 @@ public partial class ControlsMenu : Control
 	public override void _Ready()
 	{
 		GetNode<Label>("../PauseTitle").Text = "Controls";
+		confirmationMenu = ResourceLoader.Load<PackedScene>("res://Components/ConfirmationMenu.tscn");
 		
 		promptMode = GetNode<OptionButton>("ScrollContainer/VBoxContainer/HBoxContainer/OptionButton");
 		menuAnim = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -30,13 +32,12 @@ public partial class ControlsMenu : Control
 	public override void _Process(double delta)
 	{
 		if(Input.IsActionJustPressed("pause") && !disabled) {
-			LeaveControls();
+			OnBackPressed();
 		}
 	}
 
 	private async void LeaveControls() {
 		disabled = true;
-		_SettingsManager.SaveSettings();
 		menuAnim.PlayBackwards("SlideIn");
 		options = ResourceLoader.Load<PackedScene>("res://Components/OptionsMenu.tscn");
 		OptionsMenu optionsMenu = (OptionsMenu)options.Instantiate();
@@ -44,6 +45,22 @@ public partial class ControlsMenu : Control
 		optionsMenu.SlideButtonsFromRight();
 		await ToSignal(menuAnim, "animation_finished");
 		this.QueueFree();
+	}
+
+	private void SaveAndLeaveControls() {
+		_SettingsManager.SaveSettings();
+		LeaveControls();
+	}
+
+	private void ResetBinds() {
+		InputMap.LoadFromProjectSettings();
+		InitializePromptButtons();
+		SetControlPrompts();
+		promptMode.GrabFocus();
+	}
+
+	private void ResetFocus() {
+		promptMode.GrabFocus();
 	}
 
 	private void InitializePromptButtons() {
@@ -110,13 +127,20 @@ public partial class ControlsMenu : Control
 
 	/////// Signals /////////////////////////////////////////////////////////////////////////////
 
+	private void ControlPromptsChanged(int aNum) {
+		promptMode.Selected = aNum;
+		SetControlPrompts();
+	}
+	
 	private void OnBackPressed() {
-		LeaveControls();
+		ConfirmationMenu confirmation = (ConfirmationMenu)confirmationMenu.Instantiate();
+		this.AddChild(confirmation);
+		confirmation.SetMenuElements("Save Bindings?", "Yes", "No", SaveAndLeaveControls, LeaveControls);
 	}
 
 	private void OnResetPressed() {
-		InputMap.LoadFromProjectSettings();
-		InitializePromptButtons();
-		SetControlPrompts();
+		ConfirmationMenu confirmation = (ConfirmationMenu)confirmationMenu.Instantiate();
+		this.AddChild(confirmation);
+		confirmation.SetMenuElements("Reset Bindings?", "Yes", "No", ResetBinds, ResetFocus);
 	}
 }

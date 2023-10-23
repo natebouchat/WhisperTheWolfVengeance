@@ -29,7 +29,6 @@ public partial class _SettingsManager : Node
         SaveKeyBinds();
     }
 
-
     private static void SaveKeyBinds() {
         string[] allActions = new string[InputMap.GetActions().Count];
         for(int i = 0; i < InputMap.GetActions().Count; i++) {
@@ -55,6 +54,9 @@ public partial class _SettingsManager : Node
                     else {
                         allInputs += "/+, ";
                     }
+                }
+                else if(a is InputEventMouseButton aMouseButton) {
+                    allInputs += "Mouse: " + (int)aMouseButton.ButtonIndex + ", ";
                 }
             }
             if(allInputs.Length != 0) {
@@ -102,9 +104,9 @@ public partial class _SettingsManager : Node
                 string[] inputAndKey = allInputs[j].Split(':');
 
                 if(inputAndKey[0].Equals("Key")) {
-                    InputEventKey aKey = new InputEventKey();
-                    aKey.PhysicalKeycode = (Key)Convert.ToInt32(inputAndKey[1]);
-                    InputMap.ActionAddEvent(allActions[i], aKey);
+                    InputEventKey newKey = new InputEventKey();
+                    newKey.PhysicalKeycode = (Key)Convert.ToInt32(inputAndKey[1]);
+                    InputMap.ActionAddEvent(allActions[i], newKey);
                 }
                 else if(inputAndKey[0].Equals("JoypadButton")) {
                     InputEventJoypadButton newButton = new InputEventJoypadButton();
@@ -122,6 +124,11 @@ public partial class _SettingsManager : Node
                         newJoyMotion.AxisValue = 1.0f;
                     }
                     InputMap.ActionAddEvent(allActions[i], newJoyMotion);
+                }
+                else if(inputAndKey[0].Equals("Mouse")) {
+                    InputEventMouseButton newMouseButton = new InputEventMouseButton();
+                    newMouseButton.ButtonIndex = (MouseButton)Convert.ToInt32(inputAndKey[1]);
+                    InputMap.ActionAddEvent(allActions[i], newMouseButton);
                 }
             }
         }

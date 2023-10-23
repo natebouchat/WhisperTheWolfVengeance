@@ -1,11 +1,6 @@
 using Godot;
 using System;
 
-/*
-TODO 
-Properly save mouse input to save.cfg
-*/
-
 public partial class ControlConfigButtons : Button
 {
     public InputEventKey key {get; set;}
@@ -35,10 +30,15 @@ public partial class ControlConfigButtons : Button
             if(anEvent is InputEventKey aKey) {
                 this.Text = OS.GetKeycodeString(aKey.PhysicalKeycode);
 				if(key == null) {
+                    InputMap.ActionEraseEvent(this.Name, mouseButton);
 					key = new InputEventKey();
 					mouseButton = null;
+                    key.PhysicalKeycode = aKey.PhysicalKeycode;
+                    InputMap.ActionAddEvent(this.Name, key);
 				}
-            	key.PhysicalKeycode = aKey.PhysicalKeycode;
+                else {
+            	    key.PhysicalKeycode = aKey.PhysicalKeycode;
+                }
                 this.ButtonPressed = false;
                 waitingInput = false;
             }
@@ -50,10 +50,15 @@ public partial class ControlConfigButtons : Button
                 }
 
 				if(mouseButton == null) {
+                    InputMap.ActionEraseEvent(this.Name, key);
 					mouseButton = new InputEventMouseButton();
 					key = null;
+                    mouseButton.ButtonIndex = aMouseButton.ButtonIndex;
+                    InputMap.ActionAddEvent(this.Name, mouseButton);
 				}
-				mouseButton.ButtonIndex = aMouseButton.ButtonIndex;
+                else {
+                    mouseButton.ButtonIndex = aMouseButton.ButtonIndex;
+                }
                 this.ButtonPressed = false;
                 waitingInput = false;
             }

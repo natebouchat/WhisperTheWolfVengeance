@@ -16,9 +16,9 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(0.732043, 1),
+"transitions": PackedFloat32Array(0.707107, 1),
 "update": 0,
-"values": [Vector2(2945, 520), Vector2(960, 540)]
+"values": [Vector2(1949, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3pd31"]
@@ -28,18 +28,13 @@ _data = {
 
 [node name="ControlsMenu" type="Control"]
 layout_mode = 3
-anchor_top = 0.144
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.831
-offset_left = 960.0
-offset_top = 384.48
-offset_right = -960.0
-offset_bottom = -357.48
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_1eysu")
 script = ExtResource("2_rbjr7")
-metadata/_edit_group_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
@@ -73,6 +68,7 @@ text = "       Control Prompts"
 [node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(550, 70)
 layout_mode = 2
+focus_neighbor_top = NodePath("../../../../HBoxContainer/Back")
 alignment = 1
 item_count = 5
 selected = 0
@@ -111,6 +107,8 @@ horizontal_alignment = 2
 [node name="jump" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../../HBoxContainer/Back")
+focus_neighbor_right = NodePath("../../../../HBoxContainer/Reset")
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 action_mode = 0
@@ -128,6 +126,8 @@ horizontal_alignment = 2
 [node name="ui_left" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../../HBoxContainer/Back")
+focus_neighbor_right = NodePath("../../../../HBoxContainer/Reset")
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 action_mode = 0
@@ -145,6 +145,8 @@ horizontal_alignment = 2
 [node name="ui_down" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../../HBoxContainer/Back")
+focus_neighbor_right = NodePath("../../../../HBoxContainer/Reset")
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 action_mode = 0
@@ -162,6 +164,8 @@ horizontal_alignment = 2
 [node name="ui_right" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../../HBoxContainer/Back")
+focus_neighbor_right = NodePath("../../../../HBoxContainer/Reset")
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 action_mode = 0
@@ -179,6 +183,8 @@ horizontal_alignment = 2
 [node name="shoot" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../../HBoxContainer/Back")
+focus_neighbor_right = NodePath("../../../../HBoxContainer/Reset")
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 action_mode = 0
@@ -196,6 +202,8 @@ horizontal_alignment = 2
 [node name="rightWhisp" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../../HBoxContainer/Back")
+focus_neighbor_right = NodePath("../../../../HBoxContainer/Reset")
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 action_mode = 0
@@ -213,6 +221,8 @@ horizontal_alignment = 2
 [node name="leftWhisp" type="Button" parent="ScrollContainer/VBoxContainer/ControlsButtons"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+focus_neighbor_left = NodePath("../../../../HBoxContainer/Back")
+focus_neighbor_right = NodePath("../../../../HBoxContainer/Reset")
 theme_override_font_sizes/font_size = 32
 toggle_mode = true
 action_mode = 0
@@ -223,21 +233,27 @@ script = ExtResource("3_kp23o")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
-offset_left = -381.0
-offset_top = 235.0
-offset_right = 617.0
-offset_bottom = 310.0
+offset_left = 637.0
+offset_top = 805.0
+offset_right = 1635.0
+offset_bottom = 880.0
 theme_override_constants/separation = 100
 metadata/_edit_group_ = true
 
 [node name="Back" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(300, 75)
 layout_mode = 2
+focus_neighbor_left = NodePath("../Reset")
+focus_neighbor_right = NodePath("../Reset")
+focus_neighbor_bottom = NodePath("../../ScrollContainer/VBoxContainer/HBoxContainer/OptionButton")
 text = "Back"
 
 [node name="Reset" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(300, 75)
 layout_mode = 2
+focus_neighbor_left = NodePath("../Back")
+focus_neighbor_right = NodePath("../Back")
+focus_neighbor_bottom = NodePath("../../ScrollContainer/VBoxContainer/HBoxContainer/OptionButton")
 text = "Reset"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -245,5 +261,6 @@ libraries = {
 "": SubResource("AnimationLibrary_3pd31")
 }
 
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer/HBoxContainer/OptionButton" to="." method="ControlPromptsChanged"]
 [connection signal="pressed" from="HBoxContainer/Back" to="." method="OnBackPressed"]
 [connection signal="pressed" from="HBoxContainer/Reset" to="." method="OnResetPressed"]

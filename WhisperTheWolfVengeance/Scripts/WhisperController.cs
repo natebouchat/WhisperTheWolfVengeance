@@ -19,6 +19,7 @@ public partial class WhisperController : CharacterBody2D
 	private PackedScene droppedRing;
 	private PlayerUI playerUI;
 	private Marker2D point;
+	private PauseMenu pauseMenu;
 	private Vector2 rightPoint;
 	private Vector2 leftPoint;
 	private bool bulletIsReady;
@@ -39,6 +40,7 @@ public partial class WhisperController : CharacterBody2D
 		droppedRing = ResourceLoader.Load<PackedScene>("res://PreFabs/Ring.tscn");
 		playerUI = GetNode<PlayerUI>("PlayerUI");
 		point = GetNode<Marker2D>("GunPoint");
+		pauseMenu = GetNode<PauseMenu>("Pause Menu");
 		rightPoint = new Vector2(point.Position.X, point.Position.Y);
 		leftPoint = new Vector2(-point.Position.X, point.Position.Y);
 		bulletIsReady = true;
@@ -67,7 +69,7 @@ public partial class WhisperController : CharacterBody2D
  /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	private void PlayerInput(double delta) {
-		if(hurtCooldown <= 0) {
+		if(hurtCooldown <= 0 && !pauseMenu.Visible) {
 			if(Input.IsActionPressed("ui_right")) {
 				motion.X = maxSpeed;
 				point.Position = rightPoint;
