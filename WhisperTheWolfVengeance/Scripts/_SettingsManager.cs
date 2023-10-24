@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO;
 
 public partial class _SettingsManager : Node
 {
@@ -17,7 +18,10 @@ public partial class _SettingsManager : Node
 
 	public static void SaveSettings() {
         SaveOptions();
-        file.Save("user://save.cfg");
+        file.Save("user://save.cfg.new");
+        DirAccess.RenameAbsolute("user://save.cfg", "user://save.cfg.old");
+        DirAccess.RenameAbsolute("user://save.cfg.new", "user://save.cfg");
+        DirAccess.RemoveAbsolute("user://save.cfg.old");
 	}
 
     private static void SaveOptions() {
@@ -70,6 +74,9 @@ public partial class _SettingsManager : Node
 
         Error err = file.Load("user://save.cfg");
         if(err == Error.Ok) {
+            if(DirAccess.DirExistsAbsolute("user://save.cfg.new")) {
+                //Notify Newest Save corrupted, Loading backup
+            }
             musicVolume = (int)file.GetValue("Options", "Music Volume");
             sfxVolume = (int)file.GetValue("Options", "SFX Volume");
             SetScreenMode((bool)file.GetValue("Options", "Full Screen"));

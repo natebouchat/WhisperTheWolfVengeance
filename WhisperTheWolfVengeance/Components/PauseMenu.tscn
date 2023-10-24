@@ -177,7 +177,7 @@ libraries = {
 [node name="PauseBG" type="ColorRect" parent="."]
 process_mode = 2
 modulate = Color(0.427451, 0.764706, 0.745098, 1)
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 870.0
