@@ -4,7 +4,7 @@ using System;
 public partial class WhisperController : CharacterBody2D
 {
 	[Export]
-	private int maxSpeed = 600;
+	private int maxSpeed = 700;
 	[Export]
 	private int maxFallSpeed = 1500;
 	[Export]

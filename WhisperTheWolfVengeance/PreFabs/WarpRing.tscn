@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://baaqrka0qhiru"]
+
+[ext_resource type="Texture2D" uid="uid://bgqgmi72xtore" path="res://Assets/Animations/AnimRing/RingSpin0000.png" id="1_am5qx"]
+[ext_resource type="Script" path="res://Scripts/WarpRing.cs" id="1_sv4yf"]
+[ext_resource type="PackedScene" uid="uid://cspw7fon4g8hl" path="res://Components/WarpRingRenderer.tscn" id="2_nsvx6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wsd4n"]
+radius = 117.0
+
+[node name="WarpRing" type="Area2D"]
+script = ExtResource("1_sv4yf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_am5qx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wsd4n")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(400, 400)
+
+[node name="WarpRingRenderer" parent="SubViewport" instance=ExtResource("2_nsvx6")]
