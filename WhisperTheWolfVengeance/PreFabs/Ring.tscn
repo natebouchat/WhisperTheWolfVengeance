@@ -1,18 +1,55 @@
-[gd_scene load_steps=16 format=3 uid="uid://b8ono4oq6kov6"]
+[gd_scene load_steps=25 format=3 uid="uid://b8ono4oq6kov6"]
 
 [ext_resource type="Texture2D" uid="uid://bgqgmi72xtore" path="res://Assets/Animations/AnimRing/RingSpin0000.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://camld5iumto5p" path="res://Assets/Animations/AnimRing/RingSpin0008.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://b2sp8qdutrjm4" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0000.png" id="2_wwsr2"]
 [ext_resource type="Texture2D" uid="uid://cy5jcpiy40nmv" path="res://Assets/Animations/AnimRing/RingSpin0006.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://c1fmw5q3rnf8w" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0001.png" id="3_1r1q8"]
 [ext_resource type="Texture2D" uid="uid://wvehs0smox56" path="res://Assets/Animations/AnimRing/RingSpin0010.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bbmi70cp5gh0l" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0002.png" id="4_y0juh"]
 [ext_resource type="Texture2D" uid="uid://cugq7ayjdes5p" path="res://Assets/Animations/AnimRing/RingSpin0016.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://dn7rfdi0i2exs" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0003.png" id="5_7t2yv"]
 [ext_resource type="Texture2D" uid="uid://d3n3q7lbr3vku" path="res://Assets/Animations/AnimRing/RingSpin0004.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://t87tb51bme5k" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0004.png" id="6_rrquo"]
 [ext_resource type="Texture2D" uid="uid://dq0p5knho63c5" path="res://Assets/Animations/AnimRing/RingSpin0014.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://4pdyu3ap6oso" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0005.png" id="7_k7yje"]
 [ext_resource type="Texture2D" uid="uid://can4u0i2hf3jv" path="res://Assets/Animations/AnimRing/RingSpin0012.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://ykb33frrffab" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0006.png" id="8_xpf6r"]
 [ext_resource type="Script" path="res://Scripts/Ring.cs" id="9"]
+[ext_resource type="Texture2D" uid="uid://1mi7xrwj5rha" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0007.png" id="9_vm2yy"]
 [ext_resource type="AudioStream" uid="uid://dmed1pt3hkhij" path="res://Assets/Sound/SFX_RingGet.wav" id="10_imn8f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_en0jd"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wwsr2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1r1q8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_y0juh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7t2yv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rrquo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_k7yje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_xpf6r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vm2yy")
+}],
+"loop": false,
+"name": &"collected",
+"speed": 16.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1")
@@ -95,8 +132,51 @@ tracks/0/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_54ufw"]
+resource_name = "CollectRing"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"collected"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sqrga"]
 _data = {
+"CollectRing": SubResource("Animation_54ufw"),
 "DelayedDisappear": SubResource("Animation_lwhh4"),
 "MutedCollect": SubResource("Animation_6r1ei")
 }
@@ -109,6 +189,7 @@ script = ExtResource("9")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_en0jd")
+animation = &"collected"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -131,9 +212,4 @@ libraries = {
 "": SubResource("AnimationLibrary_sqrga")
 }
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.63
-one_shot = true
-
 [connection signal="body_entered" from="Area2D" to="." method="OnRingEntered"]
-[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

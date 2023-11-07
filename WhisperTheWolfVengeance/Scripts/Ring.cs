@@ -54,18 +54,11 @@ public partial class Ring : CharacterBody2D
 	private void CollectRing() {
 		//Ensure ring is not collected multiple times while deleting
 		recollectDelay = 100;
-		//Delete after audio finishes
-		GetNode<Timer>("Timer").Start();
-
-		this.Visible = false;
 		playerUI.AddRings(1);
 		if(_SettingsManager.sfxVolume > -25) {
 			ringGetSFX.Play();
 		}
-	}
-
-	private void OnTimerTimeout() {
-		this.QueueFree();
+		GetNode<AnimationPlayer>("AnimationPlayer").Play("CollectRing");
 	}
 
 	private void RingPhysics(double delta) {
