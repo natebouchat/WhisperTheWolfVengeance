@@ -7,6 +7,7 @@ public partial class WhisperStateManager : AnimationPlayer
 	private AnimatedSprite2D mainSprite;
 	private AnimatedSprite2D colorSprite;
 	private AnimatedSprite2D chargeSprite;
+	private AnimatedSprite2D tailSprite;
 	private AnimationPlayer chargeLightAnimations;
 	private AudioStreamPlayer dropRingsSFX;
 	private System.Object[] details;
@@ -31,6 +32,8 @@ public partial class WhisperStateManager : AnimationPlayer
 		colorSprite.Play("default");
 		chargeSprite = GetNode<AnimatedSprite2D>("../MainSprite/ChargingSprite");
 		chargeSprite.Play("default");
+		tailSprite = GetNode<AnimatedSprite2D>("../MainSprite/TailSprite");
+		tailSprite.Play("default");
 		chargeLightAnimations = GetNode<AnimationPlayer>("ChargeLightAnimations");
 
 		dropRingsSFX = GetNode<AudioStreamPlayer>("../SFXDropRings");
@@ -57,7 +60,7 @@ public partial class WhisperStateManager : AnimationPlayer
 			SetAnimationState();
 			SetChargeLight();
 		}
-		else if(!(mainSprite.Animation).Equals("Hurt")) {
+		else if(!mainSprite.Animation.Equals("Hurt")) {
 			if(_SettingsManager.sfxVolume > -25) {
 				dropRingsSFX.Play();
 			}
@@ -73,24 +76,28 @@ public partial class WhisperStateManager : AnimationPlayer
 		if(((Boolean)details[1]) == false) {
 			// If upwards motion //
 			if(((Vector2)details[0]).Y < 0) {
-				if(!((mainSprite.Animation).Equals("Jump") || (mainSprite.Animation).Equals("JumpEnd"))) {
-					this.Play("WhisperJump");
+				//if(!((mainSprite.Animation).Equals("Jump") || (mainSprite.Animation).Equals("JumpEnd"))) {
+				if(!mainSprite.Animation.Equals("SpinJump")) {
+					//this.Play("WhisperJump");
+					this.Play("WhisperSpinJump");
 				}
 			}
+			/*
 			else { // If downwards motion //
-				if(!(mainSprite.Animation).Equals("Fall")) {
+				if(!mainSprite.Animation.Equals("Fall")) {
 					this.Play("WhisperFall");
 				}
 			}
+			*/
 		}
 		// If no longer falling, Transition from falling //
-		else if((mainSprite.Animation).Equals("Fall")) {
+		else if(mainSprite.Animation.Equals("Fall")) {
 			TransitionAnimation();
 		}
 		else { // If on ground //
 			// If moving on x axis // 
 			if(((Vector2)details[0]).X != 0) {
-				if(!(mainSprite.Animation).Equals("Run") || facingChanged) {
+				if(!mainSprite.Animation.Equals("Run") || facingChanged) {
 					this.Play("WhisperRun");
 					facingChanged = false;
 				}
@@ -98,13 +105,13 @@ public partial class WhisperStateManager : AnimationPlayer
 			else { // If not moving on x axis //
 				// If bullet is not ready (shot)  OR  Bullet is buffered, AND not currently charging //
 				if((((Boolean)details[2]) == true || ((Boolean)details[3]) == true) && ((double)details[details.Length - 1] < 0.1)) {
-					if(!(mainSprite.Animation).Equals("IdleShoot")) {
+					if(!mainSprite.Animation.Equals("IdleShoot")) {
 						this.Play("WhisperIdleShoot");
 					}
 				}
 				// Bullet Charging or Charged //
 				else if((double)details[details.Length - 1] >= 0.1) {
-					if(!((mainSprite.Animation).Equals("IdleCharging") || ((mainSprite.Animation).Equals("IdleCharged")))) {
+					if(!(mainSprite.Animation.Equals("IdleCharging") || mainSprite.Animation.Equals("IdleCharged"))) {
 						if((double)details[details.Length - 1] < 0.6) {
 							this.Play("WhisperIdleCharge");
 						}
@@ -114,11 +121,16 @@ public partial class WhisperStateManager : AnimationPlayer
 					}
 				}
 				else{ // Idle //
-					if(!(mainSprite.Animation).Equals("default")) {
+					if(!mainSprite.Animation.Equals("default")) {
 						this.Play("WhisperIdle");
 					}
 				}
 			}
+		}
+
+		if(!mainSprite.Animation.Equals("SpinJump")) {
+			colorSprite.Visible = true;
+			tailSprite.Visible = false;
 		}
 	}
 
@@ -129,24 +141,24 @@ public partial class WhisperStateManager : AnimationPlayer
 		if((double)details[details.Length - 1] >= 0.1) {
 			//if not fully charged
 			if((double)details[details.Length - 1] < 0.6) {
-				if(!(chargeSprite.Animation).Equals("Charging")) {
+				if(!chargeSprite.Animation.Equals("Charging")) {
 					chargeLightAnimations.Play("Charging");
 				}
 			}
 			// If running //
-			else if((mainSprite.Animation).Equals("Run") && !(chargeSprite.Animation).Equals("ChargedRun")) {
+			else if(mainSprite.Animation.Equals("Run") && !chargeSprite.Animation.Equals("ChargedRun")) {
 				chargeSprite.Animation = "ChargedRun";
 				chargeSprite.Frame = mainSprite.Frame;
 			}
 			// If not running //
-			else if(!(chargeSprite.Animation).Equals("Charged") && !(mainSprite.Animation).Equals("Run")) {
+			else if(!chargeSprite.Animation.Equals("Charged") && !mainSprite.Animation.Equals("Run")) {
 				chargeLightAnimations.Play("Charged");
 			}
 		}
-		else if((chargeSprite.Animation).Equals("Charged") || (chargeSprite.Animation).Equals("ChargedRun")) {
+		else if(chargeSprite.Animation.Equals("Charged") || chargeSprite.Animation.Equals("ChargedRun")) {
 			chargeLightAnimations.Play("Dissolve");
 		}
-		else if(!(chargeSprite.Animation).Equals("Dissolve")){
+		else if(!chargeSprite.Animation.Equals("Dissolve")){
 			chargeLightAnimations.Play("NoCharge");
 		}
 		// Force running animation sync //
@@ -216,10 +228,12 @@ public partial class WhisperStateManager : AnimationPlayer
 	////// SIGNALS ///////////////////////////////////////////////////////
 
 	private void TransitionAnimation() {
-		if(!(mainSprite.Animation).Equals("default") && !((string)(mainSprite.Animation)).Contains("Transition")) {
+		if(!mainSprite.Animation.Equals("default") && !((string)(mainSprite.Animation)).Contains("Transition")) {
 			try{
-				mainSprite.Animation = mainSprite.Animation + "Transition";
-				colorSprite.Animation = colorSprite.Animation + "Transition";
+				if(!mainSprite.Animation.Equals("SpinJump")) {
+					mainSprite.Animation = mainSprite.Animation + "Transition";
+					colorSprite.Animation = colorSprite.Animation + "Transition";
+				}
 			}
 			catch(Exception) {
 				mainSprite.Animation = "default";

@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://cypoesvfj2rqu"]
+[gd_scene load_steps=107 format=3 uid="uid://cypoesvfj2rqu"]
 
 [ext_resource type="Script" path="res://Scripts/WhisperController.cs" id="2"]
 [ext_resource type="Texture2D" uid="uid://b6u6kxq6dw47l" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFall1.png" id="2_57f2e"]
@@ -26,8 +26,11 @@
 [ext_resource type="Texture2D" uid="uid://c0hwfvmq4jgvt" path="res://Assets/Animations/AnimWhisper/WhisperRun/WhisperRun10.png" id="22_ntyvg"]
 [ext_resource type="Texture2D" uid="uid://dk4okwaxcowc" path="res://Assets/Animations/AnimWhisper/WhisperRun/RunTransition/WhisperRunTransition.png" id="23_b75xg"]
 [ext_resource type="Texture2D" uid="uid://bjbk16177mcfy" path="res://Assets/Animations/AnimWhisper/WhisperIdle/WhisperIdle1.png" id="24_o3rdc"]
+[ext_resource type="Texture2D" uid="uid://cva1vhwulaoog" path="res://Assets/Animations/AnimWhisper/WhisperSpinJump/WhisperSpinJump1.png" id="24_ue8pa"]
 [ext_resource type="Texture2D" uid="uid://c5ma0ktj3fqw6" path="res://Assets/Animations/AnimWhisper/WhisperIdle/WhisperIdle9.png" id="25_ilmy3"]
+[ext_resource type="Texture2D" uid="uid://c8ff3obb17vgf" path="res://Assets/Animations/AnimWhisper/WhisperSpinJump/WhisperSpinJump2.png" id="25_q22x3"]
 [ext_resource type="Texture2D" uid="uid://h7m2ul5dvvb5" path="res://Assets/Animations/AnimWhisper/WhisperIdle/WhisperIdle16.png" id="26_bdb3m"]
+[ext_resource type="Texture2D" uid="uid://bddlv1ikseyb1" path="res://Assets/Animations/AnimWhisper/WhisperSpinJump/WhisperSpinJump3.png" id="26_wqkd2"]
 [ext_resource type="Texture2D" uid="uid://de7qggbq3ow2p" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFallColor/WhisperFallColor1.png" id="27_0r0wv"]
 [ext_resource type="Texture2D" uid="uid://ct73j4n5xroyi" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFallStart/WhisperFallStartColor.png" id="28_j4cfx"]
 [ext_resource type="Texture2D" uid="uid://dgj53102mvrk8" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFallTransition/WhisperFallTransitionColor.png" id="29_nhiol"]
@@ -77,6 +80,11 @@
 [ext_resource type="Texture2D" uid="uid://cfom5acmlxr1q" path="res://Assets/Animations/AnimWhisper/WhispBullets/ChargeLight/ChargingLight/WhisperChargingLight10.png" id="73_lo41q"]
 [ext_resource type="AudioStream" uid="uid://5nup1r3tax7y" path="res://Assets/Sound/SFX_DropRing.wav" id="74_irotu"]
 [ext_resource type="PackedScene" uid="uid://cedbpofo7je6h" path="res://Components/PauseMenu.tscn" id="75_gxwhd"]
+[ext_resource type="Texture2D" uid="uid://cw0cwd7gkjixn" path="res://Assets/Animations/AnimWhisper/WhisperSpinJump/WhisperTail/WhisperTail5.png" id="77_qjf0h"]
+[ext_resource type="Texture2D" uid="uid://m3em0at0n7ya" path="res://Assets/Animations/AnimWhisper/WhisperSpinJump/WhisperTail/WhisperTail6.png" id="78_3y02w"]
+[ext_resource type="Texture2D" uid="uid://il1xwwkovp5d" path="res://Assets/Animations/AnimWhisper/WhisperSpinJump/WhisperTail/WhisperTail7.png" id="79_a20ig"]
+[ext_resource type="Texture2D" uid="uid://d1r3so83y45l8" path="res://Assets/Animations/AnimWhisper/WhisperSpinJump/WhisperTail/WhisperTail8.png" id="80_ftpgy"]
+[ext_resource type="Script" path="res://Scripts/TailRotation.cs" id="81_gsdon"]
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{
@@ -214,6 +222,20 @@ animations = [{
 "loop": true,
 "name": &"RunTransition",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_ue8pa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_q22x3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_wqkd2")
+}],
+"loop": true,
+"name": &"SpinJump",
+"speed": 24.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -563,6 +585,26 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_acysc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("77_qjf0h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_3y02w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_a20ig")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_ftpgy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
 [sub_resource type="RectangleShape2D" id="5"]
 size = Vector2(66, 146)
 
@@ -809,6 +851,47 @@ tracks/1/keys = {
 "values": ["RunTransition", "Run"]
 }
 
+[sub_resource type="Animation" id="Animation_v7ndh"]
+resource_name = "WhisperSpinJump"
+length = 0.0833375
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"SpinJump"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainSprite/TailSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MainSprite/ColorSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hljqt"]
 _data = {
 "WhisperFall": SubResource("16"),
@@ -818,7 +901,8 @@ _data = {
 "WhisperIdlePreCharged": SubResource("14"),
 "WhisperIdleShoot": SubResource("8"),
 "WhisperJump": SubResource("15"),
-"WhisperRun": SubResource("7")
+"WhisperRun": SubResource("7"),
+"WhisperSpinJump": SubResource("Animation_v7ndh")
 }
 
 [sub_resource type="Animation" id="18"]
@@ -924,15 +1008,23 @@ jumpForce = 1000
 
 [node name="MainSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")
-animation = &"FallStart"
+animation = &"SpinJump"
 
 [node name="ColorSprite" type="AnimatedSprite2D" parent="MainSprite"]
+visible = false
 modulate = Color(0.427451, 0.764706, 0.745098, 1)
 sprite_frames = SubResource("3")
 animation = &"FallStart"
 
 [node name="ChargingSprite" type="AnimatedSprite2D" parent="MainSprite"]
 sprite_frames = SubResource("10")
+
+[node name="TailSprite" type="AnimatedSprite2D" parent="MainSprite"]
+z_index = -1
+position = Vector2(0, 27)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_acysc")
+script = ExtResource("81_gsdon")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
