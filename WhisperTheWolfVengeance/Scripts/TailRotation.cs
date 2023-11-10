@@ -28,10 +28,9 @@ public partial class TailRotation : AnimatedSprite2D
 			if(whisperController.Velocity.Y < 0) {
 				this.Rotation = (float)Math.PI + this.Rotation;
 			}
-			GD.Print(this.Rotation);
 
-			tailOffset.X = (float)(Math.Cos(this.Rotation) * -75);
-			tailOffset.Y = (float)((Math.Sin(this.Rotation) * -75) + 30);
+			tailOffset.X = (float)(Math.Cos(this.Rotation) * -60);
+			tailOffset.Y = (float)((Math.Sin(this.Rotation) * -60) + 30);
 			this.Position = tailOffset;
 		}
 	}

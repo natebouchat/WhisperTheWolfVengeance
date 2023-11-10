@@ -153,13 +153,13 @@ public partial class WhisperController : CharacterBody2D
 
 	private void CalculateExternalMotion(double delta) {
 			if(externalMotion.X > 0) {
-				externalMotion.X -= (float)(Math.Sqrt(delta * 20 * externalMotion.X));
+				externalMotion.X -= (float)Math.Sqrt(delta * 20 * externalMotion.X);
 				if(externalMotion.X < 100) {
 					externalMotion.X = 0;
 				}
 			}
 			else if(externalMotion.X < 0) {
-				externalMotion.X += (float)(Math.Sqrt(delta * 20 * -externalMotion.X));
+				externalMotion.X += (float)Math.Sqrt(delta * 20 * -externalMotion.X);
 				if(externalMotion.X > -100) {
 					externalMotion.X = 0;
 				}
@@ -236,8 +236,8 @@ public partial class WhisperController : CharacterBody2D
 		playerUI.rings = 0;
 	}
 
-	public System.Object[] GetWhisperDetails() {
-		System.Object[] obj = new System.Object[] {Velocity, IsOnFloor(), !bulletIsReady, bufferBullet, chargingTimer};
+	public object[] GetWhisperDetails() {
+		object[] obj = new object[] {Velocity, IsOnFloor(), !bulletIsReady, bufferBullet, chargingTimer};
 		return obj;
 	}
 
