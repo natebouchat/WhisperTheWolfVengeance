@@ -114,8 +114,15 @@ public partial class WhisperStateManager : AnimationPlayer
 			// If moving on x axis // 
 			if(((Vector2)details[0]).X != 0) {
 				if(!state.Equals("Run") || facingChanged) {
-					this.Play("WhisperRun");
-					facingChanged = false;
+					// If charging/charged, skip transition frame //
+					if((double)details[4] >= 0.1) {
+						mainSprite.Animation = "Run";
+						colorSprite.Animation = "Run";
+					}
+					else {
+						this.Play("WhisperRun");
+						facingChanged = false;
+					}
 				}
 			}
 			else { // If not moving on x axis //

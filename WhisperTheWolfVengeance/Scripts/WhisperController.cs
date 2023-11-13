@@ -87,7 +87,7 @@ public partial class WhisperController : CharacterBody2D
 				}
 			}
 
-			if(IsOnFloor() && Input.IsActionPressed("jump")) {
+			if(IsOnFloor() && Input.IsActionJustPressed("jump")) {
 				motion.Y = -jumpForce; 
 			}
 			if(Input.IsActionPressed("shoot")) {

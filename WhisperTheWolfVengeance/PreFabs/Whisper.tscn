@@ -1,8 +1,10 @@
-[gd_scene load_steps=108 format=3 uid="uid://cypoesvfj2rqu"]
+[gd_scene load_steps=112 format=3 uid="uid://cypoesvfj2rqu"]
 
 [ext_resource type="Script" path="res://Scripts/WhisperController.cs" id="2"]
 [ext_resource type="Texture2D" uid="uid://b6u6kxq6dw47l" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFall1.png" id="2_57f2e"]
+[ext_resource type="Texture2D" uid="uid://ddvgfss00562e" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFall2.png" id="3_ji3yf"]
 [ext_resource type="Texture2D" uid="uid://5s275x0wxwb" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFallStart/WhisperFallStart.png" id="3_vc5up"]
+[ext_resource type="Texture2D" uid="uid://bommbtsvfmefo" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFall3.png" id="4_b1bxk"]
 [ext_resource type="Texture2D" uid="uid://gwhkm27ynncj" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFallTransition/WhisperFallTransition.png" id="4_pvr2g"]
 [ext_resource type="Texture2D" uid="uid://21li5u4cd2en" path="res://Assets/Animations/AnimWhisper/WhisperHurt/WhisperHurt1.png" id="5_31k17"]
 [ext_resource type="Texture2D" uid="uid://op5c45bmj67l" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot2.png" id="6_use18"]
@@ -37,8 +39,10 @@
 [ext_resource type="Texture2D" uid="uid://b4si2hgoshgik" path="res://Assets/Animations/AnimWhisper/WhisperHurt/HurtColor/WhisperHurtColor1.png" id="30_hd8so"]
 [ext_resource type="Texture2D" uid="uid://bk7mprpoktqxk" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/IdleShootColor/WhisperIdleShootColor2.png" id="31_ycj6q"]
 [ext_resource type="Texture2D" uid="uid://cnbququtsoaaq" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/IdleShootColor/WhisperIdleShootColor1.png" id="32_hcgd7"]
+[ext_resource type="Texture2D" uid="uid://cplpi3opb8e8u" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFallColor/WhisperFallColor2.png" id="33_4yhk7"]
 [ext_resource type="Texture2D" uid="uid://bafnft2mj62pw" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/IdleShootColor/WhisperIdleShootColor3.png" id="33_a5vyy"]
 [ext_resource type="Texture2D" uid="uid://b2kofld0bli5r" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/IdleShootTransition/IdleShootTransitionColor6.png" id="34_3vdl6"]
+[ext_resource type="Texture2D" uid="uid://bf2sq5q0arbs8" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFallColor/WhisperFallColor3.png" id="34_s6oih"]
 [ext_resource type="Texture2D" uid="uid://bkq6h2hjnlkpo" path="res://Assets/Animations/AnimWhisper/WhisperJump/JumpColor/WhisperJumpColor1.png" id="35_e7w52"]
 [ext_resource type="Texture2D" uid="uid://bn8koutbt2fgl" path="res://Assets/Animations/AnimWhisper/WhisperJump/JumpColor/WhisperJumpColor2.png" id="36_2j0kk"]
 [ext_resource type="Texture2D" uid="uid://dbqtw3idnscp4" path="res://Assets/Animations/AnimWhisper/WhisperJump/JumpColor/WhisperJumpColor3.png" id="37_tmmxj"]
@@ -92,6 +96,15 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_57f2e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ji3yf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_b1bxk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ji3yf")
 }],
 "loop": true,
 "name": &"Fall",
@@ -294,6 +307,15 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("27_0r0wv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_4yhk7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_s6oih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_4yhk7")
 }],
 "loop": true,
 "name": &"Fall",
@@ -1021,13 +1043,12 @@ jumpForce = 1000
 
 [node name="MainSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")
-animation = &"IdleShootTransition"
+animation = &"RunTransition"
 
 [node name="ColorSprite" type="AnimatedSprite2D" parent="MainSprite"]
-visible = false
 modulate = Color(0.427451, 0.764706, 0.745098, 1)
 sprite_frames = SubResource("3")
-animation = &"FallStart"
+animation = &"RunTransition"
 
 [node name="ChargingSprite" type="AnimatedSprite2D" parent="MainSprite"]
 sprite_frames = SubResource("10")

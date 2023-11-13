@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo27v4k832r7e"]
+
+[ext_resource type="PackedScene" uid="uid://brn6xmd7apd8i" path="res://Assets/3D_Assets/Whisper.blend" id="1_dqv3h"]
+
+[node name="Whisper" instance=ExtResource("1_dqv3h")]
+
+[node name="Body" parent="." index="0"]
+transform = Transform3D(0.118627, 1.63427e-17, 1.43593e-18, -7.32723e-18, 0.254144, 0.0455774, 1.03964e-18, -0.0736012, 0.157378, 0, -0.2785, 0)
