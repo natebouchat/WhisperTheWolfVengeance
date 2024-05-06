@@ -17,7 +17,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-SettingsManager="*res://Scripts/_SettingsManager.cs"
+SettingsManager="*res://Scripts/Scenes/_SettingsManager.cs"
 
 [display]
 

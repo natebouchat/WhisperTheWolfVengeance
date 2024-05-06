@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://gcr7i6ig5xb0"]
 
 [ext_resource type="Texture2D" uid="uid://dh1exhtuidjuc" path="res://Assets/Animations/AnimTangle/Blink/TangleBlink1.png" id="1_4qrwj"]
-[ext_resource type="Script" path="res://Scripts/TangleStateManager.cs" id="1_bpqvc"]
+[ext_resource type="Script" path="res://Scripts/Assets/TangleStateManager.cs" id="1_bpqvc"]
 [ext_resource type="Texture2D" uid="uid://8jlxq5jpcyed" path="res://Assets/Animations/AnimTangle/Idle/TangleIdle1.png" id="1_qdem1"]
 [ext_resource type="Texture2D" uid="uid://dq5lirp6h86iw" path="res://Assets/Animations/AnimTangle/Blink/TangleBlink2.png" id="2_47rug"]
 [ext_resource type="Texture2D" uid="uid://cbkro5x4c2af2" path="res://Assets/Animations/AnimTangle/Idle/TangleIdle2.png" id="2_54b3w"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://c8maaeofojaeh"]
 
-[ext_resource type="Script" path="res://Scripts/LaserBullet.cs" id="2"]
+[ext_resource type="Script" path="res://Scripts/Assets/LaserBullet.cs" id="2"]
 [ext_resource type="Texture2D" uid="uid://chhncy8afgyrl" path="res://Assets/Animations/AnimWhisper/WhispBullets/LaserBullet/LaserHit/LaserHit0000.png" id="2_4l2p8"]
 [ext_resource type="Texture2D" uid="uid://blsiqj2abv0k5" path="res://Assets/Animations/AnimWhisper/WhispBullets/LaserBullet/LaserHit/LaserHit0001.png" id="3_vmrse"]
 [ext_resource type="Texture2D" uid="uid://bn2gh0hi8i617" path="res://Assets/Animations/AnimWhisper/WhispBullets/LaserBullet/LaserHit/LaserHit0002.png" id="4_qc4sk"]
@@ -53,6 +53,7 @@ script = ExtResource("2")
 speed = 25
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
 position = Vector2(-4, 0)
 scale = Vector2(1.5, 1.25)
 sprite_frames = SubResource("2")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bqiqpmn3xigi"]
 
-[ext_resource type="Script" path="res://Scripts/PlayerUI.cs" id="2"]
+[ext_resource type="Script" path="res://Scripts/Scenes/PlayerUI.cs" id="2"]
 [ext_resource type="PackedScene" path="res://Components/SonicUI.tscn" id="2_6136u"]
 [ext_resource type="PackedScene" path="res://Components/DebugDetails.tscn" id="3"]
 

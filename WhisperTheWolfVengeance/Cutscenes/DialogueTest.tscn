@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cwmcdslmp2sv3"]
 
-[ext_resource type="Script" path="res://Scripts/DialogueInitialization.cs" id="1_nnb57"]
+[ext_resource type="Script" path="res://Scripts/Scenes/DialogueInitialization.cs" id="1_nnb57"]
 [ext_resource type="PackedScene" uid="uid://gcr7i6ig5xb0" path="res://PreFabs/Tangle.tscn" id="2_ycue5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ndg85"]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=112 format=3 uid="uid://cypoesvfj2rqu"]
+[gd_scene load_steps=117 format=3 uid="uid://cypoesvfj2rqu"]
 
-[ext_resource type="Script" path="res://Scripts/WhisperController.cs" id="2"]
+[ext_resource type="Script" path="res://Scripts/Assets/WhisperController.cs" id="2"]
 [ext_resource type="Texture2D" uid="uid://b6u6kxq6dw47l" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFall1.png" id="2_57f2e"]
 [ext_resource type="Texture2D" uid="uid://ddvgfss00562e" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFall2.png" id="3_ji3yf"]
 [ext_resource type="Texture2D" uid="uid://5s275x0wxwb" path="res://Assets/Animations/AnimWhisper/WhisperFall/WhisperFallStart/WhisperFallStart.png" id="3_vc5up"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://21li5u4cd2en" path="res://Assets/Animations/AnimWhisper/WhisperHurt/WhisperHurt1.png" id="5_31k17"]
 [ext_resource type="Texture2D" uid="uid://op5c45bmj67l" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot2.png" id="6_use18"]
 [ext_resource type="Texture2D" uid="uid://bivoixm3503c2" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot1.png" id="7_0arli"]
-[ext_resource type="Script" path="res://Scripts/WhisperStateManager.cs" id="8"]
+[ext_resource type="Script" path="res://Scripts/Assets/WhisperStateManager.cs" id="8"]
 [ext_resource type="Texture2D" uid="uid://cywcj5w3pb4jo" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/WhisperIdleShoot3.png" id="8_1434q"]
 [ext_resource type="Texture2D" uid="uid://d2yenq7ntcf1m" path="res://Assets/Animations/AnimWhisper/WhisperIdleShoot/IdleShootTransition/IdleShootTransition6.png" id="9_hjxtg"]
 [ext_resource type="PackedScene" uid="uid://bqiqpmn3xigi" path="res://Components/PlayerUI.tscn" id="10"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://buf4l78hx45ql" path="res://Assets/Animations/AnimWhisper/WhisperJump/WhisperJump3.png" id="12_aht8c"]
 [ext_resource type="Texture2D" uid="uid://dtf3axoqo1bbw" path="res://Assets/Animations/AnimWhisper/WhisperRun/WhisperRun1.png" id="13_jt5h1"]
 [ext_resource type="Texture2D" uid="uid://b4wtiahr4tkby" path="res://Assets/Animations/AnimWhisper/WhisperRun/WhisperRun2.png" id="14_qepte"]
+[ext_resource type="Texture2D" uid="uid://crvn6msjllowi" path="res://Assets/Animations/AnimWhisper/WhisperProne/WhisperProne1.png" id="15_1vw6u"]
 [ext_resource type="Texture2D" uid="uid://5jtnaj07r4vf" path="res://Assets/Animations/AnimWhisper/WhisperRun/WhisperRun3.png" id="15_rif3y"]
 [ext_resource type="Texture2D" uid="uid://d4hm0wtpjt5d4" path="res://Assets/Animations/AnimWhisper/WhisperRun/WhisperRun4.png" id="16_mcm4a"]
 [ext_resource type="Texture2D" uid="uid://drms7etvdk34d" path="res://Assets/Animations/AnimWhisper/WhisperRun/WhisperRun5.png" id="17_mtf3c"]
@@ -54,6 +55,7 @@
 [ext_resource type="Texture2D" uid="uid://bbwsthi6vaqen" path="res://Assets/Animations/AnimWhisper/WhisperRun/RunColor/RunColor6.png" id="43_dywe3"]
 [ext_resource type="Texture2D" uid="uid://bb4y7a2dmwptv" path="res://Assets/Animations/AnimWhisper/WhisperRun/RunColor/RunColor7.png" id="44_hewrc"]
 [ext_resource type="Texture2D" uid="uid://i2q3dcyqo15p" path="res://Assets/Animations/AnimWhisper/WhisperRun/RunColor/RunColor8.png" id="45_yxitw"]
+[ext_resource type="Texture2D" uid="uid://dn2w4j5d8i3ax" path="res://Assets/Animations/AnimWhisper/WhisperProne/Color/WhisperProneColor1.png" id="46_rtywo"]
 [ext_resource type="Texture2D" uid="uid://bsya7pefv1qir" path="res://Assets/Animations/AnimWhisper/WhisperRun/RunColor/RunColor9.png" id="46_s2mgl"]
 [ext_resource type="Texture2D" uid="uid://blep36pqjcjxn" path="res://Assets/Animations/AnimWhisper/WhisperRun/RunColor/RunColor10.png" id="47_g8tab"]
 [ext_resource type="Texture2D" uid="uid://dps0l8qkr3mrg" path="res://Assets/Animations/AnimWhisper/WhisperRun/RunTransition/WhisperRunColorTransition.png" id="48_lvtjv"]
@@ -89,7 +91,8 @@
 [ext_resource type="Texture2D" uid="uid://il1xwwkovp5d" path="res://Assets/Animations/AnimWhisper/WhisperSpinJump/WhisperTail/WhisperTail7.png" id="79_a20ig"]
 [ext_resource type="Texture2D" uid="uid://d1r3so83y45l8" path="res://Assets/Animations/AnimWhisper/WhisperSpinJump/WhisperTail/WhisperTail8.png" id="80_ftpgy"]
 [ext_resource type="Texture2D" uid="uid://dn442vwnkoq4g" path="res://Assets/Animations/AnimWhisper/WhisperSpinJump/WhisperTail/WhisperTail9.png" id="81_ak7cx"]
-[ext_resource type="Script" path="res://Scripts/TailRotation.cs" id="81_gsdon"]
+[ext_resource type="Script" path="res://Scripts/Assets/TailRotation.cs" id="81_gsdon"]
+[ext_resource type="AudioStream" uid="uid://dgdfcdp1k83lu" path="res://Assets/Sound/SFX_Jump.wav" id="91_q3eul"]
 
 [sub_resource type="SpriteFrames" id="2"]
 animations = [{
@@ -192,6 +195,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"JumpEnd",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_1vw6u")
+}],
+"loop": true,
+"name": &"Prone",
 "speed": 12.0
 }, {
 "frames": [{
@@ -403,6 +414,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"JumpEnd",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("46_rtywo")
+}],
+"loop": true,
+"name": &"Prone",
 "speed": 12.0
 }, {
 "frames": [{
@@ -828,6 +847,34 @@ tracks/1/keys = {
 "values": ["IdleShoot"]
 }
 
+[sub_resource type="Animation" id="Animation_ypqyd"]
+resource_name = "WhisperInstantRun"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Run"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainSprite/ColorSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Run"]
+}
+
 [sub_resource type="Animation" id="15"]
 resource_name = "WhisperJump"
 length = 0.166667
@@ -855,6 +902,34 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": ["Jump", "JumpEnd"]
+}
+
+[sub_resource type="Animation" id="Animation_12m2f"]
+resource_name = "WhisperProne"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Prone"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainSprite/ColorSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Prone"]
 }
 
 [sub_resource type="Animation" id="7"]
@@ -935,7 +1010,9 @@ _data = {
 "WhisperIdleCharge": SubResource("9"),
 "WhisperIdlePreCharged": SubResource("14"),
 "WhisperIdleShoot": SubResource("8"),
+"WhisperInstantRun": SubResource("Animation_ypqyd"),
 "WhisperJump": SubResource("15"),
+"WhisperProne": SubResource("Animation_12m2f"),
 "WhisperRun": SubResource("7"),
 "WhisperSpinJump": SubResource("Animation_v7ndh")
 }
@@ -1043,17 +1120,18 @@ jumpForce = 1000
 
 [node name="MainSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("2")
-animation = &"RunTransition"
+animation = &"Run"
 
 [node name="ColorSprite" type="AnimatedSprite2D" parent="MainSprite"]
 modulate = Color(0.427451, 0.764706, 0.745098, 1)
 sprite_frames = SubResource("3")
-animation = &"RunTransition"
+animation = &"Run"
 
 [node name="ChargingSprite" type="AnimatedSprite2D" parent="MainSprite"]
 sprite_frames = SubResource("10")
 
 [node name="TailSprite" type="AnimatedSprite2D" parent="MainSprite"]
+visible = false
 z_index = -1
 position = Vector2(0, 27)
 sprite_frames = SubResource("SpriteFrames_acysc")
@@ -1101,5 +1179,8 @@ position = Vector2(88, 33)
 
 [node name="SFXDropRings" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("74_irotu")
+
+[node name="SFXJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("91_q3eul")
 
 [connection signal="timeout" from="Timer" to="WhisperAnimations" method="EndExtendSpinJump"]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=24 format=3 uid="uid://b0y2qps8sdm34"]
 
 [ext_resource type="Texture2D" uid="uid://dfy733fpu5862" path="res://Assets/Animations/AnimEggPawn/eggPawnIdle1.png" id="1"]
-[ext_resource type="Script" path="res://Scripts/EggPawn.cs" id="2"]
-[ext_resource type="Shader" path="res://Scripts/FlashShader.gdshader" id="2_8g8ly"]
-[ext_resource type="Script" path="res://Scripts/EnemyInteraction.cs" id="3_i1xy0"]
+[ext_resource type="Script" path="res://Scripts/Assets/EggPawn.cs" id="2"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/FlashShader.gdshader" id="2_8g8ly"]
+[ext_resource type="Script" path="res://Scripts/Assets/EnemyInteraction.cs" id="3_i1xy0"]
 [ext_resource type="Texture2D" uid="uid://dfirpee705jyg" path="res://Assets/Animations/AnimEggPawn/Explode/Explode1.png" id="4_dxr6h"]
 [ext_resource type="Texture2D" uid="uid://b5ykvp8vft45n" path="res://Assets/Animations/AnimEggPawn/Explode/Explode2.png" id="5_rlfpp"]
 [ext_resource type="Texture2D" uid="uid://ceu83w0m4g6wl" path="res://Assets/Animations/AnimEggPawn/Explode/Explode3.png" id="6_y20jw"]

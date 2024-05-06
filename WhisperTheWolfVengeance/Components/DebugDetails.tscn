@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://Scripts/DebugDetails.cs" id="2"]
+[ext_resource type="Script" path="res://Scripts/Scenes/DebugDetails.cs" id="2"]
 [ext_resource type="FontFile" uid="uid://t5m1q8owmif3" path="res://Assets/UI/Play-Regular.ttf" id="2_i0f25"]
 
 [node name="DebugDetails" type="CanvasLayer"]

@@ -20,18 +20,19 @@ public partial class WhisperController : CharacterBody2D
 	private PlayerUI playerUI;
 	private Marker2D point;
 	private PauseMenu pauseMenu;
-	private Vector2 rightPoint;
-	private Vector2 leftPoint;
-	private bool bulletIsReady;
-	private bool bufferBullet;
-	private bool facingLeft;
+	private AudioStreamPlayer jumpSFX;
+	private Vector2 shotPoint;
 	private bool motionAdded;
 	private double bulletTimer;
-	private double chargingTimer;
 	
-	public double hurtCooldown {get; set;}
-	public int whisp {get; set;}
-	public bool controlsEnabled{get; set;}
+	public double HurtCooldown {get; set;}
+	public double ChargingTimer {get; set;}
+	public int Whisp {get; set;}
+	public bool BulletIsReady {get; set;}
+	public bool BufferBullet {get; set;}
+	public bool FacingLeft {get; set;}
+	public bool IsDucking {get; set;}
+	public bool ControlsEnabled{get; set;}
 
 	public override void _Ready(){
 		motion = new Vector2();
@@ -41,22 +42,24 @@ public partial class WhisperController : CharacterBody2D
 		playerUI = GetNode<PlayerUI>("PlayerUI");
 		point = GetNode<Marker2D>("GunPoint");
 		pauseMenu = GetNode<PauseMenu>("Pause Menu");
-		rightPoint = new Vector2(point.Position.X, point.Position.Y);
-		leftPoint = new Vector2(-point.Position.X, point.Position.Y);
-		bulletIsReady = true;
-		bufferBullet = false;
-		facingLeft = false;
+		jumpSFX = GetNode<AudioStreamPlayer>("SFXJump");
+		shotPoint = new Vector2(88, 33);
 		motionAdded = false;
 		bulletTimer = 0;
-		chargingTimer = 0;
-		hurtCooldown = 0;
-		whisp = 0;
-		controlsEnabled = true;
+
+		HurtCooldown = 0;
+		ChargingTimer = 0;
+		Whisp = 0;
+		BulletIsReady = true;
+		BufferBullet = false;
+		FacingLeft = false;
+		IsDucking = false;
+		ControlsEnabled = true;
 	}
 
 	public override void _Process(double delta) {
 		Gravity(delta);
-		if(controlsEnabled) {
+		if(ControlsEnabled) {
 			PlayerInput(delta);
 		}
 		CalculateExternalMotion(delta);
@@ -69,69 +72,91 @@ public partial class WhisperController : CharacterBody2D
  /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	private void PlayerInput(double delta) {
-		if(hurtCooldown <= 0 && !pauseMenu.Visible) {
-			if(Input.IsActionPressed("ui_right")) {
-				motion.X = maxSpeed;
-				point.Position = rightPoint;
-				facingLeft = false;
-			}
-			else if(Input.IsActionPressed("ui_left")) {
-				motion.X = -maxSpeed;
-				point.Position = leftPoint;
-				facingLeft = true;
+		if(HurtCooldown <= 0 && !pauseMenu.Visible) {
+			if(Input.IsActionPressed("ui_down") && this.IsOnFloor()) {
+				IsDucking = true;
+				motion.X = 0;
+				shotPoint.Y = 98;
+				if(FacingLeft) {
+					shotPoint.X = -130;
+				}
+				else {
+					shotPoint.X = 130;
+				}
+				point.Position = shotPoint;
 			}
 			else {
-				motion.X = 0;
-				if((Input.IsActionJustReleased("ui_right") && externalMotion.X < 0) || (Input.IsActionJustReleased("ui_left") && externalMotion.X > 0)) {
-					externalMotion.X = Velocity.X;
+				if(Input.IsActionPressed("ui_right")) {
+					motion.X = maxSpeed;
+					shotPoint.X = 88;
+					shotPoint.Y = 33;
+					point.Position = shotPoint;
+					FacingLeft = false;
+					IsDucking = false;
+				}
+				else if(Input.IsActionPressed("ui_left")) {
+					motion.X = -maxSpeed;
+					shotPoint.X = -88;
+					shotPoint.Y = 33;
+					point.Position = shotPoint;
+					FacingLeft = true;
+					IsDucking = false;
+				}
+				else {
+					motion.X = 0;
+					if((Input.IsActionJustReleased("ui_right") && externalMotion.X < 0) || (Input.IsActionJustReleased("ui_left") && externalMotion.X > 0)) {
+						externalMotion.X = Velocity.X;
+					}
+					IsDucking = false;
 				}
 			}
 
 			if(IsOnFloor() && Input.IsActionJustPressed("jump")) {
 				motion.Y = -jumpForce; 
+				jumpSFX.Play();
 			}
 			if(Input.IsActionPressed("shoot")) {
-				if(chargingTimer < 0.6) {
-					chargingTimer += delta;
+				if(ChargingTimer < 0.6) {
+					ChargingTimer += delta;
 				}
 			}
-			else if(Input.IsActionJustReleased("shoot") || bufferBullet == true) {
-				if(chargingTimer <= 0.6) {
+			else if(Input.IsActionJustReleased("shoot") || BufferBullet == true) {
+				if(ChargingTimer <= 0.6) {
 					//normal bullet
-					chargingTimer = 0;
-					if(bulletIsReady) {
+					ChargingTimer = 0;
+					if(BulletIsReady) {
 						ShootLaserBullet(false);
 						bulletTimer = 0;
-						bulletIsReady = false;
-						bufferBullet = false;
+						BulletIsReady = false;
+						BufferBullet = false;
 					}
 					else {
-							bufferBullet = true;
+							BufferBullet = true;
 					}
 				}
 				else {
 					//charged bullet
-					chargingTimer = 0;
+					ChargingTimer = 0;
 					ShootLaserBullet(true);
 					bulletTimer = 0;
-					bulletIsReady = false;
+					BulletIsReady = false;
 				}
 			}
 		}
 		else {
-			hurtCooldown -= delta;
+			HurtCooldown -= delta;
 		}
 
 		if(Input.IsActionJustPressed("rightWhisp")) {
-			whisp += 1;
-			if(whisp == 5) {
-				whisp = 0;
+			Whisp += 1;
+			if(Whisp == 5) {
+				Whisp = 0;
 			}
 		}
 		else if(Input.IsActionJustPressed("leftWhisp")) {
-			whisp -= 1;
-			if(whisp == -1) {
-				whisp = 4;
+			Whisp -= 1;
+			if(Whisp == -1) {
+				Whisp = 4;
 			}
 		}
 	}
@@ -146,7 +171,7 @@ public partial class WhisperController : CharacterBody2D
 				motion.Y = maxFallSpeed;
 			}
 		}
-		else if(hurtCooldown <= 0) {
+		else if(HurtCooldown <= 0) {
 			motion.Y = 0;
 		}
 	}
@@ -186,7 +211,7 @@ public partial class WhisperController : CharacterBody2D
 	private void ShootLaserBullet(bool charged) {
 		LaserBullet bullet = (LaserBullet)laserBullet.Instantiate();
 		bullet.GlobalPosition = point.GlobalPosition;
-		if(facingLeft) {
+		if(FacingLeft) {
 			bullet.FlipBullet();
 		}
 		GetParent().AddChild(bullet);
@@ -201,7 +226,7 @@ public partial class WhisperController : CharacterBody2D
 			bulletTimer += delta;
 		}
 		else {
-			bulletIsReady = true;
+			BulletIsReady = true;
 		}
 	}
 
@@ -213,7 +238,7 @@ public partial class WhisperController : CharacterBody2D
 	}
 
 	public void WhipserIsHurt() {
-		if(facingLeft) {
+		if(FacingLeft) {
 			externalMotion.X = 800;
 		}
 		else {
@@ -223,7 +248,7 @@ public partial class WhisperController : CharacterBody2D
 		motion.X = 0;
 		motion.Y = 0;
 		motionAdded = true;
-		hurtCooldown = 0.6;
+		HurtCooldown = 0.6;
 		DropAllRings();
 	}
 
@@ -237,16 +262,12 @@ public partial class WhisperController : CharacterBody2D
 	}
 
 	public object[] GetWhisperDetails() {
-		object[] obj = new object[] {Velocity, IsOnFloor(), !bulletIsReady, bufferBullet, chargingTimer};
+		object[] obj = new object[] {Velocity, IsOnFloor(), !BulletIsReady, BufferBullet, ChargingTimer};
 		return obj;
 	}
 
-	public bool GetIsFacingLeft() {
-		return facingLeft;
-	}
-
-	public void disableControls() {
-		controlsEnabled = false;
+	public void DisableControls() {
+		ControlsEnabled = false;
 		motion.X = 0;
 	}
 }

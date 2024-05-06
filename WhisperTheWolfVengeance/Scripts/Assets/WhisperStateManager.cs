@@ -3,7 +3,7 @@ using System;
 
 public partial class WhisperStateManager : AnimationPlayer
 {
-	private WhisperController whisperController;
+	private WhisperController whisper;
 	private AnimatedSprite2D mainSprite;
 	private AnimatedSprite2D colorSprite;
 	private AnimatedSprite2D chargeSprite;
@@ -11,9 +11,8 @@ public partial class WhisperStateManager : AnimationPlayer
 	private AnimationPlayer chargeLightAnimations;
 	private AudioStreamPlayer dropRingsSFX;
 	private Timer timer;
-	private object[] details;
 	private Vector2 chargeOffset;
-	private bool facingLeft;
+	private bool previousFacingLeft;
 	private bool facingChanged;
 	private bool shotFiredOrCharged;
 	private bool extendSpinJump;
@@ -28,7 +27,7 @@ public partial class WhisperStateManager : AnimationPlayer
 
 	public override void _Ready()
 	{
-		whisperController = GetParent<WhisperController>();
+		whisper = GetParent<WhisperController>();
 		mainSprite = GetNode<AnimatedSprite2D>("../MainSprite");
 		mainSprite.Play("default");
 		colorSprite = GetNode<AnimatedSprite2D>("../MainSprite/ColorSprite");
@@ -49,24 +48,23 @@ public partial class WhisperStateManager : AnimationPlayer
 		pink = new Color(0.91f, 0.41f, 0.94f);      //#e869ef
 		blue = new Color(0.13f, 0.19f, 0.9f);       //#2031e5
 		orange = new Color(0.84f, 0.44f, 0.11f);    //#d66f1c
-		currentWhisp = whisperController.whisp;
-		SetColorModulation(whisperController.whisp);
+		currentWhisp = whisper.Whisp;
+		SetColorModulation(whisper.Whisp);
 
 		chargeOffset = new Vector2(0, 0);
-		facingLeft = false;
+		previousFacingLeft = whisper.FacingLeft;
 		facingChanged = false;
 		shotFiredOrCharged = false;
 		extendSpinJump = false;
 	}
 
 	public override void _Process(double delta) {
-		details = whisperController.GetWhisperDetails();
-		SetSpriteDirection(whisperController.GetIsFacingLeft());
 		state = mainSprite.Animation;
-		shotFiredOrCharged = ((Boolean)details[2]) == true || ((double)details[4] >= 0.1);
+		shotFiredOrCharged = whisper.BulletIsReady == false || whisper.ChargingTimer >= 0.1;
+		SetSpriteDirection();
 		SetExtendSpinJump();
 
-		if(whisperController.hurtCooldown <= 0) {
+		if(whisper.HurtCooldown <= 0) {
 			SetAnimationState();
 			SetChargeLight();
 		}
@@ -83,9 +81,9 @@ public partial class WhisperStateManager : AnimationPlayer
 
 	private void SetAnimationState() {
 		// If not on ground //
-		if(((Boolean)details[1]) == false) {
+		if(whisper.IsOnFloor() == false) {
 			// If upwards motion //
-			if(((Vector2)details[0]).Y < 0) {
+			if(whisper.Velocity.Y < 0) {
 				// If not currently jumping/falling, AND shot has not been shot/fired //
 				if(!state.Contains("Jump") && !state.Equals("Fall") && !shotFiredOrCharged) {
 					this.Play("WhisperSpinJump");
@@ -112,12 +110,11 @@ public partial class WhisperStateManager : AnimationPlayer
 		}
 		else if(!extendSpinJump) { // If on ground AND not on spring //
 			// If moving on x axis // 
-			if(((Vector2)details[0]).X != 0) {
+			if(whisper.Velocity.X != 0) {
 				if(!state.Equals("Run") || facingChanged) {
 					// If charging/charged, skip transition frame //
-					if((double)details[4] >= 0.1) {
-						mainSprite.Animation = "Run";
-						colorSprite.Animation = "Run";
+					if(whisper.ChargingTimer >= 0.1) {
+						this.Play("WhisperInstantRun");
 					}
 					else {
 						this.Play("WhisperRun");
@@ -126,16 +123,22 @@ public partial class WhisperStateManager : AnimationPlayer
 				}
 			}
 			else { // If not moving on x axis //
+				// If down button pressed //
+				if(whisper.IsDucking) {
+					if(!state.Equals("Prone")) {
+						this.Play("WhisperProne");
+					}
+				}
 				// If bullet shot  OR  Bullet is buffered, AND not currently charging //
-				if((((Boolean)details[2]) == true || ((Boolean)details[3]) == true) && ((double)details[4] < 0.1)) {
+				else if((!whisper.BulletIsReady || whisper.BufferBullet == true) && (whisper.ChargingTimer < 0.1)) {
 					if(!state.Equals("IdleShoot")) {
 						this.Play("WhisperIdleShoot");
 					}
 				}
 				// Bullet Charging or Charged //
-				else if((double)details[4] >= 0.1) {
+				else if(whisper.ChargingTimer >= 0.1) {
 					if(!(state.Equals("IdleCharging") || state.Equals("IdleCharged"))) {
-						if((double)details[4] < 0.6) {
+						if(whisper.ChargingTimer < 0.6) {
 							this.Play("WhisperIdleCharge");
 						}
 						else { // Maintain Charged Sprite2D //
@@ -161,9 +164,9 @@ public partial class WhisperStateManager : AnimationPlayer
 
 	private void SetChargeLight() {
 		// If Bullet is Charging/Charged //
-		if((double)details[4] >= 0.1) {
+		if(whisper.ChargingTimer >= 0.1) {
 			//if not fully charged
-			if((double)details[4] < 0.6) {
+			if(whisper.ChargingTimer < 0.6) {
 				if(!chargeSprite.Animation.Equals("Charging")) {
 					chargeLightAnimations.Play("Charging");
 				}
@@ -193,19 +196,19 @@ public partial class WhisperStateManager : AnimationPlayer
 
  ///// Helpers ///////////////////////////////////////////////////////////////////////////////////////////
 
-	private void SetSpriteDirection(bool leftSide) {
-		mainSprite.FlipH = leftSide;
-		colorSprite.FlipH = leftSide;
-		chargeSprite.FlipH = leftSide;
-		if(facingLeft != leftSide) {
-			facingLeft = leftSide;
+	private void SetSpriteDirection() {
+		if(previousFacingLeft != whisper.FacingLeft) {
 			facingChanged = true;
+			mainSprite.FlipH = whisper.FacingLeft;
+			colorSprite.FlipH = whisper.FacingLeft;
+			chargeSprite.FlipH = whisper.FacingLeft;
 		}
+		previousFacingLeft = whisper.FacingLeft;
 	}
-
+	
 	private void CheckWhispsSwitched() {
-		if(whisperController.whisp != currentWhisp) {
-			currentWhisp = whisperController.whisp;
+		if(whisper.Whisp != currentWhisp) {
+			currentWhisp = whisper.Whisp;
 			SetColorModulation(currentWhisp);
 		}
 	}
@@ -234,23 +237,40 @@ public partial class WhisperStateManager : AnimationPlayer
 			if(state.Equals("Fall")) {
 				chargeOffset.Y = -1;
 			}
-			if(facingLeft) {
+			else {
+				chargeOffset.Y = 0;
+			}
+
+			if(whisper.FacingLeft) {
 				chargeOffset.X = -2;
 			}
 			else {
 				chargeOffset.X = 2;
 			}
+			chargeSprite.Rotation = 0;
+		}
+		else if(state.Equals("Prone")) {
+			chargeOffset.Y = 64;
+			if(whisper.FacingLeft) {
+				chargeOffset.X = -38;
+				chargeSprite.Rotation = (float)(Math.PI/-120);
+			}
+			else {
+				chargeOffset.X = 38;
+				chargeSprite.Rotation = (float)(Math.PI/120);
+			}
 		}
 		else {
 			chargeOffset.X = 0;
 			chargeOffset.Y = 0;
+			chargeSprite.Rotation = 0;
 		}
 		chargeSprite.Position = chargeOffset;
 	}
 
 	private void SetExtendSpinJump() {
-		for(int i = 0; i < whisperController.GetSlideCollisionCount() ; i++) {
-				if((whisperController.GetSlideCollision(i).GetCollider() as Node).Name.Equals("Spring")) {
+		for(int i = 0; i < whisper.GetSlideCollisionCount() ; i++) {
+				if((whisper.GetSlideCollision(i).GetCollider() as Node).Name.Equals("Spring")) {
 					extendSpinJump = true;
 					timer.Start(0.1);
 				}

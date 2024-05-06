@@ -13,7 +13,7 @@ public partial class DialogueInitialization : Area2D
 	}
 
 	public void BeginDialogueMode(Node Collider) {
-		((WhisperController)Collider).disableControls();
+		((WhisperController)Collider).DisableControls();
 		DialogueManager dialogue = (DialogueManager)dialogueManager.Instantiate();
 		AddChild(dialogue);
 		dialogue.GetDialogueFromFile(textFilePath, Collider);

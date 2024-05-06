@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://baaqrka0qhiru"]
 
-[ext_resource type="Script" path="res://Scripts/WarpRing.cs" id="1_sv4yf"]
+[ext_resource type="Script" path="res://Scripts/Assets/WarpRing.cs" id="1_sv4yf"]
 [ext_resource type="Texture2D" uid="uid://camld5iumto5p" path="res://Assets/Animations/AnimRing/RingSpin0008.png" id="2_e65ai"]
 [ext_resource type="PackedScene" uid="uid://cspw7fon4g8hl" path="res://Components/WarpRingRenderer.tscn" id="2_nsvx6"]
 

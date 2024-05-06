@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://4pdyu3ap6oso" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0005.png" id="7_k7yje"]
 [ext_resource type="Texture2D" uid="uid://can4u0i2hf3jv" path="res://Assets/Animations/AnimRing/RingSpin0012.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://ykb33frrffab" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0006.png" id="8_xpf6r"]
-[ext_resource type="Script" path="res://Scripts/Ring.cs" id="9"]
+[ext_resource type="Script" path="res://Scripts/Assets/Ring.cs" id="9"]
 [ext_resource type="Texture2D" uid="uid://1mi7xrwj5rha" path="res://Assets/Animations/AnimRing/RingCollected/RingCollected0007.png" id="9_vm2yy"]
 [ext_resource type="AudioStream" uid="uid://dmed1pt3hkhij" path="res://Assets/Sound/SFX_RingGet.wav" id="10_imn8f"]
 

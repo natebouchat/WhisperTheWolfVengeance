@@ -19,7 +19,7 @@ public partial class DialogueManager : CanvasLayer
 	private bool hasPulledFromFile;
 	private bool leftCharacterSpeaking;
 
-	public WhisperController controller{get; set;}
+	public WhisperController Controller{get; set;}
 
 	public override void _Ready()
 	{
@@ -46,15 +46,15 @@ public partial class DialogueManager : CanvasLayer
 				NextPhrase();
 			}
 			else {
-				displayedText.VisibleCharacters = (displayedText.Text).Length;
+				displayedText.VisibleCharacters = displayedText.Text.Length;
 			}
 		}
 	}
 
 	public void GetDialogueFromFile(string path, Node player) {
 		dialogue = new List<string>();
-		string aLine = "";
-		controller = (WhisperController)player;
+		string aLine;
+		Controller = (WhisperController)player;
 
 		try {
 			using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
@@ -76,7 +76,7 @@ public partial class DialogueManager : CanvasLayer
  
 	private async void NextPhrase() {
 		if(phraseNum >= dialogue.Count) {
-			controller.controlsEnabled = true;
+			Controller.ControlsEnabled = true;
 			this.QueueFree();
 		}
 		else {
@@ -102,7 +102,7 @@ public partial class DialogueManager : CanvasLayer
 			displayedText.Text = dialogue[phraseNum];
 			displayedText.VisibleCharacters = 0;
 			
-			while (displayedText.VisibleCharacters < (displayedText.Text).Length) {
+			while (displayedText.VisibleCharacters < displayedText.Text.Length) {
 				displayedText.VisibleCharacters += 1;
 				
 				timer.Start();

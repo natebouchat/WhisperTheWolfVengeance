@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dndo8aswateqa"]
 
-[ext_resource type="Script" path="res://Scripts/Spring.cs" id="1_lc8fg"]
+[ext_resource type="Script" path="res://Scripts/Assets/Spring.cs" id="1_lc8fg"]
 [ext_resource type="Texture2D" uid="uid://dxubclptgmwey" path="res://Assets/Animations/AnimSpring/Yellow/SpringY0000.png" id="2_48ovp"]
 [ext_resource type="Texture2D" uid="uid://btupsmsiwc24j" path="res://Assets/Animations/AnimSpring/Yellow/SpringY0001.png" id="2_ue8ks"]
 [ext_resource type="AudioStream" uid="uid://c1sbj1uily1uw" path="res://Assets/Sound/SFX_Spring.wav" id="3_7i5or"]

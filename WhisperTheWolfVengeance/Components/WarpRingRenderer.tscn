@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cspw7fon4g8hl"]
 
-[ext_resource type="Shader" path="res://Scripts/FlexibleToon.gdshader" id="1_fpv06"]
+[ext_resource type="Shader" path="res://Scripts/Shaders/FlexibleToon.gdshader" id="1_gic3k"]
 
 [sub_resource type="Gradient" id="Gradient_hes3c"]
 interpolation_mode = 1
@@ -12,7 +12,7 @@ gradient = SubResource("Gradient_hes3c")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u74me"]
 render_priority = 0
-shader = ExtResource("1_fpv06")
+shader = ExtResource("1_gic3k")
 shader_parameter/albedo = Color(1, 1, 1, 1)
 shader_parameter/clamp_diffuse_to_max = false
 shader_parameter/cuts = 3

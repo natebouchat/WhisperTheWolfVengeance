@@ -1,11 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://cedbpofo7je6h"]
 
-[ext_resource type="Script" path="res://Scripts/PauseMenu.cs" id="1_n3mbc"]
+[ext_resource type="Script" path="res://Scripts/Scenes/PauseMenu.cs" id="1_n3mbc"]
 [ext_resource type="Texture2D" uid="uid://cymlbmglqnu6b" path="res://Assets/Backgrounds/PauseBG.png" id="1_sga6j"]
 [ext_resource type="Texture2D" uid="uid://4f50v8frw6jw" path="res://Assets/Backgrounds/PauseSpinner.png" id="2_2x71u"]
 [ext_resource type="Texture2D" uid="uid://ybkoxpd4q1j3" path="res://Assets/Backgrounds/PauseGrid.png" id="2_tr1t0"]
 [ext_resource type="Texture2D" uid="uid://cfsmx05n76mea" path="res://Assets/Backgrounds/PauseBar.png" id="3_hc0cq"]
 [ext_resource type="Theme" uid="uid://drmxqvw83v4x6" path="res://Assets/UI/Options/Options.tres" id="7_jrhjn"]
+
 
 [sub_resource type="Animation" id="Animation_vxn3h"]
 resource_name = "FadeIn"
